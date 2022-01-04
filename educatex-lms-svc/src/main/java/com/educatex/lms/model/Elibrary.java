@@ -12,22 +12,22 @@ import java.util.Set;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
-@Table
+@Entity(name = "Elibrary")
+@Table(name = "elibrary")
 public class Elibrary {
     @Id
     @Column(updatable = false)
     private Long id;
 
-    @JsonIgnore
-    @OneToMany(cascade = {CascadeType.PERSIST,CascadeType.REMOVE},mappedBy="elibrary",fetch = FetchType.LAZY)
-    private Set<Training> trainings=new HashSet<>();
-
-    @JsonIgnore
-    @OneToMany(cascade = {CascadeType.PERSIST,CascadeType.REMOVE},mappedBy="elibrary",fetch = FetchType.LAZY)
-    private Set<Book> books=new HashSet<>();
-
-    @JsonIgnore
-    @OneToMany(cascade = {CascadeType.PERSIST,CascadeType.REMOVE},mappedBy="elibrary",fetch = FetchType.LAZY)
-    private Set<Assignment> assignments=new HashSet<>();
+//    @JsonIgnore
+//    @OneToMany(cascade = {CascadeType.PERSIST,CascadeType.REMOVE},mappedBy="elibrary",fetch = FetchType.LAZY)
+//    private Set<Training> trainings=new HashSet<>();
+//
+//    @JsonIgnore
+//    @OneToMany(cascade = {CascadeType.PERSIST,CascadeType.REMOVE},mappedBy="elibrary",fetch = FetchType.LAZY)
+//    private Set<Book> books=new HashSet<>();
+//
+//    @JsonIgnore
+//    @OneToMany(cascade = {CascadeType.PERSIST,CascadeType.REMOVE},mappedBy="elibrary",fetch = FetchType.LAZY)
+//    private Set<Assignment> assignments=new HashSet<>();
 }

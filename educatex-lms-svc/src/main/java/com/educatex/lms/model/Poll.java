@@ -25,6 +25,7 @@ public class Poll {
     private String description;
 
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "forum_id",referencedColumnName = "id")
     private Forum forum;
 }

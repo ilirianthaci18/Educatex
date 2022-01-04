@@ -1,5 +1,6 @@
 package com.educatex.lms.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -27,6 +28,7 @@ public class Course {
     @JoinColumn(name = "professor_id",referencedColumnName = "id")
     private Professor professor;
 
+    @JsonIgnore
     @OneToMany(cascade = {CascadeType.PERSIST,CascadeType.REMOVE},mappedBy="course",fetch = FetchType.LAZY)
     private Set<Book> books;
 

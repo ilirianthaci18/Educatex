@@ -40,6 +40,7 @@ public class Professor {
     @OneToMany(mappedBy = "professor")
     private Set<Course> courses=new HashSet<>();
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "forum_id",referencedColumnName = "id")
     private Forum forum;
 }

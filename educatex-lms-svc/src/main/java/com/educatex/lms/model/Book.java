@@ -32,9 +32,11 @@ public class Book {
 
 //    List<Rating> ratingList
 
-    @ManyToOne
-    private Elibrary e_library;
+//    @ManyToOne(cascade = CascadeType.ALL)
+//    @JoinColumn(name = "elibrary_id",nullable = false,referencedColumnName = "id",foreignKey = @ForeignKey(name="elibrary_book_id"))
+//    private Elibrary e_library;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "elibrary_id",nullable = false,referencedColumnName = "id",foreignKey = @ForeignKey(name="course_book_id"))
     private Course course;
 }

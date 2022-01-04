@@ -24,6 +24,7 @@ public class Assignment {
     @Column(updatable = false)
     private String description;
 
-    @ManyToOne
-    private Elibrary e_library;
+//    @ManyToOne(cascade = CascadeType.ALL)
+//    @JoinColumn(name = "elibrary_id",nullable = false,referencedColumnName = "id",foreignKey = @ForeignKey(name="elibrary_assignment_id"))
+//    private Elibrary e_library;
 }

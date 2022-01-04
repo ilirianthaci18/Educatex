@@ -27,6 +27,7 @@ public class Training {
     @Column(updatable = false)
     private String category;
 
-    @ManyToOne
-    private Elibrary e_library;
+//    @ManyToOne(cascade = CascadeType.ALL)
+//    @JoinColumn(name = "elibrary_id",nullable = false,referencedColumnName = "id",foreignKey = @ForeignKey(name="elibrary_training_id"))
+//    private Elibrary e_library;
 }

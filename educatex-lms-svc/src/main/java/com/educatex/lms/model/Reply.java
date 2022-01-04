@@ -30,6 +30,7 @@ public class Reply {
     @Column(updatable = false)
     private Long replyUserId;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "forum_id",referencedColumnName = "id")
     private Forum forum;
 }

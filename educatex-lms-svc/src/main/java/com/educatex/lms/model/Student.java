@@ -40,7 +40,8 @@ public class Student {
     @ManyToMany(mappedBy = "enrolledStudents")
     private Set<Course> courses=new HashSet<>();
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "forum_id",referencedColumnName = "id")
     private Forum forum;
 
 }

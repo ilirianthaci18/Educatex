@@ -1,22 +1,27 @@
 package com.educatex.lms.common.security;
 
+import com.educatex.lms.common.auth.ApplicationUserService;
 import com.educatex.lms.common.enums.ApplicationUserPermission;
 import com.educatex.lms.common.enums.ApplicationUserRole;
+import com.educatex.lms.common.jwt.JwtConfig;
+import com.educatex.lms.common.jwt.JwtTokenVerifier;
+import com.educatex.lms.common.jwt.JwtUsernameAndPasswordAuthenticationFilter;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
-import static com.educatex.lms.common.enums.ApplicationUserPermission.*;
+
+import javax.crypto.SecretKey;
+
 import static com.educatex.lms.common.enums.ApplicationUserRole.*;
 
 @AllArgsConstructor
@@ -25,49 +30,39 @@ import static com.educatex.lms.common.enums.ApplicationUserRole.*;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
     private final PasswordEncoder passwordEncoder;
+    private final ApplicationUserService applicationUserService;
+    private final SecretKey secretKey;
+    private final JwtConfig jwtConfig;
 
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http    .csrf().disable() //TODO
-                .authorizeRequests()
-                .antMatchers("/").permitAll() //whitelists puts these urls in whitelist without needing to login
-                .antMatchers("/api/**").hasRole(ADMIN.name()) //allow access in this url to ADMIN only
-//                .antMatchers(HttpMethod.GET,"/management/api/**").hasAuthority(STUDENT_READ.getPermission())
-//                .antMatchers(HttpMethod.POST,"/management/api/**").hasAuthority(STUDENT_WRITE.getPermission())
-//                .antMatchers(HttpMethod.DELETE,"/management/api/**").hasAuthority(STUDENT_WRITE.getPermission())
-//                .antMatchers("management/api/**").hasAnyRole(ADMIN.name(),PROFESSOR.name())
-                .anyRequest()
-                .authenticated()
+        http
+                .csrf().disable()
+                .sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-                .httpBasic();
+                .addFilter(new JwtUsernameAndPasswordAuthenticationFilter(authenticationManager(),jwtConfig,secretKey))
+                .addFilterAfter(new JwtTokenVerifier(secretKey,jwtConfig),JwtUsernameAndPasswordAuthenticationFilter.class)
+                .authorizeRequests()
+                .antMatchers("/").permitAll()
+                .antMatchers("/api/**").hasRole(ADMIN.name())
+                .anyRequest()
+                .authenticated();
+
     }
 
     @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.authenticationProvider(daoAuthenticationProvider());
+    }
+
     @Bean
-    protected UserDetailsService userDetailsService() {
-        UserDetails student=User.builder()
-                .username("student")
-                .password(passwordEncoder.encode("password"))
-//                .roles(STUDENT.name())
-                .authorities(STUDENT.getGrantedAuthorities())
-                .build();
+    public DaoAuthenticationProvider daoAuthenticationProvider(){
+        DaoAuthenticationProvider provider=new DaoAuthenticationProvider();
+        provider.setPasswordEncoder(passwordEncoder);
+        provider.setUserDetailsService(applicationUserService);
 
-        UserDetails admin=User.builder()
-                .username("admin")
-                .password(passwordEncoder.encode("password123"))
-//                .roles(ADMIN.name())
-                .authorities(ADMIN.getGrantedAuthorities())
-                .build();
-
-        UserDetails professor=User.builder()
-                .username("professor")
-                .password(passwordEncoder.encode("professor123"))
-//                .roles(PROFESSOR.name())
-                .authorities(PROFESSOR.getGrantedAuthorities())
-                .build();
-
-        return new InMemoryUserDetailsManager(admin,student,professor);
-
+        return provider;
     }
 }

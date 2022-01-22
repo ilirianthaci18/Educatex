@@ -1,5 +1,7 @@
-package com.educatex.lms.common.auth;
+package com.educatex.lms.service;
 
+import com.educatex.lms.model.ApplicationUser;
+import com.educatex.lms.repository.ApplicationUserRepository;
 import com.google.common.collect.Lists;
 import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -11,8 +13,8 @@ import java.util.Optional;
 import static com.educatex.lms.common.enums.ApplicationUserRole.*;
 
 @AllArgsConstructor
-@Repository("fake")
-public class FakeApplicationUserRepositoryService implements ApplicationUserRepository{
+@Repository("Users")
+public class ApplicationUserRepositoryService implements ApplicationUserRepository {
 
     private final PasswordEncoder passwordEncoder;
 

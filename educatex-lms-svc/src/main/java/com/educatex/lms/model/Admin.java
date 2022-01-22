@@ -1,6 +1,5 @@
 package com.educatex.lms.model;
 
-import com.educatex.lms.common.auth.ApplicationUser;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

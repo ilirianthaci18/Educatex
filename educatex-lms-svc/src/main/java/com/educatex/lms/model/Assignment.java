@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 
 @Data
 @AllArgsConstructor
@@ -24,7 +25,10 @@ public class Assignment {
     @Column(updatable = false)
     private String description;
 
-//    @ManyToOne(cascade = CascadeType.ALL)
-//    @JoinColumn(name = "elibrary_id",nullable = false,referencedColumnName = "id",foreignKey = @ForeignKey(name="elibrary_assignment_id"))
-//    private Elibrary e_library;
+    @Column(updatable = false)
+    private LocalDate date= LocalDate.now();
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "e_library_id",nullable = false,referencedColumnName = "id",foreignKey = @ForeignKey(name="e_library_assignment_id"))
+    private Elibrary e_library;
 }

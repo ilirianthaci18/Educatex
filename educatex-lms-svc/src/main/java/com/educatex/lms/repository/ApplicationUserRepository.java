@@ -1,4 +1,6 @@
-package com.educatex.lms.common.auth;
+package com.educatex.lms.repository;
+
+import com.educatex.lms.model.ApplicationUser;
 
 import java.util.Optional;
 

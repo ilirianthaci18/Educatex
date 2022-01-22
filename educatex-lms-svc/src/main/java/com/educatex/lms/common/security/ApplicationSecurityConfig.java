@@ -1,15 +1,12 @@
 package com.educatex.lms.common.security;
 
-import com.educatex.lms.common.auth.ApplicationUserService;
-import com.educatex.lms.common.enums.ApplicationUserPermission;
-import com.educatex.lms.common.enums.ApplicationUserRole;
+import com.educatex.lms.service.ApplicationUserService;
 import com.educatex.lms.common.jwt.JwtConfig;
 import com.educatex.lms.common.jwt.JwtTokenVerifier;
 import com.educatex.lms.common.jwt.JwtUsernameAndPasswordAuthenticationFilter;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;

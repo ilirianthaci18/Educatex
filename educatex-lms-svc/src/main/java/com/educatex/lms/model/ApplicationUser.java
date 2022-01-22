@@ -1,4 +1,4 @@
-package com.educatex.lms.common.auth;
+package com.educatex.lms.model;
 
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;

@@ -6,23 +6,24 @@ import com.educatex.lms.model.Professor;
 import com.educatex.lms.model.Student;
 
 public interface AdminService {
+
     Admin addNewAdmin(Admin admin);
 
     void removeAdmin(Admin admin);
 
     Professor addNewProfessor(Professor professor);
 
-    void modifyProfessor(Professor professor);
+    Professor modifyProfessor(Long id,Professor professor);
 
     void removeProfessor(Professor professor);
 
     Student addNewStudent(Student student);
 
-    void modifyStudent(Student student);
+    Student modifyStudent(Long id,Student student);
 
     Course addNewCourse(Course course);
 
-    void modifyCourse(Course course);
+    Course modifyCourse(Course course);
 
     void enrollStudentsForCourse(Student student,Course course);
 

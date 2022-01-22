@@ -1,7 +1,7 @@
-package com.educatex.lms.common.auth;
+package com.educatex.lms.service;
 
+import com.educatex.lms.repository.ApplicationUserRepository;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

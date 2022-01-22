@@ -6,8 +6,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.*;
 
 @Data
 @AllArgsConstructor
@@ -21,20 +22,27 @@ public class Student {
     @Column(updatable = false)
     private Long id;
 
-    @Column(updatable = false)
+    @Column
     private String name;
 
-    @Column(updatable = false)
+    @Column
     private String lastName;
 
-    @Column(updatable = false)
+    @Column
     private char gender;
 
-    @Column(updatable = false)
+    @Column
     private int age;
 
-    @Column(updatable = false)
+    @Column
     private Long personalNum;
+
+    @Column
+    private LocalDateTime studentCreatedAt=LocalDateTime.now();
+
+//    @Transient
+//    @Convert(converter = HashMapConverter.class)
+//    private Map<Course,Integer> gradeList;
 
     @JsonIgnore
     @ManyToMany(mappedBy = "enrolledStudents")
@@ -44,4 +52,6 @@ public class Student {
     @JoinColumn(name = "forum_id",referencedColumnName = "id")
     private Forum forum;
 
+    @OneToMany(cascade = {CascadeType.PERSIST,CascadeType.REMOVE},mappedBy="author",fetch = FetchType.LAZY)
+    private List<Rating> ratingList=new ArrayList<>();
 }

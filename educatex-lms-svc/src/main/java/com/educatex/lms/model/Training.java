@@ -1,14 +1,19 @@
 package com.educatex.lms.model;
 
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
-@Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Data
 @Entity
 @Table
 public class Training {
@@ -27,7 +32,14 @@ public class Training {
     @Column(updatable = false)
     private String category;
 
-//    @ManyToOne(cascade = CascadeType.ALL)
-//    @JoinColumn(name = "elibrary_id",nullable = false,referencedColumnName = "id",foreignKey = @ForeignKey(name="elibrary_training_id"))
-//    private Elibrary e_library;
+    @Column(updatable = false)
+    private LocalDate date= LocalDate.now();
+
+    @OneToMany(cascade = {CascadeType.PERSIST,CascadeType.REMOVE},mappedBy="training",fetch = FetchType.LAZY)
+    private List<Rating> ratingList=new ArrayList<>();
+
+    @JoinColumn(name = "e_library_id",nullable = false,referencedColumnName = "id",foreignKey = @ForeignKey(name="e_library_training_id"))
+    @ManyToOne(cascade = CascadeType.ALL)
+    private Elibrary e_library;
+
 }

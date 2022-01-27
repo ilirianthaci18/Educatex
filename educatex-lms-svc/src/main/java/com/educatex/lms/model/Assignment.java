@@ -1,14 +1,15 @@
 package com.educatex.lms.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 
-@Data
-@AllArgsConstructor
+@Getter
+@Setter
+@RequiredArgsConstructor
 @NoArgsConstructor
 @Entity
 @Table
@@ -19,16 +20,25 @@ public class Assignment {
     @Column(updatable = false)
     private Long id;
 
-    @Column(updatable = false)
+    @NonNull
+    @Column()
     private String name;
 
-    @Column(updatable = false)
+    @NonNull
+    @Column()
     private String description;
 
-    @Column(updatable = false)
+    @Column()
     private LocalDate date= LocalDate.now();
 
+    @JsonIgnore
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "e_library_id",nullable = false,referencedColumnName = "id",foreignKey = @ForeignKey(name="e_library_assignment_id"))
+    @JoinColumn(name = "e_library_id",referencedColumnName = "id")
     private Elibrary e_library;
+
+    @JsonManagedReference
+    public Elibrary getE_library() {
+        return e_library;
+    }
+
 }

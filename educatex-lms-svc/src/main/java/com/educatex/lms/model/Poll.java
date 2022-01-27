@@ -1,12 +1,14 @@
 package com.educatex.lms.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
@@ -24,8 +26,13 @@ public class Poll {
     @Column(updatable = false)
     private String description;
 
+//    @Column
+//    private List<String> options=new ArrayList<>();
 
+    @JsonIgnore
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "forum_id",referencedColumnName = "id")
     private Forum forum;
+
+
 }

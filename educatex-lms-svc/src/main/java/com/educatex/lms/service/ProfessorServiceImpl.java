@@ -67,4 +67,9 @@ public class ProfessorServiceImpl implements ProfessorService{
     public Set<Student> viewAttendance(Course course) {
         return null;
     }
+
+    @Override
+    public void deleteAllProfessors(){
+        professorRepository.deleteAll();
+    }
 }

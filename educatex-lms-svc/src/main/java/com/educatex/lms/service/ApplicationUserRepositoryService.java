@@ -29,7 +29,7 @@ public class ApplicationUserRepositoryService implements ApplicationUserReposito
     private List<ApplicationUser> getApplicationUsers(){
         List<ApplicationUser> applicationUsers= Lists.newArrayList(
             new ApplicationUser(
-                    "student",
+                    "john",
                     passwordEncoder.encode("password"),
                     STUDENT.getGrantedAuthorities(),
                     true,
@@ -38,7 +38,7 @@ public class ApplicationUserRepositoryService implements ApplicationUserReposito
                     true
             ),
             new ApplicationUser(
-                    "professor",
+                    "chris",
                     passwordEncoder.encode("password"),
                     PROFESSOR.getGrantedAuthorities(),
                     true,
@@ -48,8 +48,8 @@ public class ApplicationUserRepositoryService implements ApplicationUserReposito
 
             ),
             new ApplicationUser(
-                    "admin",
-                    passwordEncoder.encode("password"),
+                    "denzel",
+                    passwordEncoder.encode("password123"),
                     ADMIN.getGrantedAuthorities(),
                     true,
                     true,

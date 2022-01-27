@@ -1,9 +1,8 @@
 package com.educatex.lms.model;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -11,9 +10,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-@AllArgsConstructor
+@RequiredArgsConstructor
 @NoArgsConstructor
-@Data
+@Getter
+@Setter
 @Entity
 @Table
 public class Training {
@@ -23,23 +23,39 @@ public class Training {
     @Column(updatable = false)
     private Long id;
 
-    @Column(updatable = false)
+    @NonNull
+    @Column
     private String title;
 
-    @Column(updatable = false)
+    @NonNull
+    @Column
     private String description;
 
-    @Column(updatable = false)
+    @NonNull
+    @Column
     private String category;
 
-    @Column(updatable = false)
+    @Column
     private LocalDate date= LocalDate.now();
 
-    @OneToMany(cascade = {CascadeType.PERSIST,CascadeType.REMOVE},mappedBy="training",fetch = FetchType.LAZY)
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL,mappedBy="training",orphanRemoval = true,fetch = FetchType.LAZY)
     private List<Rating> ratingList=new ArrayList<>();
 
-    @JoinColumn(name = "e_library_id",nullable = false,referencedColumnName = "id",foreignKey = @ForeignKey(name="e_library_training_id"))
+    @JsonIgnore
     @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "e_library_id",referencedColumnName = "id",foreignKey = @ForeignKey(name="e_library_training_id"))
     private Elibrary e_library;
 
+    @JsonManagedReference
+    public List<Rating> getRatingList() {
+        return ratingList;
+    }
+
+    public void addRatingToTraining(Rating rating){
+        if(!ratingList.contains(rating)){
+            ratingList.add(rating);
+            rating.setTraining(this);
+        }
+    }
 }

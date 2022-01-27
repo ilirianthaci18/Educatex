@@ -5,6 +5,7 @@ import com.educatex.lms.model.Book;
 import com.educatex.lms.model.Elibrary;
 import com.educatex.lms.model.Training;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;

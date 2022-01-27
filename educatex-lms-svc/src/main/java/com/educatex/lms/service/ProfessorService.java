@@ -11,7 +11,7 @@ public interface ProfessorService {
 
     Professor saveProfessor(Professor professor);
 
-    Professor updateProfessor(Long id,Professor professor);
+    Professor updateProfessor(Long id, Professor professor);
 
     void deleteProfessor(Long id);
 
@@ -26,4 +26,6 @@ public interface ProfessorService {
     boolean iRregullt(Professor professor);
 
     Set<Student> viewAttendance(Course course);
+
+    void deleteAllProfessors();
 }

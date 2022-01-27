@@ -9,6 +9,8 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @AllArgsConstructor
 @Slf4j
 @Service
@@ -20,13 +22,18 @@ public class AdminServiceImpl implements AdminService {
     private ProfessorService professorService;
 
     @Override
+    public List<Admin> getAllAdmins() {
+        return adminRepository.findAll();
+    }
+
+    @Override
     public Admin addNewAdmin(Admin admin) {
         return adminRepository.save(admin);
     }
 
     @Override
-    public void removeAdmin(Admin admin) {
-        adminRepository.delete(admin);
+    public void removeAdmin(Long id) {
+        adminRepository.deleteById(id);
     }
 
     @Override
@@ -40,8 +47,8 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public void removeProfessor(Professor professor) {
-        professorService.deleteProfessor(professor.getId());
+    public void removeProfessor(Long id) {
+        professorService.deleteProfessor(id);
     }
 
     @Override
@@ -55,13 +62,23 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
+    public void removeStudent(Long id) {
+        studentService.deleteStudent(id);
+    }
+
+    @Override
     public Course addNewCourse(Course course) {
         return courseService.saveCourse(course);
     }
 
     @Override
-    public Course modifyCourse(Course course) {
-        return courseService.editCourse(course);
+    public Course modifyCourse(Long id, Course course) {
+        return courseService.editCourse(id,course);
+    }
+
+    @Override
+    public void deleteCourse(Long id) {
+        courseService.deleteCourse(id);
     }
 
     @Override

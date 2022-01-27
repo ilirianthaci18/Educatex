@@ -1,37 +1,69 @@
 package com.educatex.lms.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 
-@Data
-@AllArgsConstructor
+@Getter
+@Setter
+@RequiredArgsConstructor
 @NoArgsConstructor
 @Entity
 @Table
 public class Post {
+
     @Id
     @SequenceGenerator(name="post_sequence",sequenceName = "post_sequence",allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "post_sequence")
     @Column(updatable = false)
     private Long postId;
 
-    @Column(updatable = false)
+    @NonNull
+    @Column
     private String title;
 
-    @Column(updatable = false)
+    @NonNull
+    @Column
     private String description;
 
-    @Column(updatable = false)
+    @NonNull
+    @Column
     private String type;
 
-    @Column(updatable = false)
-    private Long postUserId;
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL,mappedBy="post",orphanRemoval = true,fetch = FetchType.LAZY)
+    private List<Reply> replies=new ArrayList<>();
 
+    @JsonIgnore
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="student_id",referencedColumnName = "id")
+    private Student post_author;
+
+    @JsonIgnore
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "forum_id",referencedColumnName = "id")
     private Forum forum;
+
+    @JsonManagedReference
+    public List<Reply> getReplies() {
+        return replies;
+    }
+
+    @JsonManagedReference
+    public Student getPost_author() {
+        return post_author;
+    }
+
+    public void addReply(Reply reply){
+        if(!replies.contains(reply)){
+            replies.add(reply);
+            reply.setPost(this);
+        }
+    }
+
 }

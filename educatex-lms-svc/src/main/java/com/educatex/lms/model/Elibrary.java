@@ -1,35 +1,82 @@
 package com.educatex.lms.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
-@Data
-@AllArgsConstructor
+@Getter
+@Setter
+@RequiredArgsConstructor
 @NoArgsConstructor
 @Entity
 @Table
 public class Elibrary {
+
     @Id
+    @SequenceGenerator(name="elibrary_sequence",sequenceName = "elibrary_sequence",allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "elibrary_sequence")
     @Column(updatable = false)
     private Long id;
 
+    @NonNull
+    @Column
+    private String name;
+
     @JsonIgnore
-    @OneToMany(cascade = {CascadeType.PERSIST,CascadeType.REMOVE},mappedBy="e_library",fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL,mappedBy="e_library",orphanRemoval = true,fetch = FetchType.LAZY)
     private Set<Training> trainings=new HashSet<>();
 
-    //Error creating bean with name 'entityManagerFactory' defined in class path resource mappedBy reference an unknown target entity property ,
-    // the mappedBy value should be the same as the var name in books
     @JsonIgnore
-    @OneToMany(cascade = {CascadeType.PERSIST,CascadeType.REMOVE},mappedBy="e_library",fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL,mappedBy="e_library",orphanRemoval = true,fetch = FetchType.LAZY)
+    private Set<Student> students=new HashSet<>();
+
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL,mappedBy="e_library",orphanRemoval = true,fetch = FetchType.LAZY)
     private Set<Book> books;
 
     @JsonIgnore
-    @OneToMany(cascade = {CascadeType.PERSIST,CascadeType.REMOVE},mappedBy="e_library",fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL,mappedBy="e_library",orphanRemoval = true,fetch = FetchType.LAZY)
     private Set<Assignment> assignments=new HashSet<>();
+
+    @JsonManagedReference
+    public Set<Training> getTrainings() {
+        return trainings;
+    }
+
+    @JsonManagedReference
+    public Set<Student> getStudents() {
+        return students;
+    }
+
+    @JsonManagedReference
+    public Set<Book> getBooks() {
+        return books;
+    }
+
+    @JsonManagedReference
+    public Set<Assignment> getAssignments() {
+        return assignments;
+    }
+
+    public void addTraining(Training training){
+        trainings.add(training);
+        training.setE_library(this);
+    }
+
+    public void addStudents(Student student){
+        students.add(student);
+        student.setE_library(this);
+    }
+    public void addBooks(Book book){
+        books.add(book);
+        book.setE_library(this);
+    }
+    public void addAssignment(Assignment assignment){
+        assignments.add(assignment);
+        assignment.setE_library(this);
+    }
 }

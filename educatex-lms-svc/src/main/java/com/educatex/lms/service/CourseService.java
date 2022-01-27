@@ -1,5 +1,6 @@
 package com.educatex.lms.service;
 
+import com.educatex.lms.common.dto.CourseDTO;
 import com.educatex.lms.model.Course;
 import com.educatex.lms.model.Professor;
 import com.educatex.lms.model.Student;
@@ -13,12 +14,14 @@ public interface CourseService {
     boolean isStudentEnrolled(Long courseId,Student student);
     void printCourseInfo(Course course);
     Professor courseProfessor(Long courseId);
-    List<Course> getCourses();
-    Course findCourseById(Long id);
+    List<CourseDTO> getCourses();
+    CourseDTO findCourseById(Long id);
+    Course findCourseId(Long id);
     Course saveCourse(Course course);
-    Course editCourse(Course course);
+    Course editCourse(Long id,Course course);
     void deleteCourse(Long id);
-    Course addStudentToSubject(Long courseId,Long studentId,String courseCode);
-    Course assignProfessorToSubject(Long courseId,Long professorId);
-
+    void addStudentToSubject(Long courseId,Long studentId,String courseCode);
+    void assignProfessorToSubject(Long courseId,Long professorId);
+    void assignBookToCourse(Long courseId,Long bookId);
+    void deleteAllCourses();
 }

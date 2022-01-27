@@ -1,16 +1,17 @@
 package com.educatex.lms.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import lombok.*;
 
 import javax.persistence.*;
+import javax.transaction.Transactional;
 import java.util.HashSet;
 import java.util.Set;
 
-@Data
-@AllArgsConstructor
+@Getter
+@Setter
+@RequiredArgsConstructor
 @NoArgsConstructor
 @Entity
 @Table
@@ -21,26 +22,38 @@ public class Professor {
     @Column(updatable = false)
     private Long id;
 
-    @Column(updatable = false)
+    @NonNull
+    @Column
     private String name;
 
-    @Column(updatable = false)
+    @NonNull
+    @Column
     private String lastName;
 
-    @Column(updatable = false)
+    @NonNull
+    @Column
     private char gender;
 
-    @Column(updatable = false)
+    @NonNull
+    @Column
     private int age;
 
-    @Column(updatable = false)
+    @NonNull
+    @Column
     private Long personalNum;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "professor")
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "professor",orphanRemoval = true)
     private Set<Course> courses=new HashSet<>();
 
+    @JsonIgnore
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "forum_id",referencedColumnName = "id")
     private Forum forum;
+
+    @Transactional
+    @JsonManagedReference
+    public Set<Course> getCourses() {
+        return courses;
+    }
 }

@@ -36,14 +36,14 @@ public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePassword
                     .readValue(request.getInputStream(), UsernameAndPasswordAuthenticationRequest.class);
 
             Authentication authentication = new UsernamePasswordAuthenticationToken(
-                usernameAndPasswordAuthenticationRequest.getUsername(),
-                usernameAndPasswordAuthenticationRequest.getPassword()
+                    usernameAndPasswordAuthenticationRequest.getUsername(),
+                    usernameAndPasswordAuthenticationRequest.getPassword()
             );
 
             Authentication authenticate = authenticationManager.authenticate(authentication);
             return authenticate;
 
-        }catch (IOException e){
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
@@ -55,14 +55,14 @@ public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePassword
                                             FilterChain chain,
                                             Authentication authResult) throws IOException, ServletException {
 
-        String token=Jwts.builder()
+        String token = Jwts.builder()
                 .setSubject(authResult.getName())
-                .claim("authorities",authResult.getAuthorities())
+                .claim("authorities", authResult.getAuthorities())
                 .setIssuedAt(new Date())
                 .setExpiration(java.sql.Date.valueOf(LocalDate.now().plusWeeks(2)))
                 .signWith(secretKey)
                 .compact();
 
-        response.addHeader(jwtConfig.getAuthorizationHeader(), jwtConfig.getTokenPrefix()+token);
+        response.addHeader(jwtConfig.getAuthorizationHeader(), jwtConfig.getTokenPrefix() + token);
     }
 }

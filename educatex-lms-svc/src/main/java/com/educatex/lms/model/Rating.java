@@ -1,14 +1,15 @@
 package com.educatex.lms.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import lombok.*;
 
 import javax.persistence.*;
 
-@AllArgsConstructor
+@Getter
+@Setter
+@RequiredArgsConstructor
 @NoArgsConstructor
-@Data
 @Table
 @Entity
 public class Rating {
@@ -18,22 +19,42 @@ public class Rating {
     @Column(updatable = false)
     private Long id;
 
-    @Column(updatable = false)
+    @NonNull
+    @Column
     private int rating;
 
-    @Column(updatable = false)
+    @NonNull
+    @Column
     private String review;
 
-    @JoinColumn(name = "author_id",nullable = false,referencedColumnName = "id",foreignKey = @ForeignKey(name="author_rating_id"))
+    @JsonIgnore
+    @JoinColumn(name = "author_id",referencedColumnName = "id")
     @ManyToOne(cascade = CascadeType.ALL)
     private Student author;
 
-    @JoinColumn(name = "book_id",nullable = false,referencedColumnName = "id",foreignKey = @ForeignKey(name="book_rating_id"))
+    @JsonIgnore
+    @JoinColumn(name = "book_id",referencedColumnName = "id")
     @ManyToOne(cascade = CascadeType.ALL)
     private Book book;
 
-    @JoinColumn(name = "Training_id",nullable = false,referencedColumnName = "id",foreignKey = @ForeignKey(name="training_rating_id"))
+    @JsonIgnore
+    @JoinColumn(name = "Training_id",referencedColumnName = "id")
     @ManyToOne(cascade = CascadeType.ALL)
     private Training training;
+
+    @JsonManagedReference
+    public Student getAuthor() {
+        return author;
+    }
+
+    @JsonManagedReference
+    public Book getBook() {
+        return book;
+    }
+
+    @JsonManagedReference
+    public Training getTraining() {
+        return training;
+    }
 
 }

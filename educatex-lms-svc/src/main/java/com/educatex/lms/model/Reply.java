@@ -1,13 +1,12 @@
 package com.educatex.lms.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
-@Data
-@AllArgsConstructor
+@Getter
+@Setter
+@RequiredArgsConstructor
 @NoArgsConstructor
 @Entity
 @Table
@@ -18,19 +17,23 @@ public class Reply {
     @Column(updatable = false)
     private Long reply_id;
 
-    @Column(updatable = false)
+    @NonNull
+    @Column
     private String title;
 
-    @Column(updatable = false)
+    @NonNull
+    @Column
     private String description;
 
-    @Column(updatable = false)
+    @NonNull
+    @Column
     private String type;
 
-    @Column(updatable = false)
-    private Long replyUserId;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="student_id",referencedColumnName = "id")
+    private Student student;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "forum_id",referencedColumnName = "id")
-    private Forum forum;
+    @JoinColumn(name = "post_id",referencedColumnName = "postId")
+    private Post post;
 }

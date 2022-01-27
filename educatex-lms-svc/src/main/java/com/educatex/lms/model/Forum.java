@@ -1,8 +1,8 @@
 package com.educatex.lms.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -10,32 +10,89 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-@Data
-@AllArgsConstructor
+@Getter
+@Setter
+@RequiredArgsConstructor
 @NoArgsConstructor
 @Entity
 @Table
 public class Forum {
+
     @Id
+    @SequenceGenerator(name="forum_sequence",sequenceName = "forum_sequence",allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "forum_sequence")
     @Column(updatable = false)
     private Long id;
 
+    @NonNull
+    @Column
     private String name;
 
+    @NonNull
+    @Column
     private String forumDescription;
 
-    @OneToMany(cascade = {CascadeType.PERSIST,CascadeType.REMOVE},mappedBy="forum",fetch = FetchType.LAZY)
-    private List<Reply> replies=new ArrayList<>();
-
-    @OneToMany(cascade = {CascadeType.PERSIST,CascadeType.REMOVE},mappedBy="forum",fetch = FetchType.LAZY)
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL,orphanRemoval = true,mappedBy="forum",fetch = FetchType.LAZY)
     private List<Post> posts=new ArrayList<>();
 
-    @OneToMany(cascade = {CascadeType.PERSIST,CascadeType.REMOVE},mappedBy="forum",fetch = FetchType.LAZY)
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL,orphanRemoval = true,mappedBy="forum",fetch = FetchType.LAZY)
     private List<Poll> polls=new ArrayList<>();
 
-    @OneToMany(cascade = {CascadeType.PERSIST,CascadeType.REMOVE},mappedBy="forum",fetch = FetchType.LAZY)
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL,orphanRemoval = true,mappedBy="forum",fetch = FetchType.LAZY)
     private Set<Student> users=new HashSet<>();
 
-    @OneToMany(cascade = {CascadeType.PERSIST,CascadeType.REMOVE},mappedBy="forum",fetch = FetchType.LAZY)
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL,orphanRemoval = true,mappedBy="forum",fetch = FetchType.LAZY)
     private Set<Professor> admins=new HashSet<>();
+
+    @JsonManagedReference
+    public List<Post> getPosts() {
+        return posts;
+    }
+
+    @JsonManagedReference
+    public List<Poll> getPolls() {
+        return polls;
+    }
+
+    @JsonManagedReference
+    public Set<Student> getUsers() {
+        return users;
+    }
+
+    @JsonManagedReference
+    public Set<Professor> getAdmins() {
+        return admins;
+    }
+
+    public void addPost(Post post){
+        if(!posts.contains(post)){
+            posts.add(post);
+            post.setForum(this);
+        }
+    }
+
+    public void addPolls(Poll poll){
+        if(!polls.contains(poll)){
+            polls.add(poll);
+            poll.setForum(this);
+        }
+    }
+
+    public void addUsers(Student user){
+        if(!users.contains(user)){
+            users.add(user);
+            user.setForum(this);
+        }
+    }
+
+    public void addAdmins(Professor admin){
+        if(!admins.contains(admin)){
+            admins.add(admin);
+            admin.setForum(this);
+        }
+    }
 }

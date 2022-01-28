@@ -5,47 +5,87 @@
 }
 .main {
     display: flex;
-    background-image: url('../assets/bakground.jpg');
+    background-image: url('../../assets/bakground.jpg');
     background-repeat: no-repeat;
-    background-position: left;
+    background-position: right;
     height: 100%;
 }
 /*-------main-----------------*/
 .container{
     padding: 50px;
-    margin:30px;
-    margin-left: 20%;
     border-radius: 5px;
-    background-color:white ;
+}
+.discussions {
+    background-color: white;
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 10px;
+    width:70%;
+    margin-left: 15%;
+}
+.intro {
+    text-align: center;
+}
+.header-d {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px;
+}
+.header-d img{
+    width: 30px; 
+    height:30px;
+}
+.left{
     display: flex;
 }
-.search input{
+.left p {
+    margin-left:5px;
+}
+.header-d input{
     border: none;
-    border-radius: 50px;
-    background-color: #C4C4C4;
-    height: 13px;
-    width: 300px;
-    padding:13px;
-    margin-bottom: 10px;
+    border-bottom: 1px solid black;
 }
-.list ul li{
+.main-d ul li{
+    display: flex;
+    margin-top: 25px;
+}
+.main-d {
+    width: 60%;
+    padding:20px;
+}
+.main-d ul li p{
+    margin-right:20px;
+}
+.main-d ul li span{
+    margin-right:5px;
+}
+.footer-d {
+    width: 100%;
+    padding: 15px;
+}
+.bottom ul li {
     list-style-type: none;
+    width: 28%;
+    margin-top: 30px;
+    margin-left: 30px;
 }
-.right{
-    background-color: #C4C4C4;
-    width: 500px;
-    margin-left: 25%;
-    padding: 3%;
-    border-radius: 20px;
+.bottom ul li span {
+    margin-right:5px;
 }
-.filtering {
-    margin: 10px;
+.user-profile {
+    height: 40px;
+    width: 40px;
 }
-.card {
-    margin: 10px;
-    background-color: white;
-    box-shadow: 3px 3px gray;
-    padding: 5px;
+.comment {
+    height: 15px;
+    width: 15px;
+    margin-top: 5px;
+}
+.bottom ul {
+    display: flex;
+}
+.top{
+    margin-left: 20px;
 }
 /*--------------header---------------------*/
 .header{
@@ -93,8 +133,7 @@
     display: flex;
     justify-content: space-evenly;
     margin-left: 10%;
-    padding: 15px;
-    bottom: 0;
+    padding: 15px;   
     width: 80%;
     border-top: 1px solid black;
     font-size: smaller;

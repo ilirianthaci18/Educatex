@@ -5,12 +5,14 @@ import com.educatex.lms.model.Course;
 import com.educatex.lms.model.Professor;
 import com.educatex.lms.model.Student;
 import com.educatex.lms.service.*;
+import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import javax.validation.Valid;
 
 
+@AllArgsConstructor
 @RestController
 @RequestMapping("api/admin")
 public class AdminController {
@@ -22,16 +24,6 @@ public class AdminController {
     private ProfessorService professorService;
     private ForumService forumService;
     private DatabaseIntialization databaseIntialization;
-
-    public AdminController(AdminService adminService, StudentService studentService, CourseService courseService, ElibraryService elibraryService, ProfessorService professorService, ForumService forumService, DatabaseIntialization databaseIntialization) {
-        this.adminService = adminService;
-        this.studentService = studentService;
-        this.courseService = courseService;
-        this.elibraryService = elibraryService;
-        this.professorService = professorService;
-        this.forumService = forumService;
-        this.databaseIntialization = databaseIntialization;
-    }
 
     @GetMapping("/databaseInitialization")
     public void initializeDatabase(){
@@ -48,24 +40,9 @@ public class AdminController {
         return adminService.addNewAdmin(admin);
     }
 
-    @DeleteMapping("/{id}")
-    public void deleteAdmin(@PathVariable Long id) {
-        adminService.removeAdmin(id);
-    }
-
     @PostMapping("/add/professor")
     public Professor saveProfessor(@RequestBody @Valid Professor professor) {
         return adminService.addNewProfessor(professor);
-    }
-
-    @PutMapping("/edit/professor/{id}")
-    public Professor editProfessor(@PathVariable Long id,@RequestBody @Valid Professor professor){
-        return adminService.modifyProfessor(id,professor);
-    }
-
-    @DeleteMapping("/delete/professor/{id}")
-    public void deleteProfessor(@PathVariable Long id) {
-        adminService.removeProfessor(id);
     }
 
     @PostMapping("/add/student")
@@ -73,9 +50,42 @@ public class AdminController {
         return adminService.addNewStudent(student);
     }
 
-    @PutMapping("/edit/student/{id}")
-    public Student editStudent(@PathVariable Long id,@RequestBody @Valid Student student){
-        return adminService.modifyStudent(id,student);
+    @PostMapping("/add/course")
+    public Course addCourse(@RequestBody Course course) {
+        return adminService.addNewCourse(course);
+    }
+
+    @PostMapping("/enroll/student/course")
+    public void enrollStudentForCourse(@RequestBody @Valid Student student,@RequestBody @Valid Course course){
+        adminService.enrollStudentsForCourse(student,course);
+    }
+
+    @PostMapping("/unenroll/student/course/{id}")
+    public void unenrollStudentFromCourse(@RequestBody @Valid Student student,@PathVariable Long id){}
+
+    @PutMapping("/edit/course")
+    public Course editCourse(@RequestBody @Valid Course course){
+        return adminService.modifyCourse(course);
+    }
+
+    @PutMapping("/edit/student")
+    public Student editStudent(@RequestBody @Valid Student student){
+        return adminService.modifyStudent(student);
+    }
+
+    @PutMapping("/edit/professor")
+    public Professor editProfessor(@RequestBody @Valid Professor professor){
+        return adminService.modifyProfessor(professor);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteAdmin(@PathVariable Long id) {
+        adminService.removeAdmin(id);
+    }
+
+    @DeleteMapping("/delete/professor/{id}")
+    public void deleteProfessor(@PathVariable Long id) {
+        adminService.removeProfessor(id);
     }
 
     @DeleteMapping("/delete/student/{id}")
@@ -83,28 +93,10 @@ public class AdminController {
         adminService.removeStudent(id);
     }
 
-    @PostMapping("/add/course")
-    public Course addCourse(@RequestBody Course course) {
-        return adminService.addNewCourse(course);
-    }
-
     @DeleteMapping("/delete/course/{id}")
     public void deleteCourse(@PathVariable Long id) {
         adminService.deleteCourse(id);
     }
-
-    @PutMapping("/edit/course/{id}")
-    public Course editCourse(@PathVariable Long id,@RequestBody @Valid Course course){
-        return adminService.modifyCourse(id,course);
-    }
-
-    @PostMapping("/enroll/student/course/{id}")
-    public void enrollStudentForCourse(@RequestBody @Valid Student student,@PathVariable Long id){
-
-    }
-
-    @PostMapping("/unenroll/student/course/{id}")
-    public void unenrollStudentFromCourse(@RequestBody @Valid Student student,@PathVariable Long id){}
 
     @DeleteMapping("/students")
     public void deleteAllStudents(){

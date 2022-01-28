@@ -38,10 +38,6 @@ public class Forum {
 
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL,orphanRemoval = true,mappedBy="forum",fetch = FetchType.LAZY)
-    private List<Poll> polls=new ArrayList<>();
-
-    @JsonIgnore
-    @OneToMany(cascade = CascadeType.ALL,orphanRemoval = true,mappedBy="forum",fetch = FetchType.LAZY)
     private Set<Student> users=new HashSet<>();
 
     @JsonIgnore
@@ -51,11 +47,6 @@ public class Forum {
     @JsonManagedReference
     public List<Post> getPosts() {
         return posts;
-    }
-
-    @JsonManagedReference
-    public List<Poll> getPolls() {
-        return polls;
     }
 
     @JsonManagedReference
@@ -72,13 +63,6 @@ public class Forum {
         if(!posts.contains(post)){
             posts.add(post);
             post.setForum(this);
-        }
-    }
-
-    public void addPolls(Poll poll){
-        if(!polls.contains(poll)){
-            polls.add(poll);
-            poll.setForum(this);
         }
     }
 

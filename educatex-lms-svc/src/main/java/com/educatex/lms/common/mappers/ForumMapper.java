@@ -9,10 +9,10 @@ import static com.educatex.lms.common.mappers.ProfessorMapper.professorToCourse;
 import static com.educatex.lms.common.mappers.StudentMapper.toStudentDTO;
 
 public class ForumMapper {
+    private static ModelMapper modelMapper = new ModelMapper();
 
-    public static ForumDTO toForumDTO(Forum forum){
-        ModelMapper modelMapper=new ModelMapper();
-        ForumDTO forumDTO=modelMapper.map(forum,ForumDTO.class);
+    public static ForumDTO toForumDTO(Forum forum) {
+        ForumDTO forumDTO = modelMapper.map(forum, ForumDTO.class);
 
         forumDTO.setName(forum.getName());
         forumDTO.setForumDescription(forum.getForumDescription());
@@ -25,10 +25,9 @@ public class ForumMapper {
             forumDTO.getAdmins().add(professorToCourse(professor));
         });
 
-        forum.getUsers().stream().forEach(user->{
+        forum.getUsers().stream().forEach(user -> {
             forumDTO.getUsers().add(toStudentDTO(user));
         });
-
 
         return forumDTO;
     }

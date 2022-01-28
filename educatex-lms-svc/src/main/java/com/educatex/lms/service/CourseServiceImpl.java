@@ -1,6 +1,7 @@
 package com.educatex.lms.service;
 
 import com.educatex.lms.common.dto.CourseDTO;
+import com.educatex.lms.exception.NotFoundException;
 import com.educatex.lms.model.Book;
 import com.educatex.lms.model.Course;
 import com.educatex.lms.model.Professor;
@@ -10,6 +11,7 @@ import com.educatex.lms.repository.CourseRepository;
 import com.educatex.lms.repository.ProfessorRepository;
 import com.educatex.lms.repository.StudentRepository;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -19,15 +21,15 @@ import java.util.Set;
 
 import static com.educatex.lms.common.mappers.CourseMapper.toCourseDTO;
 
+@Slf4j
 @AllArgsConstructor
 @Service
 public class CourseServiceImpl implements CourseService{
 
     private CourseRepository courseRepository;
-    private StudentService studentService;
-    private ProfessorService professorService;
     private BookRepository bookRepository;
 
+    @Override
     public List<CourseDTO> getCourses(){
 
         List<Course> courses=courseRepository.findAll();
@@ -43,24 +45,24 @@ public class CourseServiceImpl implements CourseService{
 
     @Override
     public Course findCourseId(Long id) {
+        //TODO find usage
         return courseRepository.findById(id).get();
     }
 
+    @Override
     public Course getCourseById(Long id){
-        return courseRepository.findById(id).get();
+        return courseRepository.findById(id).orElseThrow(()-> {
+            log.error("Course could not be found , id: ",id);
+            return new NotFoundException("Course with id " + id + " not found");
+        });
     }
 
+    @Override
     public Course saveCourse(Course course){
         return courseRepository.save(course);
     }
 
-    public Course editCourse(Long id,Course course){
-        Course course2=getCourseById(id);
-        //obj mapper
-
-        return course;
-    }
-
+    @Override
     public void deleteCourse(Long id){
         courseRepository.deleteById(id);
     }
@@ -76,7 +78,7 @@ public class CourseServiceImpl implements CourseService{
     @Override
     public void printCourseInfo(Course course) {
         System.out.println(course.toString());
-    }
+    } // TODO RETURN STRING
 
     @Override
     public Professor courseProfessor(Long courseId) {
@@ -85,50 +87,22 @@ public class CourseServiceImpl implements CourseService{
     }
 
     @Override
-    public void addStudentToSubject(Long courseId,Long studentId,String courseCode){
-//        validateInputs(courseId);
-//        validateInputs(studentId);
-//
-//        Course course=getCourseById(courseId);
-//        Student student = studentService.getStudentdById(studentId);
-//
-//        if(courseCode.equals(course.getCourseCode()))
-//            course.addEnrolledStudents(student);
-//        else
-//            //throw exception
-//            return null;
-//
-//        return saveCourse(course);
-        Student student=studentService.getStudentdById(studentId);
-
-        Course course=courseRepository.findById(courseId).get();
-
-        course.getEnrolledStudents().add(student);
-
-         saveCourse(course);
-    }
-
-    @Override
-    public void assignProfessorToSubject(Long courseId, Long professorId) {
-//        validateInputs(courseId);
-//        validateInputs(professorId);
-
-        Course course=getCourseById(courseId);
-        Professor professor= professorService.getProfessorById(professorId);
-
-        course.setProfessor(professor);
-
-         saveCourse(course);
-    }
-
     public CourseDTO findCourseById(Long courseId){
-       Course course=courseRepository.findById(courseId).get();
+       Course course=courseRepository.findById(courseId).orElseThrow(()-> {
+           log.error("Course could not be found , id: ",courseId);
+           return new NotFoundException("Course with id " + courseId + " not found");
+       });
+
        return toCourseDTO(course);
     }
 
     @Override
     public void assignBookToCourse(Long courseId, Long bookId) {
-        Book book=bookRepository.findById(bookId).get();
+        Book book=bookRepository.findById(bookId).orElseThrow(()->{
+            log.error("Book could not be found , id : ",bookId);
+            return new NotFoundException("Book with id "+bookId+ "not found");
+        });
+
         Course course=getCourseById(courseId);
 
         course.setBookToCourse(book);

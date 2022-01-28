@@ -47,23 +47,22 @@ public class DatabaseInitializationImpl implements DatabaseIntialization{
     }
 
     private void initializeRelationsCourse(){
-        Professor professor=professorService.getProfessorById(1L);
-        Professor professor2=professorService.getProfessorById(2L);
-        Student student1=studentService.getStudentdById(1L);
-        Student student2=studentService.getStudentdById(2L);
+//        Professor professor=professorService.getProfessorById(1L);
+//        Professor professor2=professorService.getProfessorById(2L);
+//        Student student1=studentService.getStudentdById(1L);
+//        Student student2=studentService.getStudentdById(2L);
 //        Book book1=elibraryService.getBookById(1L);
 //        Book book2=elibraryService.getBookById(2L);
 //        Book book3=elibraryService.getBookById(3L);
 
 
-        Course course1=courseService.findCourseId(1L);
+//        Course course1=courseService.findCourseId(1L);
 //        courseService.assignProfessorToSubject(course1.getId(), professor.getId());
-        courseService.addStudentToSubject(course1.getId(), student1.getId(), course1.getCourseCode());
 //        courseService.addStudentToSubject(course1.getId(), student2.getId(), course1.getCourseCode());
 //        courseService.assignBookToCourse(course1.getId(), book1.getId());
 //        courseService.assignBookToCourse(course1.getId(), book2.getId());
 //        courseService.assignBookToCourse(course1.getId(), book3.getId());
-        courseService.saveCourse(course1);
+//        courseService.saveCourse(course1);
 
 //        Course course2=courseService.findCourseId(2L);
 //        courseService.assignProfessorToSubject(course2.getId(), professor2.getId());

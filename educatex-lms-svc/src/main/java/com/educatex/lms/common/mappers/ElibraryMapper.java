@@ -14,10 +14,10 @@ import static com.educatex.lms.common.mappers.BookMapper.bookDTOforCourse;
 import static com.educatex.lms.common.mappers.StudentMapper.toStudentDTO;
 
 public class ElibraryMapper {
+    private static ModelMapper modelMapper = new ModelMapper();
 
-    public static ElibraryDTO toElibraryDTO(Elibrary elibrary){
-        ModelMapper modelMapper=new ModelMapper();
-        ElibraryDTO elibraryDTO=modelMapper.map(elibrary,ElibraryDTO.class);
+    public static ElibraryDTO toElibraryDTO(Elibrary elibrary) {
+        ElibraryDTO elibraryDTO = modelMapper.map(elibrary, ElibraryDTO.class);
 
         elibraryDTO.setName(elibrary.getName());
 
@@ -40,20 +40,16 @@ public class ElibraryMapper {
         return elibraryDTO;
     }
 
-    public static ElibraryDTOBook elibraryDTOBook(Elibrary elibrary){
-        ModelMapper modelMapper=new ModelMapper();
-
-        ElibraryDTOBook elibraryDTOBook=modelMapper.map(elibrary,ElibraryDTOBook.class);
+    public static ElibraryDTOBook elibraryDTOBook(Elibrary elibrary) {
+        ElibraryDTOBook elibraryDTOBook = modelMapper.map(elibrary, ElibraryDTOBook.class);
 
         elibraryDTOBook.setName(elibrary.getName());
 
         return elibraryDTOBook;
     }
 
-    public static AssignmentDTO toAssignmentDTO(Assignment assignment){
-        ModelMapper modelMapper=new ModelMapper();
-
-        AssignmentDTO assignmentDTO=modelMapper.map(assignment,AssignmentDTO.class);
+    public static AssignmentDTO toAssignmentDTO(Assignment assignment) {
+        AssignmentDTO assignmentDTO = modelMapper.map(assignment, AssignmentDTO.class);
 
         assignmentDTO.setDate(assignment.getDate());
         assignmentDTO.setName(assignment.getName());

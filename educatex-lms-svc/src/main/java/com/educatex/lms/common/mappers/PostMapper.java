@@ -10,10 +10,9 @@ import com.educatex.lms.model.Student;
 import org.modelmapper.ModelMapper;
 
 public class PostMapper {
-    public static ModelMapper modelMapper=new ModelMapper();
+    private static ModelMapper modelMapper=new ModelMapper();
 
     public static PostDTO toPostDTO(Post post){
-
         PostDTO postDTO=modelMapper.map(post,PostDTO.class);
         postDTO.setTitle(post.getTitle());
         postDTO.setDescription(post.getDescription());
@@ -54,6 +53,5 @@ public class PostMapper {
 
         return replyDTO;
     }
-
 
 }

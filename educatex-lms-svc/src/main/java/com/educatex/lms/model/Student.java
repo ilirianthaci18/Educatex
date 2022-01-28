@@ -45,6 +45,8 @@ public class Student {
     @Column
     private LocalDateTime studentCreatedAt=LocalDateTime.now();
 
+//    @Column
+//    private boolean iRregullt; //TODO
 
 //    @Transient
 //    @Convert(converter = HashMapConverter.class)

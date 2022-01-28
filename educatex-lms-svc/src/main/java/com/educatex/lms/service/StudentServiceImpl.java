@@ -1,7 +1,10 @@
 package com.educatex.lms.service;
 
 import com.educatex.lms.common.dto.StudentDTO;
+import com.educatex.lms.exception.ApiRequestException;
+import com.educatex.lms.exception.NotFoundException;
 import com.educatex.lms.model.Course;
+import com.educatex.lms.model.Forum;
 import com.educatex.lms.model.Post;
 import com.educatex.lms.model.Student;
 import com.educatex.lms.repository.CourseRepository;
@@ -24,8 +27,7 @@ import static com.educatex.lms.common.mappers.StudentMapper.toStudentDTOWithCour
 public class StudentServiceImpl implements StudentService{
 
     private StudentRepository studentRepository;
-    private CourseRepository courseRepository;//TODO SERVICE
-    private PostRepository postRepository; //TODO FORUM SERVICE
+    private PostRepository postRepository;
 
     @Override
     public List<StudentDTO> getAllStudents() {
@@ -42,12 +44,15 @@ public class StudentServiceImpl implements StudentService{
 
     @Override
     public Student getStudentdById(Long id) {
-        return studentRepository.findById(id).get();
+        return studentRepository.findById(id).orElseThrow(() -> {
+            log.error("Student could not be found , id : ", id);
+            return new NotFoundException("Student with id " + id + "not found");
+        });
     }
 
     @Override
     public StudentDTO getStudentDTOById(Long id) {
-        return toStudentDTOWithCourses(studentRepository.findById(id).get());
+        return toStudentDTOWithCourses(getStudentdById(id));
     }
 
     @Override
@@ -56,16 +61,28 @@ public class StudentServiceImpl implements StudentService{
     }
 
     @Override
-    public Student updateStudent(Long id, Student student) {
-//        Student findStudent=getStudentdById(id);
-        //here should impl objectMapper
+    public void addPostToStudent(Long studentId,Long postId) {
+        Student student=getStudentdById(studentId);
+        Post post=postRepository.findById(postId).orElseThrow(() -> {
+            log.error("Post could not be found , id : ", postId);
+            return new NotFoundException("Post with id " + postId + "not found");
+        });
 
-        return null;
+        student.addPost(post);
+
+        saveStudent(student);
+
+        log.info("Student made a post ",student,post);
     }
 
     @Override
     public void deleteStudent(Long id) {
        studentRepository.deleteById(id);
+    }
+
+    @Override
+    public void deleteAllStudents(){
+        studentRepository.deleteAll();
     }
 
     @Override
@@ -87,8 +104,8 @@ public class StudentServiceImpl implements StudentService{
     }
 
     @Override
-    public void showStudentInfo(Long id) {
-
+    public String showStudentInfo(Long id) {
+        return getStudentdById(id).toString();
     }
 
     @Override
@@ -99,31 +116,7 @@ public class StudentServiceImpl implements StudentService{
     @Override
     public boolean iRregullt(Student std) {
         return false;
-    }
-
-    @Override
-    public void deleteAllStudents(){
-        studentRepository.deleteAll();
-    }
-
-    @Override
-    public void addCourseToStudent(Long studentId,Long courseId) {
-        Student student=studentRepository.findById(studentId).get();
-        Course course=courseRepository.findById(courseId).get();
-
-        student.getCourses().add(course);
-
-        saveStudent(student);
-    }
-
-    @Override
-    public void addPostToStudent(Long studentId,Long postId) {
-        Student student=getStudentdById(studentId);
-        Post post=postRepository.findById(postId).get();
-
-        student.addPost(post);
-
-        saveStudent(student);
+        // TODO
     }
 
 }

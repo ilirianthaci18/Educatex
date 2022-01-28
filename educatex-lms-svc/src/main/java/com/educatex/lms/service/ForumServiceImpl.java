@@ -3,9 +3,9 @@ package com.educatex.lms.service;
 import com.educatex.lms.common.dto.ForumDTO;
 import com.educatex.lms.common.dto.PostDTO;
 import com.educatex.lms.common.dto.ReplyDTO;
+import com.educatex.lms.exception.NotFoundException;
 import com.educatex.lms.model.*;
 import com.educatex.lms.repository.ForumRepository;
-import com.educatex.lms.repository.PollRepository;
 import com.educatex.lms.repository.PostRepository;
 import com.educatex.lms.repository.ReplyRepository;
 import lombok.AllArgsConstructor;
@@ -27,7 +27,6 @@ import static com.educatex.lms.common.mappers.PostMapper.toReplyDTO;
 public class ForumServiceImpl implements ForumService {
 
     private ForumRepository forumRepository;
-    private PollRepository pollRepository;
     private PostRepository postRepository;
     private ReplyRepository replyRepository;
     private StudentService studentService;
@@ -47,31 +46,32 @@ public class ForumServiceImpl implements ForumService {
 
     @Override
     public Forum getForumById(Long id) {
-        return forumRepository.findById(id).get();
+        return forumRepository.findById(id).orElseThrow(() -> {
+            log.error("Forum could not be found , id : ", id);
+            return new NotFoundException("Forum with id " + id + "not found");
+        });
+
     }
 
     @Override
-    public Forum saveForum(Forum forum) {
-        return forumRepository.save(forum);
+    public Post getPostById(Long postId) {
+        return postRepository.findById(postId).orElseThrow(() -> {
+            log.error("Post could not be found , id : ", postId);
+            return new NotFoundException("Post with id " + postId + "not found");
+        });
     }
 
     @Override
-    public Forum updateForum(Long id, Forum forum) {
-        Forum forum1=getForumById(id);
-
-        //implement objectmapper
-
-        return  forum1;
+    public Reply getReplyById(Long replyId) {
+        return replyRepository.findById(replyId).orElseThrow(() -> {
+            log.error("Reply could not be found , id : ", replyId);
+            return new NotFoundException("Reply with id " + replyId + "not found");
+        });
     }
 
     @Override
-    public void deleteForum(Long id) {
-        forumRepository.deleteById(id);
-    }
-
-    @Override
-    public ArrayList<Poll> getPollsByCourseName(String name) {
-        return null;
+    public List<Reply> getAllReplies() {
+        return replyRepository.findAll();
     }
 
     @Override
@@ -80,14 +80,8 @@ public class ForumServiceImpl implements ForumService {
     }
 
     @Override
-    public Poll addPoll(Long id,Poll poll) {
-
-        return pollRepository.save(poll);
-    }//TODO
-
-    @Override
-    public void deletePoll(Long id) {
-        pollRepository.deleteById(id);
+    public Forum saveForum(Forum forum) {
+        return forumRepository.save(forum);
     }
 
     @Override
@@ -96,12 +90,18 @@ public class ForumServiceImpl implements ForumService {
     }//TODO
 
     @Override
-    public void deletePost(Long id) {
-        postRepository.deleteById(id);
-    }
-    @Override
     public Reply addReply(Reply reply) {
         return replyRepository.save(reply);
+    }
+
+    @Override
+    public void deleteForum(Long id) {
+        forumRepository.deleteById(id);
+    }
+
+    @Override
+    public void deletePost(Long id) {
+        postRepository.deleteById(id);
     }
 
     @Override
@@ -120,28 +120,13 @@ public class ForumServiceImpl implements ForumService {
     }
 
     @Override
-    public void deleteAllPolls() {
-        pollRepository.deleteAll();
-    }
-
-    @Override
     public void deleteAllReply() {
         replyRepository.deleteAll();
     }
 
     @Override
-    public void addPostToForum(Long forumId,Long postId){
-        Forum forum=forumRepository.findById(forumId).get();
-        Post post=postRepository.findById(postId).get();
-
-        forum.addPost(post);
-
-        saveForum(forum);
-    }
-
-    @Override
     public void addUserToForum(Long forumId, Long studentId) {
-        Forum forum=forumRepository.findById(forumId).get();
+        Forum forum=getForumById(forumId);
         Student student=studentService.getStudentdById(studentId);
 
         forum.addUsers(student);
@@ -151,7 +136,7 @@ public class ForumServiceImpl implements ForumService {
 
     @Override
     public void addAdminToForum(Long forumId, Long professorId) {
-        Forum forum=forumRepository.findById(forumId).get();
+        Forum forum=getForumById(forumId);
         Professor professor=professorService.getProfessorById(professorId);
 
         forum.addAdmins(professor);
@@ -160,14 +145,9 @@ public class ForumServiceImpl implements ForumService {
     }
 
     @Override
-    public void addPollToForum(Long forumId, Long pollId) {
-
-    }
-
-    @Override
     public void addReplyToPost(Long postId, Long replyId) {
-        Post post=postRepository.findById(postId).get();
-        Reply reply=replyRepository.findById(replyId).get();
+        Post post=getPostById(postId);
+        Reply reply=getReplyById(replyId);
 
         post.addReply(reply);
 
@@ -175,8 +155,14 @@ public class ForumServiceImpl implements ForumService {
     }
 
     @Override
-    public List<Reply> getAllReplies() {
-        return replyRepository.findAll();
+    public void addPostToForum(Long forumId,Long postId){
+        Forum forum=getForumById(forumId);
+        Post post=getPostById(postId);
+
+
+        forum.addPost(post);
+
+        saveForum(forum);
     }
 
     @Override
@@ -202,9 +188,5 @@ public class ForumServiceImpl implements ForumService {
         });
 
         return replyDTOS;
-    }
-
-    private Exception validateObject(Object obj){
-        return new Exception();
     }
 }

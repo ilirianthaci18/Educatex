@@ -15,7 +15,7 @@ public interface StudentService {
 
     List<LocalDateTime> orari(Student student);
 
-    void showStudentInfo(Long id);
+    String showStudentInfo(Long id);
 
     void showReccomentation();
 
@@ -23,20 +23,16 @@ public interface StudentService {
 
     Student saveStudent(Student student);
 
-    Student updateStudent(Long id,Student student);
-
     void deleteStudent(Long id);
 
     List<StudentDTO> getAllStudents();
 
     Student getStudentdById(Long id);
+
     StudentDTO getStudentDTOById(Long id);
 
     void deleteAllStudents();
 
-    void addCourseToStudent(Long studentId,Long courseId);
-
-    void addPostToStudent(Long studentId,Long postId);
-
+    void addPostToStudent(Long studentId, Long postId);
 
 }

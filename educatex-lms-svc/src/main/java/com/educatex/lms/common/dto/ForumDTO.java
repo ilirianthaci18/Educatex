@@ -1,6 +1,5 @@
 package com.educatex.lms.common.dto;
 
-import com.educatex.lms.model.Poll;
 import com.educatex.lms.model.Post;
 import com.educatex.lms.model.Professor;
 import com.educatex.lms.model.Student;
@@ -27,8 +26,6 @@ public class ForumDTO {
 
     private List<PostDTOStudent> posts=new ArrayList<>();
 
-    private List<Poll> polls=new ArrayList<>();
-
     private Set<StudentDTOCourse> users=new HashSet<>();
 
     private Set<ProfessorDTOCourse> admins=new HashSet<>();
@@ -36,11 +33,6 @@ public class ForumDTO {
     @JsonManagedReference
     public List<PostDTOStudent> getPosts() {
         return posts;
-    }
-
-    @JsonManagedReference
-    public List<Poll> getPolls() {
-        return polls;
     }
 
     @JsonManagedReference

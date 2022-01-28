@@ -6,12 +6,12 @@ import org.modelmapper.ModelMapper;
 
 
 public class ProfessorMapper {
+    private static ModelMapper modelMapper = new ModelMapper();
 
-    public static ProfessorDTOCourse professorToCourse(Professor professor){
-        ModelMapper modelMapper=new ModelMapper();
-        ProfessorDTOCourse professorDTOCourse=modelMapper.map(professor,ProfessorDTOCourse.class);
+    public static ProfessorDTOCourse professorToCourse(Professor professor) {
+        ProfessorDTOCourse professorDTOCourse = modelMapper.map(professor, ProfessorDTOCourse.class);
 
-        professorDTOCourse.setName(professor.getName(),professor.getLastName());
+        professorDTOCourse.setName(professor.getName(), professor.getLastName());
 
         return professorDTOCourse;
     }

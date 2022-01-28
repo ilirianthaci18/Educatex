@@ -13,17 +13,17 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class StudentDTOCourse {
-    private Long id;
+    private Long id; //TODO
 
     private String name;
 
     private String lastName;
 
-    private char gender;
+    private char gender; //TODO
 
-    private int age;
+    private int age; //TODO
 
-    private Long personalNum;
+    private Long personalNum; //TODO
 
-    private LocalDateTime studentCreatedAt;
+    private LocalDateTime studentCreatedAt; //TODO
 }

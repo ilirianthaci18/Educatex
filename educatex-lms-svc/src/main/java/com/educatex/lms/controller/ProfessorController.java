@@ -19,7 +19,7 @@ public class ProfessorController {
         this.professorService = professorService;
     }
 
-    @GetMapping()
+    @GetMapping()//todo ProfessorDTO
     public List<Professor> getAllProfessors() {
         return professorService.getAllProfessors();
     }
@@ -34,9 +34,9 @@ public class ProfessorController {
         return professorService.saveProfessor(professor);
     }
 
-    @PutMapping("/{id}")
-    public Professor updateProfessor(@PathVariable Long id, @RequestBody Professor professor) {
-        return professorService.updateProfessor(id, professor);
+    @PutMapping()
+    public Professor updateProfessor( @RequestBody Professor professor) {
+        return professorService.saveProfessor(professor);
     }
 
     @DeleteMapping("/{id}")

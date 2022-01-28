@@ -9,10 +9,10 @@ import static com.educatex.lms.common.mappers.CourseMapper.toCourseDTOForStudent
 import static com.educatex.lms.common.mappers.PostMapper.postDTOforStudent;
 
 public class StudentMapper {
+    private static ModelMapper modelMapper = new ModelMapper();
 
-    public static StudentDTOCourse toStudentDTO(Student student){
-        ModelMapper modelMapper=new ModelMapper();
-        StudentDTOCourse studentDTO = modelMapper.map(student,StudentDTOCourse.class);
+    public static StudentDTOCourse toStudentDTO(Student student) {
+        StudentDTOCourse studentDTO = modelMapper.map(student, StudentDTOCourse.class);
 
         studentDTO.setId(student.getId());
         studentDTO.setName(student.getName());
@@ -25,9 +25,8 @@ public class StudentMapper {
         return studentDTO;
     }
 
-    public static StudentDTO toStudentDTOWithCourses(Student student){
-        ModelMapper modelMapper=new ModelMapper();
-        StudentDTO studentDTO = modelMapper.map(student,StudentDTO.class);
+    public static StudentDTO toStudentDTOWithCourses(Student student) {
+        StudentDTO studentDTO = modelMapper.map(student, StudentDTO.class);
 
         studentDTO.setId(student.getId());
         studentDTO.setName(student.getName());
@@ -37,7 +36,7 @@ public class StudentMapper {
         studentDTO.setPersonalNum(student.getPersonalNum());
         studentDTO.setStudentCreatedAt(student.getStudentCreatedAt());
 
-        student.getCourses().stream().forEach(course->{
+        student.getCourses().stream().forEach(course -> {
             studentDTO.addCourses(toCourseDTOForStudents(course));
         });
 

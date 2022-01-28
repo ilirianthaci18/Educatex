@@ -20,6 +20,7 @@ public class AdminServiceImpl implements AdminService {
     private StudentService studentService;
     private CourseService courseService;
     private ProfessorService professorService;
+    private EnrollService enrollService;
 
     @Override
     public List<Admin> getAllAdmins() {
@@ -42,8 +43,8 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public Professor modifyProfessor(Long id,Professor professor) {
-        return professorService.updateProfessor(id,professor);
+    public Professor modifyProfessor(Professor professor) {
+        return professorService.saveProfessor(professor);
     }
 
     @Override
@@ -57,8 +58,8 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public Student modifyStudent(Long id,Student student) {
-        return studentService.updateStudent(id,student);
+    public Student modifyStudent(Student student) {
+        return studentService.saveStudent(student);
     }
 
     @Override
@@ -72,8 +73,8 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public Course modifyCourse(Long id, Course course) {
-        return courseService.editCourse(id,course);
+    public Course modifyCourse(Course course) {
+        return courseService.saveCourse(course);
     }
 
     @Override
@@ -83,11 +84,12 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public void enrollStudentsForCourse(Student student, Course course) {
-
+        enrollService.addStudentToSubject(course.getId(),student.getId(),"asd");
     }
 
     @Override
     public void unenrollStudentsFromCourse(Student student, Course course) {
-
+        enrollService.unEnrollStudentFromSubject(course.getId(),student.getId());
     }
+
 }

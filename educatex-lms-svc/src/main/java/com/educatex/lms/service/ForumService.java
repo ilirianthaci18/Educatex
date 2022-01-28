@@ -14,35 +14,19 @@ public interface ForumService {
 
     Forum getForumById(Long id);
 
-    Forum saveForum(Forum forum);
+    Post getPostById(Long postId);
 
-    Forum updateForum(Long id, Forum forum);
-
-    void deleteForum(Long id);
-
-    Poll addPoll(Long id, Poll poll);
-
-    void deletePoll(Long id);
-
-    Post addPost(Post post);
-
-    void deletePost(Long id);
-
-    Reply addReply(Reply reply);
-
-    void deleteReply(Long id);
-
-    void deleteAllForums();
-
-    void deleteAllPosts();
-
-    void deleteAllPolls();
-
-    void deleteAllReply();
-
-    ArrayList<Poll> getPollsByCourseName(String name);
+    Reply getReplyById(Long replyId);
 
     ArrayList<Post> getPostByCourse(Course course);
+
+    List<Reply> getAllReplies();
+
+    List<PostDTO> getAllPost();
+
+    List<ReplyDTO> getAllRepliesDTO();
+
+    Forum saveForum(Forum forum);
 
     void addPostToForum(Long forumId,Long postId);
 
@@ -50,13 +34,21 @@ public interface ForumService {
 
     void addAdminToForum(Long forumId,Long professorId);
 
-    void addPollToForum(Long forumId,Long pollId);
-
     void addReplyToPost(Long postId,Long replyId);
 
-    List<Reply> getAllReplies();
+    Post addPost(Post post);
 
-    List<PostDTO> getAllPost();
+    Reply addReply(Reply reply);
 
-    List<ReplyDTO> getAllRepliesDTO();
+    void deleteForum(Long id);
+
+    void deletePost(Long id);
+
+    void deleteReply(Long id);
+
+    void deleteAllForums();
+
+    void deleteAllPosts();
+
+    void deleteAllReply();
 }

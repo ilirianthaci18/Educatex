@@ -8,7 +8,7 @@ import com.educatex.lms.model.Training;
 import org.modelmapper.ModelMapper;
 
 public class TrainingMapper {
-    public static ModelMapper modelMapper=new ModelMapper();
+    private static ModelMapper modelMapper=new ModelMapper();
 
     public static TrainingDTO toTrainingDTO(Training training){
         TrainingDTO trainingDTO=modelMapper.map(training,TrainingDTO.class);

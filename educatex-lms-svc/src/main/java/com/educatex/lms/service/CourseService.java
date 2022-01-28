@@ -18,10 +18,10 @@ public interface CourseService {
     CourseDTO findCourseById(Long id);
     Course findCourseId(Long id);
     Course saveCourse(Course course);
-    Course editCourse(Long id,Course course);
+    Course getCourseById(Long id);
     void deleteCourse(Long id);
-    void addStudentToSubject(Long courseId,Long studentId,String courseCode);
-    void assignProfessorToSubject(Long courseId,Long professorId);
+//    void addStudentToSubject(Long courseId,Long studentId,String courseCode);
+//    void assignProfessorToSubject(Long courseId,Long professorId);
     void assignBookToCourse(Long courseId,Long bookId);
     void deleteAllCourses();
 }

@@ -18,8 +18,6 @@ public interface ElibraryService {
 
     Elibrary saveElibrary(Elibrary elibrary);
 
-    Elibrary updateElibrary(Long id,Elibrary elibrary);
-
     void deleteElibrary(Long id);
 
     void addStudentToElibrary(Long elibraryId,Long studentId);
@@ -45,6 +43,10 @@ public interface ElibraryService {
     Set<Assignment> showAssignmentByCourse(String name);
 
     void addRatingToTraining(Long ratingId,Long trainingId);
+
+    Training getTrainingById(Long id);
+
+    Rating getRatingById(Long ratingId);
 
     void deleteRating(Long id);
 

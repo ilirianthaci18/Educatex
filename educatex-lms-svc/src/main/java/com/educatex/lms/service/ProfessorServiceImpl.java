@@ -1,5 +1,6 @@
 package com.educatex.lms.service;
 
+import com.educatex.lms.exception.NotFoundException;
 import com.educatex.lms.model.Course;
 import com.educatex.lms.model.Professor;
 import com.educatex.lms.model.Student;
@@ -18,14 +19,17 @@ public class ProfessorServiceImpl implements ProfessorService{
 
     private ProfessorRepository professorRepository;
 
-    @Override
+    @Override //todo ProfessorDTO
     public List<Professor> getAllProfessors() {
         return professorRepository.findAll();
     }
 
     @Override
     public Professor getProfessorById(Long id) {
-        return professorRepository.findById(id).get();
+        return professorRepository.findById(id).orElseThrow(() -> {
+            log.error("Professor could not be found , id : ", id);
+            return new NotFoundException("Professor with id " + id + "not found");
+        });
     }
 
     @Override
@@ -34,28 +38,26 @@ public class ProfessorServiceImpl implements ProfessorService{
     }
 
     @Override
-    public Professor updateProfessor(Long id, Professor professor) {
-        Professor professor1=getProfessorById(id);
-
-        //here should impl objectMapper
-        return professor1;
+    public void deleteAllProfessors(){
+        professorRepository.deleteAll();
+        log.info("Deleted all professors");
     }
 
     @Override
     public void deleteProfessor(Long id) {
         professorRepository.deleteById(id);
+        log.info("Deleted professor with id : ",id);
     }
 
     @Override
-    public void showProfessorInfo(Long id) {
+    public String showProfessorInfo(Long id) {
         Professor professor=getProfessorById(id);
-
-        log.info("Professor info ",professor.toString());
+        return professor.toString();
     }
 
     @Override
     public Professor searchProfessor(String name) {
-        return null;
+        return null;  // TODO SEARCH BY NAME
     }
 
     @Override
@@ -66,10 +68,5 @@ public class ProfessorServiceImpl implements ProfessorService{
     @Override
     public Set<Student> viewAttendance(Course course) {
         return null;
-    }
-
-    @Override
-    public void deleteAllProfessors(){
-        professorRepository.deleteAll();
     }
 }

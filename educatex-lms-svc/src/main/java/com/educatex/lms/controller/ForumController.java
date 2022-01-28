@@ -7,6 +7,7 @@ import com.educatex.lms.model.*;
 import com.educatex.lms.service.ForumService;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,13 +32,13 @@ public class ForumController {
     }
 
     @PostMapping()
-    public Forum saveForum(@RequestBody Forum forum){
+    public Forum saveForum(@RequestBody @Valid Forum forum){
         return forumService.saveForum(forum);
     }
 
     @PutMapping("/{id}")
-    public Forum updateForum(@PathVariable Long id,@RequestBody Forum forum){
-        return forumService.updateForum(id,forum);
+    public Forum updateForum(@RequestBody @Valid Forum forum){
+        return forumService.saveForum(forum);
     }
 
     @DeleteMapping("/{id}")
@@ -45,18 +46,8 @@ public class ForumController {
         forumService.deleteForum(id);
     }
 
-    @PostMapping("/poll/forum/{id}")
-    public Poll addPoll(@PathVariable Long id,@RequestBody Poll poll){
-        return forumService.addPoll(id,poll);
-    }
-
-    @DeleteMapping("/poll/{id}")
-    public void deletePoll(@PathVariable Long id){
-        forumService.deletePoll(id);
-    }
-
-    @PostMapping("/post/forum/{id}")
-    public Post addPost(@PathVariable Long id,@RequestBody Post post){
+    @PostMapping("/post/forum")
+    public Post addPost(@RequestBody @Valid Post post){
         return forumService.addPost(post);
     }
 
@@ -65,18 +56,13 @@ public class ForumController {
         forumService.deletePost(id);
     }
 
-    @GetMapping("/polls/course/{name}")
-    public ArrayList<Poll> getPollsByCourseName(@PathVariable String name){
-        return forumService.getPollsByCourseName(name);
-    }
-
     @GetMapping("/post/course/{name}")
-    public ArrayList<Post> getPostByCourse(@RequestBody Course course){
+    public ArrayList<Post> getPostByCourse(@RequestBody @Valid Course course){
         return forumService.getPostByCourse(course);
     }
 
     @PostMapping("/reply")
-    public Reply addReply(@RequestBody Reply reply){
+    public Reply addReply(@RequestBody @Valid Reply reply){
         return forumService.addReply(reply);
     }
 

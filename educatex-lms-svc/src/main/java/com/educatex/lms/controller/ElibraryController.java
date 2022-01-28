@@ -4,9 +4,6 @@ import com.educatex.lms.common.dto.BookDTO;
 import com.educatex.lms.common.dto.ElibraryDTO;
 import com.educatex.lms.common.dto.TrainingDTO;
 import com.educatex.lms.model.*;
-import com.educatex.lms.repository.BookRepository;
-import com.educatex.lms.repository.ElibraryRepository;
-import com.educatex.lms.repository.TrainingRepository;
 import com.educatex.lms.service.ElibraryService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -20,8 +17,6 @@ import java.util.Set;
 public class ElibraryController {
 
     private ElibraryService elibraryService;
-    private BookRepository bookRepository;
-    private TrainingRepository trainingRepository;
 
     @GetMapping()
     public List<ElibraryDTO> getAllElibrary() {
@@ -33,29 +28,9 @@ public class ElibraryController {
         return elibraryService.getElibraryById(id);
     }
 
-    @PostMapping
-    public Elibrary saveElibrary(@RequestBody Elibrary elibrary) {
-        return elibraryService.saveElibrary(elibrary);
-    }
-
-    @PutMapping("/{id}")
-    public Elibrary updateElibrary(@PathVariable Long id, @RequestBody Elibrary elibrary) {
-        return elibraryService.updateElibrary(id, elibrary);
-    }
-
-    @DeleteMapping("/{id}")
-    public void deleteElibrary(@PathVariable Long id) {
-        elibraryService.deleteElibrary(id);
-    }
-
     @GetMapping("/books")
     public List<BookDTO> getBooks() {
         return elibraryService.getAllBooks();
-    }
-
-    @PostMapping("/save/book")
-    public void saveBook(@RequestBody Book book){
-        bookRepository.save(book);
     }
 
     @GetMapping("/mostRatedBook")
@@ -88,13 +63,19 @@ public class ElibraryController {
         return elibraryService.showAssignmentByCourse(name);
     }
 
-//    @PostMapping("/rating/author/{studentId}/training/{trainingId}")
-//    public void addRating(@RequestBody Rating rating,@PathVariable Long studentId,@PathVariable Long trainingId) {
-//         elibraryService.addRating(rating,studentId,trainingId);
-//    }
+    @PutMapping()
+    public Elibrary updateElibrary(@RequestBody Elibrary elibrary) {
+        return elibraryService.saveElibrary(elibrary);
+    }
 
-    @DeleteMapping("/rating/{id}")
-    public void deleteRating(@PathVariable Long id) {
+    @PostMapping("/save/book")
+    public void saveBook(@RequestBody Book book){
+        elibraryService.saveBook(book);
+    }
+
+    @PostMapping
+    public Elibrary saveElibrary(@RequestBody Elibrary elibrary) {
+        return elibraryService.saveElibrary(elibrary);
     }
 
     @PostMapping("/training")
@@ -102,19 +83,9 @@ public class ElibraryController {
         return elibraryService.addTraining(training);
     }
 
-    @DeleteMapping("/training/{id}")
-    public void deleteTraining(@PathVariable Long id) {
-        elibraryService.deleteTraining(id);
-    }
-
     @PostMapping("/assignment")
     public Assignment addAssignment(@RequestBody Assignment assignment) {
         return elibraryService.addAssignment(assignment);
-    }
-
-    @DeleteMapping("/assignment/{id}")
-    public void deleteAssignment(@PathVariable Long id) {
-        elibraryService.deleteAssignment(id);
     }
 
     @PostMapping("/{elibraryId}/book/{bookId}")
@@ -149,12 +120,31 @@ public class ElibraryController {
 
     @PostMapping("/rating/{ratingId}/training/{trainingId}")
     public void addRatingToTrainigns(@PathVariable Long ratingId,@PathVariable Long trainingId){
+        // TODO try to add  the author
          elibraryService.addRatingToTraining(ratingId,trainingId);
     }
 
     @PostMapping("/book/{bookId}/rating/{ratingId}")
     public void addRatingToBook(@PathVariable Long bookId,@PathVariable Long ratingId){
         elibraryService.addRatingToBook(bookId,ratingId);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteElibrary(@PathVariable Long id) {
+        elibraryService.deleteElibrary(id);
+    }
+
+    @DeleteMapping("/rating/{id}")
+    public void deleteRating(@PathVariable Long id) {
+    }
+    @DeleteMapping("/training/{id}")
+    public void deleteTraining(@PathVariable Long id) {
+        elibraryService.deleteTraining(id);
+    }
+
+    @DeleteMapping("/assignment/{id}")
+    public void deleteAssignment(@PathVariable Long id) {
+        elibraryService.deleteAssignment(id);
     }
 
 }

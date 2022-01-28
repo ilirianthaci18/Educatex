@@ -3,7 +3,9 @@ package com.educatex.lms.controller;
 import com.educatex.lms.common.dto.StudentDTO;
 import com.educatex.lms.model.Course;
 import com.educatex.lms.model.Student;
+import com.educatex.lms.service.EnrollService;
 import com.educatex.lms.service.StudentService;
+import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -11,17 +13,16 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 
+@AllArgsConstructor
 @RequestMapping("/api/student")
 @RestController
 public class StudentController {
 
     private StudentService studentService;
-
-    public StudentController(StudentService studentService) {
-        this.studentService = studentService;
-    }
+    private EnrollService enrollService;
 
     @GetMapping()
+//    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_STUDENT','ROLE_PROFESSOR')")
     public List<StudentDTO> getAllStudents(){
 
         return studentService.getAllStudents();
@@ -33,16 +34,18 @@ public class StudentController {
     }
 
     @PostMapping
+    //    @PreAuthorize("hasAuthority('student:write')")
     public Student saveStudent(@RequestBody Student student){
         return studentService.saveStudent(student);
     }
 
-    @PutMapping("/{id}")
-    public Student updateStudent(@PathVariable Long id,@RequestBody Student student){
-        return studentService.updateStudent(id,student);
+    @PutMapping
+    public Student updateStudent(@RequestBody Student student){
+        return studentService.saveStudent(student);
     }
 
     @DeleteMapping("/{id}")
+    //    @PreAuthorize("hasAuthority('student:write')")
     public void deleteStudent(@PathVariable Long id){
         studentService.deleteStudent(id);
     }
@@ -72,34 +75,15 @@ public class StudentController {
         return studentService.iRregullt(std);
     }
 
-    @PostMapping("/{studentId}/course/{courseId}")
-    public void addCourseToStudent(@PathVariable Long studentId, @PathVariable Long courseId){
-        studentService.addCourseToStudent(studentId,courseId);
-    }
-
     @PostMapping("/{studentId}/post/{postId}")
     public void addPostToStudent(@PathVariable Long studentId, @PathVariable Long postId){
         studentService.addPostToStudent(studentId,postId);
     }
 
-//    @GetMapping
-//    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_STUDENT','ROLE_PROFESSOR')")
-//    public String getStudent(){
-//        return "No students";
-//    }
-//
-//    @PostMapping
-//    @PreAuthorize("hasAuthority('student:write')")
-//    public String registerStudent(){
-//        return "NewStudentNotRegistered";
-//    }
-//
-//    @DeleteMapping
-//    @PreAuthorize("hasAuthority('student:write')")
-//    public String deleteStudent(){
-//        return "Student Deleted";
-//    }
-//
+    @PostMapping("/{studentId}/course/{courseId}/{courseCode}")
+    public void addCourseToStudent(@PathVariable Long studentId, @PathVariable Long courseId,@PathVariable String courseCode){
+        enrollService.addStudentToSubject(studentId,courseId,courseCode);
+    }
 
 }
 

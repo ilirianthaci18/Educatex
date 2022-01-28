@@ -3,6 +3,7 @@ package com.educatex.lms.service;
 import com.educatex.lms.common.dto.BookDTO;
 import com.educatex.lms.common.dto.ElibraryDTO;
 import com.educatex.lms.common.dto.TrainingDTO;
+import com.educatex.lms.exception.NotFoundException;
 import com.educatex.lms.model.*;
 import com.educatex.lms.repository.*;
 import lombok.AllArgsConstructor;
@@ -20,7 +21,7 @@ import static com.educatex.lms.common.mappers.BookMapper.toBookDTO;
 @AllArgsConstructor
 @Slf4j
 @Service
-public class ElibraryServiceImpl implements ElibraryService{
+public class ElibraryServiceImpl implements ElibraryService {
 
     private StudentService studentService;
     private ElibraryRepository elibraryRepository;
@@ -28,13 +29,18 @@ public class ElibraryServiceImpl implements ElibraryService{
     private TrainingRepository trainingRepository;
     private AssignmentRepository assignmentRepository;
     private BookRepository bookRepository;
-    private CourseService courseService;
+
+
+    @Override
+    public Elibrary saveElibrary(Elibrary elibrary) {
+        return elibraryRepository.save(elibrary);
+    }
 
     @Override
     public List<ElibraryDTO> getAllElibrary() {
 
-        List<Elibrary> elibraries=elibraryRepository.findAll();
-        List<ElibraryDTO> elibraryDTOS=new ArrayList<>();
+        List<Elibrary> elibraries = elibraryRepository.findAll();
+        List<ElibraryDTO> elibraryDTOS = new ArrayList<>();
 
         elibraries.stream().forEach(elibrary -> {
             elibraryDTOS.add(toElibraryDTO(elibrary));
@@ -45,8 +51,8 @@ public class ElibraryServiceImpl implements ElibraryService{
 
     @Override
     public List<TrainingDTO> getAllTrainings() {
-        List<Training> trainings=trainingRepository.findAll();
-        List<TrainingDTO> trainingDTOS=new ArrayList<>();
+        List<Training> trainings = trainingRepository.findAll();
+        List<TrainingDTO> trainingDTOS = new ArrayList<>();
 
         trainings.stream().forEach(training -> {
             trainingDTOS.add(toTrainingDTO(training));
@@ -55,29 +61,37 @@ public class ElibraryServiceImpl implements ElibraryService{
         return trainingDTOS;
     }
 
+    public Book getBookById(Long id) {
+        return bookRepository.findById(id).orElseThrow(() -> {
+            log.error("Book could not be found , id : ", id);
+            return new NotFoundException("Book with id " + id + "not found");
+        });
+    }
+
     @Override
     public Elibrary getElibraryById(Long id) {
-        return elibraryRepository.findById(id).get();
+        return elibraryRepository.findById(id).orElseThrow(() -> {
+            log.error("Elibrary could not be found , id : ", id);
+            return new NotFoundException("Elibrary with id " + id + "not found");
+        });
+
     }
 
     @Override
-    public Elibrary saveElibrary(Elibrary elibrary) {
-        return elibraryRepository.save(elibrary);
+    public Training getTrainingById(Long trainingId) {
+        return trainingRepository.findById(trainingId).orElseThrow(() -> {
+            log.error("Training could not be found , id : ", trainingId);
+            return new NotFoundException("Training with id " + trainingId + "not found");
+        });
     }
 
     @Override
-    public Elibrary updateElibrary(Long id, Elibrary elibrary) {
-        //impl objectmapper
-        return null;
-    }
+    public Rating getRatingById(Long ratingId) {
+        return ratingRepository.findById(ratingId).orElseThrow(() -> {
+            log.error("Assignment could not be found , id : ", ratingId);
+            return new NotFoundException("Assignment with id " + ratingId + "not found");
+        });
 
-    @Override
-    public void deleteElibrary(Long id) {
-        elibraryRepository.deleteById(id);
-    }
-
-    public Book getBookById(Long id){
-        return bookRepository.getById(id);
     }
 
     @Override
@@ -88,43 +102,27 @@ public class ElibraryServiceImpl implements ElibraryService{
     @Override
     public Book getMostRatedBook() {
         return null;
-    }
+    } //TODO
 
     @Override
     public List<Book> showBookByAuthor(String name) {
         return null;
-    }
+    } //TODO
 
     @Override
     public Set<Book> showBookByCourse(String name) {
         return null;
-    }
+    } //TODO
 
     @Override
     public Set<Training> showTrainingByCourse(String name) {
         return null;
-    }
+    } //TODO
 
     @Override
     public Set<Assignment> showAssignmentByCourse(String name) {
         return null;
-    }
-
-//    @Override
-//    public void addRating(Rating rating,Long studentId,Long trainingId) {
-//        Student student=studentService.getStudentdById(studentId);
-//        Training training=trainingRepository.findById(trainingId).get();
-//
-//        rating.setAuthor(student);
-//        rating.setTraining(training);
-//
-//        ratingRepository.save(rating);
-//    }
-
-    @Override
-    public void deleteRating(Long id) {
-        ratingRepository.deleteById(id);
-    }
+    } //TODO
 
     @Override
     public Training addTraining(Training training) {
@@ -132,13 +130,28 @@ public class ElibraryServiceImpl implements ElibraryService{
     }
 
     @Override
-    public void deleteTraining(Long id) {
-        trainingRepository.deleteById(id);
+    public Rating addRatingDb(Rating rating) {
+        return ratingRepository.save(rating);
     }
 
     @Override
     public Assignment addAssignment(Assignment assignment) {
         return assignmentRepository.save(assignment);
+    }
+
+    @Override
+    public void deleteElibrary(Long id) {
+        elibraryRepository.deleteById(id);
+    }
+
+    @Override
+    public void deleteRating(Long id) {
+        ratingRepository.deleteById(id);
+    }
+
+    @Override
+    public void deleteTraining(Long id) {
+        trainingRepository.deleteById(id);
     }
 
     @Override
@@ -166,11 +179,12 @@ public class ElibraryServiceImpl implements ElibraryService{
         trainingRepository.deleteAll();
     }
 
+
     @Override
     public void addStudentToElibrary(Long elibraryId, Long studentId) {
-        Student student=studentService.getStudentdById(studentId);
+        Student student = studentService.getStudentdById(studentId);
 
-        Elibrary elibrary=getElibraryById(elibraryId);
+        Elibrary elibrary = getElibraryById(elibraryId);
 
         elibrary.addStudents(student);
 
@@ -178,9 +192,9 @@ public class ElibraryServiceImpl implements ElibraryService{
     }
 
     @Override
-    public void addBookToElibrary(Long elibraryId,Long bookId) {
-        Elibrary elibrary=getElibraryById(elibraryId);
-        Book book=bookRepository.findById(bookId).get();
+    public void addBookToElibrary(Long elibraryId, Long bookId) {
+        Elibrary elibrary = getElibraryById(elibraryId);
+        Book book = getBookById(bookId);
 
         elibrary.addBooks(book);
 
@@ -189,8 +203,8 @@ public class ElibraryServiceImpl implements ElibraryService{
 
     @Override
     public void addTrainingToElibrary(Long elibraryId, Long trainingId) {
-        Elibrary elibrary=getElibraryById(elibraryId);
-        Training training=trainingRepository.findById(trainingId).get();
+        Elibrary elibrary = getElibraryById(elibraryId);
+        Training training = getTrainingById(trainingId);
 
         elibrary.addTraining(training);
 
@@ -199,8 +213,11 @@ public class ElibraryServiceImpl implements ElibraryService{
 
     @Override
     public void addAssignmentToElibrary(Long elibraryId, Long assignmentId) {
-        Elibrary elibrary=getElibraryById(elibraryId);
-        Assignment assignment=assignmentRepository.getById(assignmentId);
+        Elibrary elibrary = getElibraryById(elibraryId);
+        Assignment assignment = assignmentRepository.findById(assignmentId).orElseThrow(() -> {
+            log.error("Assignment could not be found , id : ", assignmentId);
+            return new NotFoundException("Assignment with id " + assignmentId + "not found");
+        });
 
         elibrary.addAssignment(assignment);
 
@@ -209,8 +226,9 @@ public class ElibraryServiceImpl implements ElibraryService{
 
     @Override
     public void addRatingToTraining(Long ratingId, Long trainingId) {
-        Rating rating=ratingRepository.findById(ratingId).get();
-        Training training=trainingRepository.findById(trainingId).get();
+        Rating rating = getRatingById(ratingId);
+
+        Training training = getTrainingById(trainingId);
 
         training.addRatingToTraining(rating);
 
@@ -218,14 +236,9 @@ public class ElibraryServiceImpl implements ElibraryService{
     }
 
     @Override
-    public Rating addRatingDb(Rating rating) {
-        return ratingRepository.save(rating);
-    }
-
-    @Override
     public void addRatingToBook(Long bookId, Long ratingId) {
-        Book book=bookRepository.findById(bookId).get();
-        Rating rating=ratingRepository.findById(ratingId).get();
+        Book book = getBookById(bookId);
+        Rating rating = getRatingById(ratingId);
 
         book.addRatingToList(rating);
 
@@ -234,8 +247,8 @@ public class ElibraryServiceImpl implements ElibraryService{
 
     @Override
     public List<BookDTO> getAllBooks() {
-        List<Book> books=bookRepository.findAll();
-        List<BookDTO> bookDTOS=new ArrayList<>();
+        List<Book> books = bookRepository.findAll();
+        List<BookDTO> bookDTOS = new ArrayList<>();
 
         books.stream().forEach(book -> {
             bookDTOS.add(toBookDTO(book));
@@ -244,6 +257,4 @@ public class ElibraryServiceImpl implements ElibraryService{
         return bookDTOS;
     }
 
-    private void validateId(Long id){}
-    private void objectExists(Long id){} //we can implement this in validateId just check decoupling
 }

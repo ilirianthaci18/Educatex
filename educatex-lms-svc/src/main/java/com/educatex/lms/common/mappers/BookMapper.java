@@ -11,7 +11,6 @@ public class BookMapper {
     private static ModelMapper modelMapper=new ModelMapper();;
 
     public static BookDTOCourse bookDTOforCourse(Book book){
-
         BookDTOCourse bookDTOCourse=modelMapper.map(book,BookDTOCourse.class);
 
         bookDTOCourse.setAuthor(book.getAuthor());

@@ -17,19 +17,19 @@ public interface AdminService {
 
     Professor addNewProfessor(Professor professor);
 
-    Professor modifyProfessor(Long id, Professor professor);
+    Professor modifyProfessor(Professor professor);
 
     void removeProfessor(Long id);
 
     Student addNewStudent(Student student);
 
-    Student modifyStudent(Long id, Student student);
+    Student modifyStudent(Student student);
 
     void removeStudent(Long id);
 
     Course addNewCourse(Course course);
 
-    Course modifyCourse(Long id, Course course);
+    Course modifyCourse(Course course);
 
     void deleteCourse(Long id);
 

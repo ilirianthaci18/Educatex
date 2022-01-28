@@ -11,15 +11,13 @@ public interface ProfessorService {
 
     Professor saveProfessor(Professor professor);
 
-    Professor updateProfessor(Long id, Professor professor);
-
     void deleteProfessor(Long id);
 
     List<Professor> getAllProfessors();
 
     Professor getProfessorById(Long id);
 
-    void showProfessorInfo(Long id);
+    String showProfessorInfo(Long id);
 
     Professor searchProfessor(String name);
 

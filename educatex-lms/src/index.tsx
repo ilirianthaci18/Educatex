@@ -7,9 +7,15 @@ import Quizzes from './features/quizzes/quizzes';
 import reportWebVitals from './reportWebVitals';
 import Homepage from './features/homepage/homepage';
 import Subjects from './features/subjects/subjects';
+import { store, StoreContext } from './app/stores/store';
+import { createBrowserHistory } from 'history';
+
+export const history = createBrowserHistory();
 
 ReactDOM.render(
-    <Subjects/>,
+  <StoreContext.Provider value={store}>
+      <Subjects/>
+  </StoreContext.Provider>,
   document.getElementById('root')
 );
 

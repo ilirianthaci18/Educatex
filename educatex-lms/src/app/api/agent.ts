@@ -3,7 +3,7 @@ import { IAdmin } from "../models/admin";
 import { IAssignment } from "../models/assignment";
 import { IBook } from "../models/book";
 import { ICourse } from "../models/course";
-import { ELibrary } from "../models/eLibrary";
+import { IELibrary } from "../models/eLibrary";
 import { IForum } from "../models/forum";
 import { IPost } from "../models/post";
 import { IProfessor } from "../models/professor";
@@ -36,8 +36,8 @@ const Courses = {
 }
 
 const ELibrary = {
-    updateELibrary: (eLibrary: ELibrary) => requests.put(`/elibrary/${eLibrary.id}`, eLibrary),
-    insertELibrary: (eLibrary: ELibrary) => requests.post('/elibrary', eLibrary),
+    updateELibrary: (eLibrary: IELibrary) => requests.put(`/elibrary/${eLibrary.id}`, eLibrary),
+    insertELibrary: (eLibrary: IELibrary) => requests.post('/elibrary', eLibrary),
     addAssignment: (assignment: IAssignment) => requests.post('/elibrary/assignment', assignment),
     addBook: (book: IBook) => requests.post('/elibrary/book', book),
     addRating: (rating: IRating) => requests.post('/elibrary/rating', rating),

@@ -1,12 +1,16 @@
 package com.educatex.lms.service;
 
+import com.educatex.lms.common.dto.AssignmentDTO;
 import com.educatex.lms.common.dto.BookDTO;
 import com.educatex.lms.common.dto.ElibraryDTO;
 import com.educatex.lms.common.dto.TrainingDTO;
 import com.educatex.lms.model.*;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
 
@@ -73,4 +77,14 @@ public interface ElibraryService {
     void addRatingToBook(Long bookId,Long ratingId);
 
     List<BookDTO> getAllBooks();
+
+    List<TrainingDTO> findByTrainingIdAndCreatedAt(LocalDate date);
+
+    List<AssignmentDTO> findByAssignmentCreatedAt(LocalDate date);
+
+    Integer countTrainings();
+
+    Integer countBooks();
+
+    Integer countAssignments();
 }

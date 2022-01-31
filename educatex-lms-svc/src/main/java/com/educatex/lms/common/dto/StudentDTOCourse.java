@@ -26,4 +26,7 @@ public class StudentDTOCourse {
     private Long personalNum; //TODO
 
     private LocalDateTime studentCreatedAt; //TODO
+
+    private boolean iRregullt;
+
 }

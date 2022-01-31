@@ -1,5 +1,6 @@
 package com.educatex.lms.service;
 
+import com.educatex.lms.common.dto.ProfessorDTOCourse;
 import com.educatex.lms.exception.NotFoundException;
 import com.educatex.lms.model.Course;
 import com.educatex.lms.model.Professor;
@@ -11,6 +12,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
+
+import static com.educatex.lms.common.mappers.ProfessorMapper.professorToCourse;
 
 @AllArgsConstructor
 @Slf4j
@@ -56,8 +60,12 @@ public class ProfessorServiceImpl implements ProfessorService{
     }
 
     @Override
-    public Professor searchProfessor(String name) {
-        return null;  // TODO SEARCH BY NAME
+    public List<ProfessorDTOCourse> searchProfessor(String name) {
+        List<Professor> professors=professorRepository.findAllByFirstName(name);
+
+        return professors.stream().map(professor -> {
+            return professorToCourse(professor);
+        }).collect(Collectors.toList());
     }
 
     @Override
@@ -68,5 +76,10 @@ public class ProfessorServiceImpl implements ProfessorService{
     @Override
     public Set<Student> viewAttendance(Course course) {
         return null;
+    }
+
+    @Override
+    public Integer countProfessors() {
+        return professorRepository.countProfessors();
     }
 }

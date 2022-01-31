@@ -92,4 +92,13 @@ public class AdminServiceImpl implements AdminService {
         enrollService.unEnrollStudentFromSubject(course.getId(),student.getId());
     }
 
+    @Override
+    public List<Admin> findAllByFirstName(String firstName) {
+        return adminRepository.findAllByFirstName(firstName);
+    }
+
+    @Override
+    public Integer countAdmins() {
+        return adminRepository.countAdmins();
+    }
 }

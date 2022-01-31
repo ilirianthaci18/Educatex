@@ -31,6 +31,8 @@ public class StudentDTO {
 
     private LocalDateTime studentCreatedAt;
 
+    private boolean iRregullt;
+
     private Set<CourseDTOStudent> courses=new HashSet<>();
 
     private List<PostDTOStudent> posts=new ArrayList<>();

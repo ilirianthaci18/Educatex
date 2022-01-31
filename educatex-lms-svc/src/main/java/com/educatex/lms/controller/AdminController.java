@@ -25,14 +25,19 @@ public class AdminController {
     private ForumService forumService;
     private DatabaseIntialization databaseIntialization;
 
-    @GetMapping("/databaseInitialization")
-    public void initializeDatabase(){
-        databaseIntialization.initDB();
-    }
-
     @GetMapping
     public List<Admin> getAllAdmins() {
         return adminService.getAllAdmins();
+    }
+
+    @GetMapping("/firstName") //TODO NOT TESTED
+    public List<Admin> getAllAdminsByFirstName(@PathVariable String firstName) {
+        return adminService.findAllByFirstName(firstName);
+    }
+
+    @GetMapping("/countAdmins") //TODO NOT TESTED
+    public Integer getCountAdmins() {
+        return adminService.countAdmins();
     }
 
     @PostMapping

@@ -1,5 +1,6 @@
 package com.educatex.lms.service;
 
+import com.educatex.lms.common.dto.AssignmentDTO;
 import com.educatex.lms.common.dto.BookDTO;
 import com.educatex.lms.common.dto.ElibraryDTO;
 import com.educatex.lms.common.dto.TrainingDTO;
@@ -10,9 +11,11 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import static com.educatex.lms.common.mappers.ElibraryMapper.*;
 import static com.educatex.lms.common.mappers.TrainingMapper.*;
@@ -257,4 +260,36 @@ public class ElibraryServiceImpl implements ElibraryService {
         return bookDTOS;
     }
 
+    @Override
+    public List<TrainingDTO> findByTrainingIdAndCreatedAt(LocalDate date) {
+        List<Training> trainings=elibraryRepository.findByTrainingIdAndCreatedAt(date);
+
+        return trainings.stream().map(training -> {
+            return toTrainingDTO(training);
+        }).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<AssignmentDTO> findByAssignmentCreatedAt(LocalDate date) {
+        List<Assignment> assignments=elibraryRepository.findByAssignmentCreatedAt(date);
+
+        return assignments.stream().map(assignment -> {
+            return toAssignmentDTO(assignment);
+        }).collect(Collectors.toList());
+    }
+
+    @Override
+    public Integer countTrainings() {
+        return elibraryRepository.countTrainings();
+    }
+
+    @Override
+    public Integer countBooks() {
+        return elibraryRepository.countBooks();
+    }
+
+    @Override
+    public Integer countAssignments() {
+        return elibraryRepository.countAssignments();
+    }
 }

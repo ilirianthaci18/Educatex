@@ -1,8 +1,10 @@
 package com.educatex.lms.model;
 
 import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -10,7 +12,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Entity
 @Table
-public class Admin {
+public class Admin{
 
     @Id
     @SequenceGenerator(name = "admin_sequence", sequenceName = "admin_sequence", allocationSize = 1)

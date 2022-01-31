@@ -1,14 +1,13 @@
 package com.educatex.lms.service;
 
 import com.educatex.lms.common.dto.StudentDTO;
+import com.educatex.lms.common.dto.StudentDTOCourse;
 import com.educatex.lms.exception.ApiRequestException;
 import com.educatex.lms.exception.NotFoundException;
-import com.educatex.lms.model.Course;
-import com.educatex.lms.model.Forum;
-import com.educatex.lms.model.Post;
-import com.educatex.lms.model.Student;
+import com.educatex.lms.model.*;
 import com.educatex.lms.repository.CourseRepository;
 import com.educatex.lms.repository.PostRepository;
+import com.educatex.lms.repository.SearchRepository;
 import com.educatex.lms.repository.StudentRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,8 +17,9 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
-import static com.educatex.lms.common.mappers.StudentMapper.toStudentDTOWithCourses;
+import static com.educatex.lms.common.mappers.StudentMapper.*;
 
 @AllArgsConstructor
 @Slf4j
@@ -28,6 +28,7 @@ public class StudentServiceImpl implements StudentService{
 
     private StudentRepository studentRepository;
     private PostRepository postRepository;
+    private SearchRepository searchRepository;
 
     @Override
     public List<StudentDTO> getAllStudents() {
@@ -61,6 +62,12 @@ public class StudentServiceImpl implements StudentService{
     }
 
     @Override
+    public Search saveSearch(Search search) {
+        //TODO send this to addSearchToStudent
+        return searchRepository.save(search);
+    }
+
+    @Override
     public void addPostToStudent(Long studentId,Long postId) {
         Student student=getStudentdById(studentId);
         Post post=postRepository.findById(postId).orElseThrow(() -> {
@@ -73,6 +80,22 @@ public class StudentServiceImpl implements StudentService{
         saveStudent(student);
 
         log.info("Student made a post ",student,post);
+    }
+
+    @Override
+    public void addSearchToStudent(Long studentId, Long searchId) {
+        //TODO accept search as object
+        Student student=getStudentdById(studentId);
+        Search search=searchRepository.findById(searchId).orElseThrow(() -> {
+            log.error("Search could not be found , id : ", searchId);
+            return new NotFoundException("Search with id " + searchId + "not found");
+        });
+
+        student.addSearch(search);
+
+        saveStudent(student);
+
+        log.info("Search made by student was saved ",student,search);
     }
 
     @Override
@@ -110,13 +133,43 @@ public class StudentServiceImpl implements StudentService{
 
     @Override
     public void showReccomentation() {
-
+//        return searchRepository.findAll();
     }
 
     @Override
     public boolean iRregullt(Student std) {
-        return false;
-        // TODO
+        return std.isIRregullt();
     }
 
+    @Override
+    public List<StudentDTOCourse> findAllByFirstName(String firstName) {
+        List<Student> students=studentRepository.findAllByFirstName(firstName);
+
+        return students.stream().map(student -> {
+            return toStudentDTO(student);
+        }).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<StudentDTOCourse> findAllByLastName(String name) {
+        List<Student> students= studentRepository.findAllByLastName(name);
+
+        return students.stream().map(student -> {
+            return toStudentDTO(student);
+        }).collect(Collectors.toList());
+    }
+
+    @Override
+    public Integer countStudents() {
+        return studentRepository.countStudents();
+    }
+
+    @Override
+    public List<StudentDTOCourse> findAllRegularStudents(boolean rregullt) {
+        List<Student> students= studentRepository.findAllRegularStudents(rregullt);
+
+        return students.stream().map(student -> {
+            return toStudentDTO(student);
+        }).collect(Collectors.toList());
+    }
 }

@@ -106,4 +106,10 @@ public class ForumController {
     public List<ReplyDTO> getAllReplies(){
         return forumService.getAllRepliesDTO();
     }
+
+
+    @GetMapping("/countPosts")
+    public Integer countPosts(){
+        return forumService.countPost();
+    }
 }

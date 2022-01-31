@@ -38,6 +38,8 @@ public interface ForumService {
 
     Post addPost(Post post);
 
+    Integer countPost();
+
     Reply addReply(Reply reply);
 
     void deleteForum(Long id);

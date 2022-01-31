@@ -1,10 +1,13 @@
 package com.educatex.lms.controller;
 
 import com.educatex.lms.common.dto.StudentDTO;
+import com.educatex.lms.common.dto.StudentDTOCourse;
 import com.educatex.lms.model.Course;
+import com.educatex.lms.model.Search;
 import com.educatex.lms.model.Student;
 import com.educatex.lms.service.EnrollService;
 import com.educatex.lms.service.StudentService;
+import io.jsonwebtoken.lang.Assert;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,12 +36,39 @@ public class StudentController {
         return studentService.getStudentDTOById(id);
     }
 
+    @GetMapping("/firstName/{firstName}")
+    public List<StudentDTOCourse> getStudentByFirstName(@PathVariable String firstName){
+        return studentService.findAllByFirstName(firstName);
+    }
+
+    @GetMapping("/lastName/{lastName}")
+    public List<StudentDTOCourse> getStudentByLastName(@PathVariable String lastName){
+        return studentService.findAllByLastName(lastName);
+    }
+
+//    localhost:8080/api/student/regularStudents?regular=false you should call this endpoint like this
+    @GetMapping("/regularStudents")
+    public List<StudentDTOCourse> getAllRegularStudents(@RequestParam boolean regular){
+        Assert.notNull(regular,"Regular should not be null");
+
+        return studentService.findAllRegularStudents(regular);
+    }
+
+    @GetMapping("/students/count")
+    public Integer getCountStudents(){
+        return studentService.countStudents();
+    }
+
     @PostMapping
     //    @PreAuthorize("hasAuthority('student:write')")
     public Student saveStudent(@RequestBody Student student){
         return studentService.saveStudent(student);
     }
 
+    @PostMapping("/search")//TODO TEST
+    public Search saveSearch(@RequestBody Search search){
+        return studentService.saveSearch(search);
+    }
     @PutMapping
     public Student updateStudent(@RequestBody Student student){
         return studentService.saveStudent(student);
@@ -80,11 +110,15 @@ public class StudentController {
         studentService.addPostToStudent(studentId,postId);
     }
 
+    @PostMapping("/{studentId}/search/{searchId}") // TODO test
+    public void addCourseToStudent(@PathVariable Long studentId, @PathVariable Long searchId){
+        studentService.addSearchToStudent(studentId,searchId);
+    }
+
     @PostMapping("/{studentId}/course/{courseId}/{courseCode}")
     public void addCourseToStudent(@PathVariable Long studentId, @PathVariable Long courseId,@PathVariable String courseCode){
         enrollService.addStudentToSubject(studentId,courseId,courseCode);
     }
-
 }
 
 

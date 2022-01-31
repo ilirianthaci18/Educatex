@@ -1,5 +1,6 @@
 package com.educatex.lms.controller;
 
+import com.educatex.lms.common.dto.ProfessorDTOCourse;
 import com.educatex.lms.model.Course;
 import com.educatex.lms.model.Professor;
 import com.educatex.lms.model.Student;
@@ -54,9 +55,14 @@ public class ProfessorController {
         professorService.showProfessorInfo(id);
     }
 
-    @GetMapping("/{name}")
-    public Professor searchProfessor(@PathVariable String name) {
+    @GetMapping("/{name}") //TODO test
+    public List<ProfessorDTOCourse> searchProfessor(@PathVariable String name) {
         return professorService.searchProfessor(name);
+    }
+
+    @GetMapping("/countProfessors") // TODO test
+    public Integer countProfessors(){
+        return professorService.countProfessors();
     }
 
     @GetMapping("/regular")

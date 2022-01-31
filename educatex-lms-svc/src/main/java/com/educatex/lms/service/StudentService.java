@@ -2,9 +2,13 @@ package com.educatex.lms.service;
 
 
 import com.educatex.lms.common.dto.StudentDTO;
+import com.educatex.lms.common.dto.StudentDTOCourse;
 import com.educatex.lms.model.Course;
 import com.educatex.lms.model.Post;
+import com.educatex.lms.model.Search;
 import com.educatex.lms.model.Student;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -34,5 +38,17 @@ public interface StudentService {
     void deleteAllStudents();
 
     void addPostToStudent(Long studentId, Long postId);
+
+    void addSearchToStudent(Long studentId, Long searchId);
+
+    Search saveSearch(Search search);
+
+    List<StudentDTOCourse> findAllByFirstName(String firstName);
+
+    List<StudentDTOCourse> findAllByLastName(String name);
+
+    List<StudentDTOCourse> findAllRegularStudents(boolean rregullt);
+
+    Integer countStudents();
 
 }

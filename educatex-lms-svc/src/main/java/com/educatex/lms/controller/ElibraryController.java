@@ -1,14 +1,18 @@
 package com.educatex.lms.controller;
 
+import com.educatex.lms.common.dto.AssignmentDTO;
 import com.educatex.lms.common.dto.BookDTO;
 import com.educatex.lms.common.dto.ElibraryDTO;
 import com.educatex.lms.common.dto.TrainingDTO;
 import com.educatex.lms.model.*;
 import com.educatex.lms.service.ElibraryService;
 import lombok.AllArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 @AllArgsConstructor
@@ -56,6 +60,33 @@ public class ElibraryController {
     @GetMapping("/training/course/{name}")
     public Set<Training> showTrainingByCourse(@PathVariable String name) {
         return elibraryService.showTrainingByCourse(name);
+    }
+
+    @GetMapping("/training/date")
+    public List<TrainingDTO> showTrainingByDate(@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd")
+                                                    Optional<LocalDate> date){
+        return elibraryService.findByTrainingIdAndCreatedAt(date.orElse(LocalDate.now()));
+    }
+
+    @GetMapping("/assignment/date")
+    public List<AssignmentDTO> showAssignmentByDate(@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd")
+                                                        Optional<LocalDate> date){
+        return elibraryService.findByAssignmentCreatedAt(date.orElse(LocalDate.now()));
+    }
+
+    @GetMapping("/trainings/count")
+    public Integer countTrainings(){
+        return elibraryService.countTrainings();
+    }
+
+    @GetMapping("/assignments/count")
+    public Integer countAssignments(){
+        return elibraryService.countAssignments();
+    }
+
+    @GetMapping("/books/count")
+    public Integer countBooks(){
+        return elibraryService.countBooks();
     }
 
     @GetMapping("/assignment/course/{name}")
@@ -128,6 +159,7 @@ public class ElibraryController {
     public void addRatingToBook(@PathVariable Long bookId,@PathVariable Long ratingId){
         elibraryService.addRatingToBook(bookId,ratingId);
     }
+
 
     @DeleteMapping("/{id}")
     public void deleteElibrary(@PathVariable Long id) {

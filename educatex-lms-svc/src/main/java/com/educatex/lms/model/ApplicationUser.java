@@ -4,10 +4,15 @@ import lombok.AllArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import javax.persistence.Entity;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import java.util.Collection;
 import java.util.Set;
 
 
+//@Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)
+//@Entity
 @AllArgsConstructor
 public class ApplicationUser implements UserDetails {
     private final String username;

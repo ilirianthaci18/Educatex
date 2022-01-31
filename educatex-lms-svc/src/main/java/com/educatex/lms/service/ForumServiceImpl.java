@@ -70,6 +70,11 @@ public class ForumServiceImpl implements ForumService {
     }
 
     @Override
+    public Integer countPost() {
+        return forumRepository.countPost();
+    }
+
+    @Override
     public List<Reply> getAllReplies() {
         return replyRepository.findAll();
     }

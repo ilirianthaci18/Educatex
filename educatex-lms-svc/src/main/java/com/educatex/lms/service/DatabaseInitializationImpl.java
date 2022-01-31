@@ -84,9 +84,9 @@ public class DatabaseInitializationImpl implements DatabaseIntialization{
 
     }
     private void initializeAdmins(){
-        Admin admin=new Admin("Denzel","Washington",'M',56,100200300400L);
+//        Admin admin=new Admin("Denzel","Washington",'M',56,100200300400L);
 
-        adminService.addNewAdmin(admin);
+//        adminService.addNewAdmin(admin);
     }
 
     private void initializeProfessors(){
@@ -98,8 +98,8 @@ public class DatabaseInitializationImpl implements DatabaseIntialization{
     }
 
     private void initializeStudents(){
-        Student student=new Student("John","Doe",'M',20,10203040506070L);
-        Student student2=new Student("Jane","Doe",'F',21,70809010203040L);
+        Student student=new Student("John","Doe",'M',20,10203040506070L,true);
+        Student student2=new Student("Jane","Doe",'F',21,70809010203040L,true);
 
         studentService.saveStudent(student);
         studentService.saveStudent(student2);

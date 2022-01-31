@@ -20,6 +20,7 @@ public class StudentMapper {
         studentDTO.setAge(student.getAge());
         studentDTO.setGender(student.getGender());
         studentDTO.setPersonalNum(student.getPersonalNum());
+        studentDTO.setIRregullt(student.isIRregullt());
         studentDTO.setStudentCreatedAt(student.getStudentCreatedAt());
 
         return studentDTO;
@@ -33,7 +34,9 @@ public class StudentMapper {
         studentDTO.setLastName(student.getLastName());
         studentDTO.setAge(student.getAge());
         studentDTO.setGender(student.getGender());
+        studentDTO.setIRregullt(student.isIRregullt());
         studentDTO.setPersonalNum(student.getPersonalNum());
+        studentDTO.setIRregullt(student.isIRregullt());
         studentDTO.setStudentCreatedAt(student.getStudentCreatedAt());
 
         student.getCourses().stream().forEach(course -> {

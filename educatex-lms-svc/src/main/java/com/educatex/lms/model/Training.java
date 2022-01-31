@@ -3,6 +3,7 @@ package com.educatex.lms.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -35,6 +36,7 @@ public class Training {
     @Column
     private String category;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column
     private LocalDate date= LocalDate.now();
 

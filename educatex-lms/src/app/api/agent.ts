@@ -83,10 +83,67 @@ const Forum = {
     deleteForum: (id: string) => requests.delete(`/forum/${id}`)
 }
 
+const Student = {
+    getStudents: (): Promise<IStudent[]> => requests.get('/student'),
+    updateStudent: (student: IStudent) => requests.put(`/student`, student),
+    saveStudent: (student: IStudent) => requests.post(`/student`, student),
+    getStudentRecommendation: () => requests.get('/student/reccomendations'),
+    getIRregullt: () => requests.get('/student/regular'),
+    getSchedule: () => requests.get('/student/schedule'),
+    getStudentInfo: (id: string) => requests.get(`/student/studentInfo/${id}`),
+    viewAttendance: () => requests.get('/student/viewAttendence'),
+    getStudentById: (id: string) => requests.get(`/student/${id}`),
+    deleteStudent: (id: string) => requests.delete(`/student/${id}`),
+    addCourseToStudent: (course: ICourse, id: string) => requests.post(`/student/${id}/course/${course.id}`, course),
+    addPostToStudent: (post: IPost, id: string) => requests.post(`/student/${id}/post/${post.post_id}`, post)
+}
+
+const Admin = {
+    getAdmins: (): Promise<IAdmin[]> => requests.get('/admin'),
+    saveAdmin: (admin: IAdmin) => requests.post('/admin', admin),
+    addCourse: (course:ICourse) => requests.post('/admin/add/course', course),
+    saveProfessor: (professor: IProfessor) => requests.post('/admin/add/professor', professor),
+    saveStudent: (student: IStudent) => requests.post('/admin/add/student', student),
+    deleteAssignments: () => requests.delete('/admin/assignments'),
+    deleteBooks: () => requests.delete('/admin/books'),
+    deleteCourses: () => requests.delete('/admin/course'),
+    deleteCourse: (id: string) => requests.delete(`/admin/delete/course/${id}`),
+    deleteProfessor: (id: string) => requests.delete(`/admin/delete/professor/${id}`),
+    deleteStudent: (id: string) => requests.delete(`/admin/delete/student/${id}`),
+    editCourse: (course: ICourse) => requests.put('/admin/edit/course', course),
+    editStudent: (student: IStudent) => requests.put('/admin/edit/student', student),
+    editProfessor: (professor: IProfessor) => requests.put('/admin/edit/professor', professor),
+    enrollStudentForCourse: (student: IStudent) => requests.post('/admin/enroll/student/course', student),
+    deletePosts: () => requests.delete('/admin/post'),
+    deleteProfessors: () => requests.delete('/admin/professor'),
+    deleteRatings: () => requests.delete('/admin/ratings'),
+    deleteReplies: () => requests.delete('/admin/replies'),
+    deleteStudents: () => requests.delete('/admin/students'),
+    deleteTrainings: () => requests.delete('/admin/trainings'),
+    deleteAdmin: (id: string) => requests.delete(`/admin/${id}`),
+    unenrollStudentFromCourse: (student: IStudent, id: string) => requests.put(`/admin/unenroll/student/course/${id}`, student)
+}
+
+const Professor = {
+    getProfessors: () : Promise<IProfessor[]> => requests.get('/professor'),
+    updateProfessor: (professor: IProfessor) => requests.put('/professor', professor),
+    savePofessor: (professor: IProfessor) => requests.post('/professor', professor),
+    deleteProfessors: () => requests.delete('/professor/all'),
+    getProfessorInfo: (id: string) => requests.get(`/professor/professorInfo/${id}`),
+    getIRregullt: () => requests.get('/professor/regular'),
+    viewAttendance: (course: ICourse) => requests.post('/professor/viewAttendance', course),
+    getProfessorById: (id: string) => requests.get(`/professor/${id}`),
+    deleteProfessor: (id: string) => requests.delete(`/professor/${id}`),
+    searchProfessor: (name: string) => requests.get(`/professor/${name}`)
+}
+
 const agent = {
     Courses,
     ELibrary,
-    Forum
+    Forum,
+    Student,
+    Admin,
+    Professor
 }
 
 export default agent;

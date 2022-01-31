@@ -36,30 +36,31 @@ const Courses = {
 }
 
 const ELibrary = {
-    updateELibrary: (eLibrary: IELibrary) => requests.put(`/elibrary/${eLibrary.id}`, eLibrary),
-    insertELibrary: (eLibrary: IELibrary) => requests.post('/elibrary', eLibrary),
-    addAssignment: (assignment: IAssignment) => requests.post('/elibrary/assignment', assignment),
-    addBook: (book: IBook) => requests.post('/elibrary/book', book),
-    addRating: (rating: IRating) => requests.post('/elibrary/rating', rating),
+    updateELibrary: (eLibrary: IELibrary) => requests.put(`/elibrary/${eLibrary.id}`, eLibrary), //done
+    insertELibrary: (eLibrary: IELibrary) => requests.post('/elibrary', eLibrary), //done
+    getELibrary: (id: string) => requests.get(`/elibrary/${id}`), //done
+    deleteELibrary: (id: string) => requests.delete(`/elibrary/${id}`), //done
+    addAssignment: (assignment: IAssignment) => requests.post('/elibrary/assignment', assignment), //done
+    deleteAssignment: (id: string) => requests.delete(`/elibrary/assignment/${id}`),   //done
+    addBook: (book: IBook) => requests.post('/elibrary/book', book), //done
+    getBooks: () : Promise<IBook[]> => requests.get('/elibrary/books'), //done
     saveBook: (book: IBook) => requests.post('/elibrary/save/book', book),
-    addTraining: (training: ITraining) => requests.post('/elibrary/training', training),
-    addAssignmentToELibrary: (assignment: IAssignment, id: string) => requests.post(`/elibrary/${id}/assignment/${assignment.id}`, assignment),
-    addBookToELibrary: (book: IBook, id: string) => requests.post(`/elibrary/${id}/book/${book.id}`, book),
-    addStudentToELibrary: (student: IStudent, id: string) => requests.post(`/elibrary/${id}/student/${student.id}`, student),
-    addTrainingToELibrary: (training: ITraining, id: string) => requests.post(`/elibrary/${id}/training/${training.id}`, training),
+    addRating: (rating: IRating) => requests.post('/elibrary/rating', rating), //done
+    deleteRating: (rating_id: string) => requests.delete(`/elibrary/rating/${rating_id}`), //done
+    getTrainings: () : Promise<ITraining[]> => requests.get('/elibrary/trainings'), //done
+    addTraining: (training: ITraining) => requests.post('/elibrary/training', training), //done
+    deleteTraining: (id: string) => requests.delete(`/elibrary/training/${id}`), //done
+    showTrainingByCourse: (name: string) => requests.get(`/elibrary/training/course/${name}`), //done 
+    showBookByAuthor: (name: string) : Promise<IBook[]> => requests.get(`/elibrary/book/author/${name}`), //done
+    showBookByCourse: (name: string) : Promise<IBook[]> => requests.get(`/elibrary/book/course/${name}`), //done
     showAssignmentByCourse: (name: string) : Promise<IAssignment> => requests.get(`/elibrary/assignment/course/${name}`),
-    deleteAssignment: (id: string) => requests.delete(`/elibrary/assignment/${id}`),
-    showBookByAuthor: (name: string) : Promise<IBook[]> => requests.get(`/elibrary/book/author/${name}`),
-    showBookByCourse: (name: string) : Promise<IBook[]> => requests.get(`/elibrary/book/course/${name}`),
-    addRatingToBook: (rating: IRating, book_id: string) => requests.post(`/elibrary/book/${book_id}/rating/${rating.id}`, rating),
-    getBooks: () : Promise<IBook[]> => requests.get('/elibrary/books'),
-    getMostRatedBook: () : Promise<IBook> => requests.get('/elibrary/mostRatedBook'),
-    deleteRating: (rating_id: string) => requests.delete(`/elibrary/rating/${rating_id}`),
-    showTrainingByCourse: (name: string) => requests.get(`/elibrary/training/course/${name}`),
-    deleteTraining: (id: string) => requests.delete(`/elibrary/training/${id}`),
-    getTrainings: () : Promise<ITraining[]> => requests.get('/elibrary/trainings'),
-    getELibrary: (id: string) => requests.get(`/elibrary/${id}`),
-    deleteELibrary: (id: string) => requests.delete(`/elibrary/${id}`)
+
+    addAssignmentToELibrary: (assignment: IAssignment, id: string) => requests.post(`/elibrary/${id}/assignment/${assignment.id}`, assignment), 
+    addBookToELibrary: (book: IBook, id: string) => requests.post(`/elibrary/${id}/book/${book.id}`, book), //done
+    addStudentToELibrary: (student: IStudent, id: string) => requests.post(`/elibrary/${id}/student/${student.id}`, student),
+    addTrainingToELibrary: (training: ITraining, id: string) => requests.post(`/elibrary/${id}/training/${training.id}`, training), //done
+    addRatingToBook: (rating: IRating, book_id: string) => requests.post(`/elibrary/book/${book_id}/rating/${rating.id}`, rating), //done
+    getMostRatedBook: () : Promise<IBook> => requests.get('/elibrary/mostRatedBook')
 }
 
 const Forum = {

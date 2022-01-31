@@ -1,13 +1,19 @@
 
 import { makeAutoObservable, runInAction } from "mobx";
 import agent from "../api/agent";
+import { IBook } from "../models/book";
 import { ICourse } from "../models/course";
+import { IProfessor } from "../models/professor";
 
 export default class CourseStore {
     courseRegistry = new Map<string, ICourse>();
     selectedCourse: ICourse | undefined = undefined;
     editMode = false;
     loading = false;
+    bookRegistry = new Map<string, IBook>();
+    selectedBook: IBook | undefined = undefined;
+    professorRegistry = new Map<string, IProfessor>();
+    selectedProfessor: IProfessor | undefined = undefined;
 
     constructor() {
         makeAutoObservable(this)
@@ -77,6 +83,44 @@ export default class CourseStore {
             runInAction(() => {
                 this.courseRegistry.delete(id);
                 if (this.selectedCourse?.id === id) this.cancelselectedCourse();
+            })
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    getCourseProfessor = async () => {
+        try {
+            const Course = await agent.Courses.getCourses();
+            Course.forEach(course => {
+                this.courseRegistry.set(course.professor_id, course);
+            })
+        }catch(error){
+            console.log(error);
+        }
+    }
+
+
+    addBookToCourse = async (book: IBook, id: string) => {
+        try {
+            await agent.Courses.addBookToCourse(book, id);
+            runInAction(() => {
+                this.bookRegistry.set(book.id, book);
+                this.selectedBook = book;
+                this.editMode = false;
+            })
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    addProfessorToCourse = async (professor: IProfessor, id: string) => {
+        try {
+            await agent.Courses.addProfessorToCourse(professor, id);
+            runInAction(() => {
+                this.professorRegistry.set(professor.id, professor);
+                this.selectedProfessor = professor;
+                this.editMode = false;
             })
         } catch (error) {
             console.log(error);

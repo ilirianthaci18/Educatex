@@ -80,7 +80,7 @@
 }
 
 /*--------------footer--------------------*/
-.footer{
+.footer-quizzes{
   display: flex;
   justify-content: space-evenly;
   margin-left: 10%;
@@ -90,7 +90,7 @@
   border-top: 1px solid black;
   font-size: smaller;
 }
-.footer-logo img{
+.footer-quizzes-logo img{
   height: 80px;
 }
 .footer-quick-navigation ul, .footer-get-in-touch ul, .footer-stay-connected ul {

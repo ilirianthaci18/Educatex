@@ -8,6 +8,12 @@ import CommentImage from '../../assets/comment.png';
 import UserLogo from '../../assets/user.png';
 
 import '../forum/forum.css';
+import { Button } from 'semantic-ui-react';
+import Profile from '../profile/profile';
+import MySpace from '../mySpace/mySpace';
+import Subjects from '../subjects/subjects';
+import Quizzes from '../quizzes/quizzes';
+import { NavLink, Route, Routes } from 'react-router-dom';
 
 function Forum() {
   return (
@@ -18,11 +24,11 @@ function Forum() {
         </div>
         <div className="header-list">
             <ul>
-                <li><a href="profile.html">Profile</a></li>
-                <li><a href="mySpace.html">My Space</a></li>
-                <li><a href="subjects.html">Subjects</a></li>
-                <li><a href="quizzes.html">Quizzes</a></li>
-                <li><a href="forum.html">Forum</a></li>
+                <li><Button as={NavLink} to={'profile'}>Profile</Button></li>
+                <li><Button as={NavLink} to={'my-space'}>My Space</Button></li>
+                <li><Button as={NavLink} to={'subjects'}>Subjects</Button></li>
+                <li><Button as={NavLink} to={'quizzes'}>Quizzes</Button></li>
+                <li><Button as={NavLink} to={'forum'}>Forum</Button></li>
             </ul>
         </div>
         <div className="header-socials">
@@ -34,8 +40,8 @@ function Forum() {
             </ul>
         </div>
     </div>
-    <div className="main">
-       <div className="container">
+    <div className="main-forum">
+       <div className="container-forum">
            <div className="intro">
                <h2>Learn from each other</h2>
                <h3>Join a discussion</h3>
@@ -127,8 +133,8 @@ function Forum() {
            </div>
        </div>
    </div>
-    <div className="footer">
-          <div className="footer-logo">
+    <div className="footer-forum">
+          <div className="footer-forum-logo">
               <img src={Logo}/>
           </div>
           <div className="footer-quick-navigation">
@@ -159,6 +165,13 @@ function Forum() {
               </ul>
           </div>
       </div>
+      <Routes>
+          <Route path="profile" element={<Profile/>}/>
+          <Route path="my-space" element={<MySpace/>}/>
+          <Route path="subjects" element={<Subjects/>}/>
+          <Route path="quizzes" element={<Quizzes/>}/>
+          <Route path="forum" element={<Forum/>}/>
+      </Routes> 
     </div>
   );
 }

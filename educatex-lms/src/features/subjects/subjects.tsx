@@ -5,6 +5,13 @@ import TwitterIcon from '../../assets/twitter-brands.png';
 import InstagramIcon from '../../assets/instagram-brands.png';
 
 import './subjects.css';
+import { Route, Routes } from 'react-router';
+import { Button } from 'semantic-ui-react';
+import Profile from '../profile/profile';
+import MySpace from '../mySpace/mySpace';
+import Forum from '../forum/forum';
+import Quizzes from '../quizzes/quizzes';
+import { NavLink } from 'react-router-dom';
 
 function Subjects() {
   return (
@@ -15,11 +22,11 @@ function Subjects() {
         </div>
         <div className="header-list">
             <ul>
-                <li><a href="profile.html">Profile</a></li>
-                <li><a href="mySpace.html">My Space</a></li>
-                <li><a href="subjects.html">Subjects</a></li>
-                <li><a href="quizzes.html">Quizzes</a></li>
-                <li><a href="forum.html">Forum</a></li>
+                <li><Button as={NavLink} to={'profile'}>Profile</Button></li>
+                <li><Button as={NavLink} to={'my-space'}>My Space</Button></li>
+                <li><Button as={NavLink} to={'subjects'}>Subjects</Button></li>
+                <li><Button as={NavLink} to={'quizzes'}>Quizzes</Button></li>
+                <li><Button as={NavLink} to={'forum'}>Forum</Button></li>
             </ul>
         </div>
         <div className="header-socials">
@@ -31,9 +38,9 @@ function Subjects() {
             </ul>
         </div>
     </div>
-    <div className="main">
-        <div className="container">
-            <div className="left">
+    <div className="main-subjects">
+        <div className="container-subjects">
+            <div className="left-subjects">
                     <div className="search">
                         <input type="text" placeholder="Search.."/>
                     </div>
@@ -61,7 +68,7 @@ function Subjects() {
                         </ul>
                     </div>
             </div>
-            <div className="right">
+            <div className="right-subjects">
                     <p>Filter Subjects</p>
                     <hr/>
                     <div className="filtering">
@@ -87,8 +94,8 @@ function Subjects() {
             </div>
         </div>
     </div>
-    <div className="footer">
-          <div className="footer-logo">
+    <div className="footer-subjects">
+          <div className="footer-subjects-logo">
               <img src={Logo}/>
           </div>
           <div className="footer-quick-navigation">
@@ -119,6 +126,13 @@ function Subjects() {
               </ul>
           </div>
       </div>
+      <Routes>
+          <Route path="profile" element={<Profile/>}/>
+          <Route path="my-space" element={<MySpace/>}/>
+          <Route path="subjects" element={<Subjects/>}/>
+          <Route path="quizzes" element={<Quizzes/>}/>
+          <Route path="forum" element={<Forum/>}/>
+      </Routes>
     </div>
   );
 }

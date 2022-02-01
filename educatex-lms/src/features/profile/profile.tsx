@@ -6,6 +6,12 @@ import InstagramIcon from '../../assets/instagram-brands.png';
 import ProfileImage from '../../assets/profile-image.jpg';
 
 import './profile.css';
+import { NavLink, Route, Routes } from 'react-router-dom';
+import { Button } from 'semantic-ui-react';
+import MySpace from '../mySpace/mySpace';
+import Subjects from '../subjects/subjects';
+import Quizzes from '../quizzes/quizzes';
+import Forum from '../forum/forum';
 
 function Profile() {
   return (
@@ -16,11 +22,11 @@ function Profile() {
         </div>
         <div className="header-list">
             <ul>
-                <li><a href="profile.html">Profile</a></li>
-                <li><a href="mySpace.html">My Space</a></li>
-                <li><a href="subjects.html">Subjects</a></li>
-                <li><a href="quizzes.html">Quizzes</a></li>
-                <li><a href="forum.html">Forum</a></li>
+                <li><Button as={NavLink} to={'profile'}>Profile</Button></li>
+                <li><Button as={NavLink} to={'my-space'}>My Space</Button></li>
+                <li><Button as={NavLink} to={'subjects'}>Subjects</Button></li>
+                <li><Button as={NavLink} to={'quizzes'}>Quizzes</Button></li>
+                <li><Button as={NavLink} to={'forum'}>Forum</Button></li>
             </ul>
         </div>
         <div className="header-socials">
@@ -32,7 +38,7 @@ function Profile() {
             </ul>
         </div>
     </div>
-    <div className="main profile-container">
+    <div className="main-profile profile-container">
         <div className="user-image">
               <img src={ProfileImage}/>
         </div>

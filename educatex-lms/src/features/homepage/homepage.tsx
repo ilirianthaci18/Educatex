@@ -1,12 +1,13 @@
 import Logo from '../../assets/logoEducatex.png';
 import LoginImage from '../../assets/login.png';
-
+import { NavLink, Route, Routes } from 'react-router-dom';
+import { Button } from 'semantic-ui-react';
 import '../homepage/homepage.css';
 
 function Homepage() {
   return (
     <div className="Homepage">
-      <div className="main">
+      <div className="homepage-main">
           <div className="image">
               <img className="login-logo" src={Logo}/>
               <img className="login-image" src={LoginImage}/>
@@ -25,7 +26,7 @@ function Homepage() {
                           <span>Forgot Password</span>
                       </div>
                   </div>
-                  <input id='loginB' name='login-btn' className="submit" type="submit" value="Log In"/>
+                  <Button as={NavLink} to={'/profile'} id='loginB' name='login-btn' className="submit" type="submit">Log In</Button>
               </form>
           </div>
       </div>

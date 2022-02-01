@@ -10,6 +10,13 @@ import HtmlCourse from '../../assets/html-course.jpg';
 import CybersecurityCourse from '../../assets/cybersecurity-course.jpg';
 
 import '../mySpace/mySpace.css';
+import { Route, Routes } from 'react-router';
+import { Button } from 'semantic-ui-react';
+import Profile from '../profile/profile';
+import { NavLink } from 'react-router-dom';
+import Quizzes from '../quizzes/quizzes';
+import Subjects from '../subjects/subjects';
+import Forum from '../forum/forum';
 
 function MySpace() {
   return (
@@ -20,11 +27,11 @@ function MySpace() {
             </div>
             <div className="header-list">
                 <ul>
-                    <li><a href="profile.html">Profile</a></li>
-                    <li><a href="mySpace.html">My Space</a></li>
-                    <li><a href="subjects.html">Subjects</a></li>
-                    <li><a href="quizzes.html">Quizzes</a></li>
-                    <li><a href="forum.html">Forum</a></li>
+                    <li><Button as={NavLink} to={'profile'}>Profile</Button></li>
+                    <li><Button as={NavLink} to={'my-space'}>My Space</Button></li>
+                    <li><Button as={NavLink} to={'subjects'}>Subjects</Button></li>
+                    <li><Button as={NavLink} to={'quizzes'}>Quizzes</Button></li>
+                    <li><Button as={NavLink} to={'forum'}>Forum</Button></li>
                 </ul>
             </div>
             <div className="header-socials">
@@ -36,30 +43,30 @@ function MySpace() {
                 </ul>
             </div>
         </div>
-    <div className="main">
-        <div className="container">
+    <div className="main-mySpace">
+        <div className="container-mySpace">
                 <button className="bn54">
                     <span className="bn54span">Add Space</span>
                 </button>
             <ul>
-                <li className="box"><img src={CybersecurityCourse}/><p>What is Cybersecurity?</p></li>
-                <li className="box"><a href="htmlSpace.html"><img src={HtmlCourse}/><p>Learn HTML Basics</p></a></li>
-                <li className="box"><img src={NoImage}/><p>Studying for the Biology Exam</p></li>
-                <li className="box"><img src={NoImage}/><p>Notes on Math Homeworks</p></li>
+                <li className="box-mySpace"><img src={CybersecurityCourse}/><p>What is Cybersecurity?</p></li>
+                <li className="box-mySpace"><a href="#"><img src={HtmlCourse}/><p>Learn HTML Basics</p></a></li>
+                <li className="box-mySpace"><img src={NoImage}/><p>Studying for the Biology Exam</p></li>
+                <li className="box-mySpace"><img src={NoImage}/><p>Notes on Math Homeworks</p></li>
             </ul>
             <ul>
-                    <li className="box"><img src={NoImage}/><p>To do for Database Project</p></li>
-                    <li className="box"><img src={CybersecurityCourse}/><p>What is Cybersecurity?</p></li>
-                    <li className="box"><img src={HtmlCourse}/><p>Learn HTML Basics</p></li>
-                    <li className="box"><img src={NotesCourse}/>Daily Notes on Important Remarks</li>
+                    <li className="box-mySpace"><img src={NoImage}/><p>To do for Database Project</p></li>
+                    <li className="box-mySpace"><img src={CybersecurityCourse}/><p>What is Cybersecurity?</p></li>
+                    <li className="box-mySpace"><img src={HtmlCourse}/><p>Learn HTML Basics</p></li>
+                    <li className="box-mySpace"><img src={NotesCourse}/>Daily Notes on Important Remarks</li>
                 </ul>
                 <ul>
-                    <li className="box"><img src={ProjectIdeasCourse}/>Project Ideas!</li>
+                    <li className="box-mySpace"><img src={ProjectIdeasCourse}/>Project Ideas!</li>
                 </ul>
         </div>
     </div>
-    <div className="footer">
-            <div className="footer-logo">
+    <div className="footer-mySpace">
+            <div className="footer-mySpace-logo">
                 <img src={Logo}/>
             </div>
             <div className="footer-quick-navigation">
@@ -89,7 +96,14 @@ function MySpace() {
                     <li>info@educatex.com</li>
                 </ul>
             </div>
-        </div> 
+        </div>
+        <Routes>
+          <Route path="profile" element={<Profile/>}/>
+          <Route path="my-space" element={<MySpace/>}/>
+          <Route path="subjects" element={<Subjects/>}/>
+          <Route path="quizzes" element={<Quizzes/>}/>
+          <Route path="forum" element={<Forum/>}/>
+      </Routes> 
     </div>
   );
 }

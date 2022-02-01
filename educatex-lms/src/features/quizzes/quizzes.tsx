@@ -6,6 +6,12 @@ import InstagramIcon from '../../assets/instagram-brands.png';
 import Quizz1 from '../../assets/robina-weermeijer-Tmkwl7EjVtE-unsplash.jpg';
 
 import './quizzes.css';
+import { Button } from 'semantic-ui-react';
+import Profile from '../profile/profile';
+import { NavLink, Route, Routes } from 'react-router-dom';
+import MySpace from '../mySpace/mySpace';
+import Subjects from '../subjects/subjects';
+import Forum from '../forum/forum';
 
 function Quizzes() {
   return (
@@ -16,11 +22,11 @@ function Quizzes() {
         </div>
         <div className="header-list">
             <ul>
-                <li><a href="profile.html">Profile</a></li>
-                <li><a href="mySpace.html">My Space</a></li>
-                <li><a href="subjects.html">Subjects</a></li>
-                <li><a href="quizzes.html">Quizzes</a></li>
-                <li><a href="forum.html">Forum</a></li>
+                <li><Button as={NavLink} to={'profile'}>Profile</Button></li>
+                <li><Button as={NavLink} to={'my-space'}>My Space</Button></li>
+                <li><Button as={NavLink} to={'subjects'}>Subjects</Button></li>
+                <li><Button as={NavLink} to={'quizzes'}>Quizzes</Button></li>
+                <li><Button as={NavLink} to={'forum'}>Forum</Button></li>
             </ul>
         </div>
         <div className="header-socials">
@@ -35,13 +41,13 @@ function Quizzes() {
         <div className="main">
         <div className="container">
             <ul className="subjects">
-                <li><a href="quizzes.html">Biology</a></li>
-                <li><a href="quizzes.html">Chemistry</a></li>
-                <li><a href="quizzes.html">Physics</a></li>
-                <li><a href="quizzes.html">PE</a></li>
-                <li><a href="quizzes.html">History</a></li>
-                <li><a href="quizzes.html">Math</a></li>
-                <li><a href="quizzes.html">Technology</a></li>
+                <li><a href="#">Biology</a></li>
+                <li><a href="#">Chemistry</a></li>
+                <li><a href="#">Physics</a></li>
+                <li><a href="#">PE</a></li>
+                <li><a href="#">History</a></li>
+                <li><a href="#">Math</a></li>
+                <li><a href="#">Technology</a></li>
             </ul>
             <ul className="quizzes">
                     <ul>
@@ -62,8 +68,8 @@ function Quizzes() {
 
         </div>
     </div>
-    <div className="footer">
-          <div className="footer-logo">
+    <div className="footer-quizzes">
+          <div className="footer-quizzes-logo">
               <img src={Logo}/>
           </div>
           <div className="footer-quick-navigation">
@@ -94,6 +100,13 @@ function Quizzes() {
               </ul>
           </div>
       </div>
+      <Routes>
+          <Route path="profile" element={<Profile/>}/>
+          <Route path="my-space" element={<MySpace/>}/>
+          <Route path="subjects" element={<Subjects/>}/>
+          <Route path="quizzes" element={<Quizzes/>}/>
+          <Route path="forum" element={<Forum/>}/>
+      </Routes>
     </div>
   );
 }

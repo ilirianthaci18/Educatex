@@ -24,11 +24,11 @@ function Forum() {
         </div>
         <div className="header-list">
             <ul>
-                <li><Button as={NavLink} to={'profile'}>Profile</Button></li>
-                <li><Button as={NavLink} to={'my-space'}>My Space</Button></li>
-                <li><Button as={NavLink} to={'subjects'}>Subjects</Button></li>
-                <li><Button as={NavLink} to={'quizzes'}>Quizzes</Button></li>
-                <li><Button as={NavLink} to={'forum'}>Forum</Button></li>
+                <li><Button as={NavLink} to={'/profile'}>Profile</Button></li>
+                <li><Button as={NavLink} to={'/my-space'}>My Space</Button></li>
+                <li><Button as={NavLink} to={'/subjects'}>Subjects</Button></li>
+                <li><Button as={NavLink} to={'/quizzes'}>Quizzes</Button></li>
+                <li><Button as={NavLink} to={'/forum'}>Forum</Button></li>
             </ul>
         </div>
         <div className="header-socials">

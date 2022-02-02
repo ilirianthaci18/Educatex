@@ -13,11 +13,6 @@ function App() {
             <Routes>
                 <Route path='/' element={<Homepage/>}/>
                 <Route path='profile' element={<Profile/>}/>
-                <Route path='profile/my-space' element={<MySpace/>}/>
-                <Route path='profile/my-space/subjects' element={<Subjects/>}/>
-                <Route path='profile/my-space/subjects/quizzes' element={<Quizzes/>}/>
-                <Route path='profile/my-space/subjects/quizzes/forum' element={<Subjects/>}/>
-                <Route path='profile/my-space/subjects/quizzes/forum/profile' element={<Profile/>}/>
                 <Route path='my-space' element={<MySpace/>}/>
                 <Route path='subjects' element={<Subjects/>}/>
                 <Route path='quizzes' element={<Quizzes/>}/>

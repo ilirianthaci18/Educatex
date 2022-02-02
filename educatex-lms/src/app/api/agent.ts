@@ -55,9 +55,9 @@ const ELibrary = {
     showBookByCourse: (name: string) : Promise<IBook[]> => requests.get(`/elibrary/book/course/${name}`), //done
     showAssignmentByCourse: (name: string) : Promise<IAssignment> => requests.get(`/elibrary/assignment/course/${name}`),
 
-    addAssignmentToELibrary: (assignment: IAssignment, id: string) => requests.post(`/elibrary/${id}/assignment/${assignment.id}`, assignment), 
+    addAssignmentToELibrary: (assignment: IAssignment, id: string) => requests.post(`/elibrary/${id}/assignment/${assignment.id}`, assignment), //done
     addBookToELibrary: (book: IBook, id: string) => requests.post(`/elibrary/${id}/book/${book.id}`, book), //done
-    addStudentToELibrary: (student: IStudent, id: string) => requests.post(`/elibrary/${id}/student/${student.id}`, student),
+    addStudentToELibrary: (student: IStudent, id: string) => requests.post(`/elibrary/${id}/student/${student.id}`, student), //done
     addTrainingToELibrary: (training: ITraining, id: string) => requests.post(`/elibrary/${id}/training/${training.id}`, training), //done
     addRatingToBook: (rating: IRating, book_id: string) => requests.post(`/elibrary/book/${book_id}/rating/${rating.id}`, rating), //done
     getMostRatedBook: () : Promise<IBook> => requests.get('/elibrary/mostRatedBook')

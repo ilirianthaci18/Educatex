@@ -6,7 +6,7 @@ import InstagramIcon from '../../assets/instagram-brands.png';
 import AddComment from '../../assets/add-comment.png';
 import CommentImage from '../../assets/comment.png';
 import UserLogo from '../../assets/user.png';
-
+import axios from 'axios';
 import '../forum/forum.css';
 import { Button } from 'semantic-ui-react';
 import Profile from '../profile/profile';
@@ -14,8 +14,18 @@ import MySpace from '../mySpace/mySpace';
 import Subjects from '../subjects/subjects';
 import Quizzes from '../quizzes/quizzes';
 import { NavLink, Route, Routes } from 'react-router-dom';
+import React, {useEffect, useState} from 'react';
+import { useStore } from "../../app/stores/store";
+import {observer} from "mobx-react-lite";
+import ForumDashboard from "./forumDashboard/ForumDashboard";
 
 function Forum() {
+    const {forumStore} = useStore();
+    const {openForm}=forumStore;
+    useEffect(() => {
+        forumStore.loadForums();
+    }, [forumStore])
+
   return (
     <div className="Forum">
       <div className="header">
@@ -131,7 +141,8 @@ function Forum() {
                    </div>
                </div>
            </div>
-       </div>
+           <ForumDashboard />   
+       </div>   
    </div>
     <div className="footer-forum">
           <div className="footer-forum-logo">
@@ -175,5 +186,4 @@ function Forum() {
     </div>
   );
 }
-
-export default Forum;
+export default observer(Forum);

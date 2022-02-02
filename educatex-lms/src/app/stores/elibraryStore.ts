@@ -6,6 +6,7 @@ import { IBook } from "../models/book";
 import { IRating } from "../models/rating";
 import { ITraining } from "../models/training";
 import { ICourse } from "../models/course";
+import { IStudent } from "../models/student";
 
 export default class ELibraryStore{
     elibraryRegistry = new Map<string, IELibrary>();
@@ -23,8 +24,8 @@ export default class ELibraryStore{
     trainingRegistry = new Map<string, ITraining>();
     selectedTraining : ITraining | undefined = undefined;
 
-    //assignmentToELibraryRegistry = new Map <IAssignment, string>();
-    //selectedAssignmentToELibrary : 
+    studentRegistry = new Map<string, IStudent>();
+    selectedStudent : IStudent | undefined = undefined;  
 
     editMode = false;
 
@@ -277,6 +278,32 @@ export default class ELibraryStore{
             runInAction( () => {
                 this.ratingRegistry.set(rating.book_id, rating);
                 this.selectedRating=rating;
+                this.editMode=false;
+            })
+        }catch (error) {
+            console.log(error);
+        }
+    }
+
+    addStudentToELibrary = async(student: IStudent) => {
+        try{
+            await agent.ELibrary.addStudentToELibrary(student, student.id);
+            runInAction( () => {
+                this.studentRegistry.set(student.id, student);
+                this.selectedStudent=student;
+                this.editMode=false;
+            })
+        }catch (error) {
+            console.log(error);
+        }
+    }
+
+    addAssignmentToELibrary = async (assignment: IAssignment) => {
+        try{
+            await agent.ELibrary.addAssignmentToELibrary(assignment, assignment.id);
+            runInAction( () => {
+                this.assignmentRegistry.set(assignment.id, assignment);
+                this.selectedAssignment=assignment;
                 this.editMode=false;
             })
         }catch (error) {

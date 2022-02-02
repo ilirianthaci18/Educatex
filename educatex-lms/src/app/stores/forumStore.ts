@@ -28,7 +28,7 @@ export default class ForumStore {
         makeAutoObservable(this)
     }
 
-    getForumByName() {
+    get forumByName() {
         return Array.from(this.forumRegistry.values());
     }
 

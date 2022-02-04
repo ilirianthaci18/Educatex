@@ -1,10 +1,13 @@
 package com.educatex.lms.model;
 
+import com.educatex.lms.observer.Observable;
+import com.educatex.lms.observer.Observer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,7 +18,7 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Table
-public class Post {
+public class Post implements Observer, Serializable {
 
     @Id
     @SequenceGenerator(name="post_sequence",sequenceName = "post_sequence",allocationSize = 1)
@@ -66,4 +69,8 @@ public class Post {
         }
     }
 
+    @Override
+    public void update(Observable o, Object arg) {
+        this.addReply((Reply) arg);
+    }
 }

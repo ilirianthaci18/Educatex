@@ -4,6 +4,7 @@ import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Set;
 
 @Getter
@@ -12,7 +13,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Entity
 @Table
-public class Admin{
+public class Admin implements Serializable {
 
     @Id
     @SequenceGenerator(name = "admin_sequence", sequenceName = "admin_sequence", allocationSize = 1)

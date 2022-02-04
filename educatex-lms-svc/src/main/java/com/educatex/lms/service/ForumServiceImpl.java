@@ -80,11 +80,6 @@ public class ForumServiceImpl implements ForumService {
     }
 
     @Override
-    public ArrayList<Post> getPostByCourse(Course course) {
-        return null;
-    }
-
-    @Override
     public Forum saveForum(Forum forum) {
         return forumRepository.save(forum);
     }
@@ -155,6 +150,8 @@ public class ForumServiceImpl implements ForumService {
         Reply reply=getReplyById(replyId);
 
         post.addReply(reply);
+        reply.addObserver(post);
+        reply.setPost(post);
 
         postRepository.save(post);
     }

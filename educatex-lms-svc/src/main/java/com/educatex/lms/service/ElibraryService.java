@@ -36,15 +36,9 @@ public interface ElibraryService {
 
     Book saveBook(Book book);
 
-    Book getMostRatedBook();
+    List<BookDTO> showBookByAuthor(String name);
 
-    List<Book> showBookByAuthor(String name);
-
-    Set<Book> showBookByCourse(String name);
-
-    Set<Training> showTrainingByCourse(String name);
-
-    Set<Assignment> showAssignmentByCourse(String name);
+    Set<BookDTO> showBookByCourse(String name);
 
     void addRatingToTraining(Long ratingId,Long trainingId);
 

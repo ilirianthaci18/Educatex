@@ -103,29 +103,20 @@ public class ElibraryServiceImpl implements ElibraryService {
     }
 
     @Override
-    public Book getMostRatedBook() {
-        return null;
-    } //TODO
+    public List<BookDTO> showBookByAuthor(String name) {
+        return elibraryRepository.showBookByAuthor(name).stream().map(book -> {
+            return toBookDTO(book);
+        }).collect(Collectors.toList());
+    }
 
     @Override
-    public List<Book> showBookByAuthor(String name) {
-        return null;
-    } //TODO
+    public Set<BookDTO> showBookByCourse(String name) {
+        Long id=elibraryRepository.selectCourseByName(name);
 
-    @Override
-    public Set<Book> showBookByCourse(String name) {
-        return null;
-    } //TODO
-
-    @Override
-    public Set<Training> showTrainingByCourse(String name) {
-        return null;
-    } //TODO
-
-    @Override
-    public Set<Assignment> showAssignmentByCourse(String name) {
-        return null;
-    } //TODO
+        return elibraryRepository.showBookByCourse(id).stream().map(book -> {
+            return toBookDTO(book);
+        }).collect(Collectors.toSet());
+    }
 
     @Override
     public Training addTraining(Training training) {
@@ -262,7 +253,7 @@ public class ElibraryServiceImpl implements ElibraryService {
 
     @Override
     public List<TrainingDTO> findByTrainingIdAndCreatedAt(LocalDate date) {
-        List<Training> trainings=elibraryRepository.findByTrainingIdAndCreatedAt(date);
+        List<Training> trainings = elibraryRepository.findByTrainingIdAndCreatedAt(date);
 
         return trainings.stream().map(training -> {
             return toTrainingDTO(training);
@@ -271,7 +262,7 @@ public class ElibraryServiceImpl implements ElibraryService {
 
     @Override
     public List<AssignmentDTO> findByAssignmentCreatedAt(LocalDate date) {
-        List<Assignment> assignments=elibraryRepository.findByAssignmentCreatedAt(date);
+        List<Assignment> assignments = elibraryRepository.findByAssignmentCreatedAt(date);
 
         return assignments.stream().map(assignment -> {
             return toAssignmentDTO(assignment);

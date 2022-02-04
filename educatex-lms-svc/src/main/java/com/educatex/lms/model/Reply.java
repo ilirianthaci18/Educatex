@@ -1,8 +1,10 @@
 package com.educatex.lms.model;
 
+import com.educatex.lms.observer.Observable;
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Getter
 @Setter
@@ -10,7 +12,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Entity
 @Table
-public class Reply {
+public class Reply extends Observable implements Serializable {
     @Id
     @SequenceGenerator(name="reply_sequence",sequenceName = "reply_sequence",allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "reply_sequence")
@@ -36,4 +38,10 @@ public class Reply {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "post_id",referencedColumnName = "postId")
     private Post post;
+
+    public void setPost(Post post){
+        this.post=post;
+        setChanged();
+        notifyObservers(post);
+    }
 }

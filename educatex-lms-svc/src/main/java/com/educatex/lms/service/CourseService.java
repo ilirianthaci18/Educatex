@@ -12,7 +12,7 @@ import java.util.Set;
 
 public interface CourseService {
     boolean isStudentEnrolled(Long courseId,Student student);
-    void printCourseInfo(Course course);
+    String printCourseInfo(Course course);
     Professor courseProfessor(Long courseId);
     List<CourseDTO> getCourses();
     CourseDTO findCourseById(Long id);
@@ -20,8 +20,6 @@ public interface CourseService {
     Course saveCourse(Course course);
     Course getCourseById(Long id);
     void deleteCourse(Long id);
-//    void addStudentToSubject(Long courseId,Long studentId,String courseCode);
-//    void assignProfessorToSubject(Long courseId,Long professorId);
     void assignBookToCourse(Long courseId,Long bookId);
     void deleteAllCourses();
 }

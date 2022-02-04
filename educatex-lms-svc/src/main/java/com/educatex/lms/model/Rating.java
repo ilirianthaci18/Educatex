@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.List;
 
 @Getter
 @Setter
@@ -12,7 +14,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Table
 @Entity
-public class Rating {
+public class Rating implements Serializable {
     @Id
     @SequenceGenerator(name="rating_sequence",sequenceName = "rating_sequence",allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "rating_sequence")
@@ -56,5 +58,4 @@ public class Rating {
     public Training getTraining() {
         return training;
     }
-
 }

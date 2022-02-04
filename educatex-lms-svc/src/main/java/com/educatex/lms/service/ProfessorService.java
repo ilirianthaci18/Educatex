@@ -1,5 +1,6 @@
 package com.educatex.lms.service;
 
+import com.educatex.lms.common.dto.ProfessorDTO;
 import com.educatex.lms.common.dto.ProfessorDTOCourse;
 import com.educatex.lms.model.Course;
 import com.educatex.lms.model.Professor;
@@ -16,7 +17,7 @@ public interface ProfessorService {
 
     void deleteProfessor(Long id);
 
-    List<Professor> getAllProfessors();
+    List<ProfessorDTO> getAllProfessors();
 
     Professor getProfessorById(Long id);
 

@@ -1,47 +1,23 @@
 package com.educatex.lms.model;
 
-import com.educatex.lms.common.security.PasswordConfig;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.crypto.password.PasswordEncoder;
+
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.*;
 
+
+
 @NoArgsConstructor
-@RequiredArgsConstructor
 @Getter
 @Setter
 @Entity
 @Table
-public class Student {
-//    extends ApplicationUser
-
-//    public Student() {
-//        super(username, password, grantedAuthorities, isAccountNonExpired, isAccountNonLocked, isCredentialNonExpired, isEnabled);
-//    }
-//
-//    public Student(String username, String password, Set<? extends GrantedAuthority> grantedAuthorities, boolean isAccountNonExpired, boolean isAccountNonLocked, boolean isCredentialNonExpired, boolean isEnabled, Long id, @NonNull String name, @NonNull String lastName, @NonNull char gender, @NonNull int age, @NonNull Long personalNum, LocalDateTime studentCreatedAt,
-//                   boolean iRregullt, List<Post> posts, Set<Course> courses, List<Rating> ratingList, Forum forum, Elibrary e_library) {
-//        super(username, password, grantedAuthorities, isAccountNonExpired, isAccountNonLocked, isCredentialNonExpired, isEnabled);
-//        this.id = id;
-//        this.name = name;
-//        this.lastName = lastName;
-//        this.gender = gender;
-//        this.age = age;
-//        this.personalNum = personalNum;
-//        this.studentCreatedAt = studentCreatedAt;
-//        this.iRregullt = iRregullt;
-//        this.posts = posts;
-//        this.courses = courses;
-//        this.ratingList = ratingList;
-//        this.forum = forum;
-//        this.e_library = e_library;
-//    }
-
+public class Student implements Serializable {
     @Id
     @SequenceGenerator(name="student_sequence",sequenceName = "student_sequence",allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "student_sequence")
@@ -77,19 +53,19 @@ public class Student {
 
     @JsonIgnore
     @OneToMany(cascade = {CascadeType.PERSIST,CascadeType.REMOVE},orphanRemoval = true,mappedBy="studentAction",fetch = FetchType.LAZY)
-    private List<Search> searches=new ArrayList<>();
+    private List<Search> searches;
 
     @JsonIgnore
     @OneToMany(cascade = {CascadeType.PERSIST,CascadeType.REMOVE},orphanRemoval = true,mappedBy="post_author",fetch = FetchType.LAZY)
-    private List<Post> posts=new ArrayList<>();
+    private List<Post> posts;
 
     @JsonIgnore
     @ManyToMany(mappedBy = "enrolledStudents")
-    private Set<Course> courses=new HashSet<>();
+    private Set<Course> courses;
 
     @JsonIgnore
     @OneToMany(cascade = {CascadeType.PERSIST,CascadeType.REMOVE},orphanRemoval = true,mappedBy="author",fetch = FetchType.LAZY)
-    private List<Rating> ratingList=new ArrayList<>();
+    private List<Rating> ratingList;
 
     @JsonIgnore
     @ManyToOne(cascade = CascadeType.ALL)
@@ -110,6 +86,60 @@ public class Student {
     public List<Post> getPosts() {
         return posts;
     }
+
+    public Student(StudentBuilder builder) {
+        this.name = builder.name;
+        this.lastName = builder.lastName;
+        this.gender = builder.gender;
+        this.age = builder.age;
+        this.personalNum = builder.personalNum;
+
+    }
+
+    public static class StudentBuilder{
+        private String name;
+        private String lastName;
+        private char gender;
+        private int age;
+        private Long personalNum;
+        private boolean iRregullt;
+
+        public StudentBuilder setName(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public StudentBuilder setLastName(String lastName) {
+            this.lastName = lastName;
+            return this;
+        }
+
+        public StudentBuilder setGender(char gender) {
+            this.gender = gender;
+            return this;
+        }
+
+        public StudentBuilder setAge(int age) {
+            this.age = age;
+            return this;
+        }
+
+        public StudentBuilder setPersonalNum(Long personalNum) {
+            this.personalNum = personalNum;
+            return this;
+        }
+
+        public StudentBuilder setRregullt(boolean rregullt){
+            this.iRregullt=rregullt;
+            return this;
+        }
+
+        public Student build(){
+            Student student=new Student(this);
+            return student;
+        }
+    }
+
 
     public void addCourses(Course course){
         if(!courses.contains(course)) {

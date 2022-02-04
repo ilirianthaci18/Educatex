@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,7 +16,7 @@ import java.util.List;
 @Setter
 @Entity
 @Table
-public class StudentAction {
+public class StudentAction implements Serializable {
 
     @Id
     @SequenceGenerator(name="student_action_sequence",sequenceName = "student_action_sequence",allocationSize = 1)

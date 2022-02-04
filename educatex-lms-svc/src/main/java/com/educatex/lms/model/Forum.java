@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -16,7 +17,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Entity
 @Table
-public class Forum {
+public class Forum implements Serializable {
 
     @Id
     @SequenceGenerator(name="forum_sequence",sequenceName = "forum_sequence",allocationSize = 1)

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @NoArgsConstructor
 @RequiredArgsConstructor
@@ -11,7 +12,7 @@ import javax.persistence.*;
 @Setter
 @Entity
 @Table
-public class Search {
+public class Search implements Serializable {
 
     @Id
     @SequenceGenerator(name="search_sequence",sequenceName = "search_sequence",allocationSize = 1)

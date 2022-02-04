@@ -1,9 +1,6 @@
 package com.educatex.lms.service;
 
-import com.educatex.lms.model.Admin;
-import com.educatex.lms.model.Course;
-import com.educatex.lms.model.Professor;
-import com.educatex.lms.model.Student;
+import com.educatex.lms.model.*;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -39,7 +36,7 @@ public interface AdminService {
 
     void unenrollStudentsFromCourse(Student student, Course course);
 
-    List<Admin> findAllByFirstName(@Param("firstName") String firstName);
+    List<Admin> findAllByFirstName(String firstName);
 
     Integer countAdmins();
 }

@@ -1,5 +1,6 @@
 package com.educatex.lms.service;
 
+import com.educatex.lms.common.dto.ProfessorDTO;
 import com.educatex.lms.common.dto.ProfessorDTOCourse;
 import com.educatex.lms.exception.NotFoundException;
 import com.educatex.lms.model.Course;
@@ -10,11 +11,12 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import static com.educatex.lms.common.mappers.ProfessorMapper.professorToCourse;
+import static com.educatex.lms.common.mappers.ProfessorMapper.*;
 
 @AllArgsConstructor
 @Slf4j
@@ -23,9 +25,16 @@ public class ProfessorServiceImpl implements ProfessorService{
 
     private ProfessorRepository professorRepository;
 
-    @Override //todo ProfessorDTO
-    public List<Professor> getAllProfessors() {
-        return professorRepository.findAll();
+    @Override
+    public List<ProfessorDTO> getAllProfessors() {
+        List<Professor> professors= professorRepository.findAll();
+        List<ProfessorDTO> professorDTOS=new ArrayList<>();
+
+        professors.stream().forEach(professor -> {
+            professorDTOS.add(professorDTO(professor));
+        });
+
+        return professorDTOS;
     }
 
     @Override

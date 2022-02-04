@@ -1,9 +1,6 @@
 package com.educatex.lms.service;
 
-import com.educatex.lms.model.Admin;
-import com.educatex.lms.model.Course;
-import com.educatex.lms.model.Professor;
-import com.educatex.lms.model.Student;
+import com.educatex.lms.model.*;
 import com.educatex.lms.repository.AdminRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -101,4 +98,5 @@ public class AdminServiceImpl implements AdminService {
     public Integer countAdmins() {
         return adminRepository.countAdmins();
     }
+
 }

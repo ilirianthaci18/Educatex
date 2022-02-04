@@ -4,17 +4,17 @@ import lombok.AllArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.persistence.Entity;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
+import javax.persistence.*;
 import java.util.Collection;
 import java.util.Set;
 
+import static com.educatex.lms.common.enums.ApplicationUserRole.STUDENT;
 
-//@Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)
-//@Entity
+
+
 @AllArgsConstructor
 public class ApplicationUser implements UserDetails {
+
     private final String username;
     private final String password;
     private final Set<? extends GrantedAuthority> grantedAuthorities;
@@ -23,7 +23,6 @@ public class ApplicationUser implements UserDetails {
     private final boolean isAccountNonLocked;
     private final boolean isCredentialNonExpired;
     private final boolean isEnabled;
-
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

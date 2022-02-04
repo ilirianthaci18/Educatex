@@ -18,8 +18,6 @@ public interface ForumService {
 
     Reply getReplyById(Long replyId);
 
-    ArrayList<Post> getPostByCourse(Course course);
-
     List<Reply> getAllReplies();
 
     List<PostDTO> getAllPost();

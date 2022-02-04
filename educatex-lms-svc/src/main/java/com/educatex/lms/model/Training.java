@@ -6,6 +6,7 @@ import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
@@ -17,7 +18,7 @@ import java.util.List;
 @Setter
 @Entity
 @Table
-public class Training {
+public class Training implements Serializable {
     @Id
     @SequenceGenerator(name="training_sequence",sequenceName = "training_sequence",allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "training_sequence")

@@ -90,19 +90,47 @@ public class DatabaseInitializationImpl implements DatabaseIntialization{
     }
 
     private void initializeProfessors(){
-        Professor professor=new Professor("Chris","Voss",'M',42,1020354978765456L);
-        Professor professor2=new Professor("Cory","Snowden",'F',40,6532987412659843L);
+        Professor professor=new Professor.ProfessorBuilder()
+                .name("Chris")
+                .lastName("Voss")
+                .gender('M')
+                .age(42)
+                .personalNum(1020354978765456L)
+                .build();
+
+        Professor professor2=new Professor.ProfessorBuilder()
+                .name("Cory")
+                .lastName("Snowden")
+                .gender('F')
+                .age(40)
+                .personalNum(6532987412659843L)
+                .build();
 
         professorService.saveProfessor(professor);
         professorService.saveProfessor(professor2);
     }
 
     private void initializeStudents(){
-        Student student=new Student("John","Doe",'M',20,10203040506070L,true);
-        Student student2=new Student("Jane","Doe",'F',21,70809010203040L,true);
+        Student student=new Student.StudentBuilder()
+                .setName("John")
+                .setLastName("Doe")
+                .setGender('M')
+                .setAge(20)
+                .setPersonalNum(10203040506070L)
+                .setRregullt(true)
+                .build();
+
+        Student student1=new Student.StudentBuilder()
+                .setName("Jane")
+                .setLastName("Doe")
+                .setGender('F')
+                .setAge(21)
+                .setPersonalNum(70809010203040L)
+                .setRregullt(true)
+                .build();
 
         studentService.saveStudent(student);
-        studentService.saveStudent(student2);
+        studentService.saveStudent(student1);
     }
 
     private void initializeElibrary(){

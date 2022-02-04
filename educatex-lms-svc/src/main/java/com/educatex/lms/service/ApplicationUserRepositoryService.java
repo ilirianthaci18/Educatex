@@ -28,34 +28,35 @@ public class ApplicationUserRepositoryService implements ApplicationUserReposito
 
     private List<ApplicationUser> getApplicationUsers(){
         List<ApplicationUser> applicationUsers= Lists.newArrayList(
-            new ApplicationUser(
-                    "john",
-                    passwordEncoder.encode("password"),
-                    STUDENT.getGrantedAuthorities(),
-                    true,
-                    true,
-                    true,
-                    true
-            ),
-            new ApplicationUser(
-                    "chris",
-                    passwordEncoder.encode("password"),
-                    PROFESSOR.getGrantedAuthorities(),
-                    true,
-                    true,
-                    true,
-                    true
-
-            ),
-            new ApplicationUser(
-                    "denzel",
-                    passwordEncoder.encode("password123"),
-                    ADMIN.getGrantedAuthorities(),
-                    true,
-                    true,
-                    true,
-                    true
-            )
+//            new ApplicationUser(
+//                    "john",
+//                    passwordEncoder.encode("password"),
+//                    STUDENT.getGrantedAuthorities(),
+//                    true,
+//                    true,
+//                    true,
+//                    true
+//            ),
+//            new ApplicationUser(
+//                    "chris",
+//                    passwordEncoder.encode("password"),
+//                    PROFESSOR.getGrantedAuthorities(),
+//                    true,
+//                    true,
+//                    true,
+//                    true
+//
+//            ),
+//            new ApplicationUser(
+//                    "denzel",
+//                    passwordEncoder.encode("password123"),
+//                    ADMIN.getGrantedAuthorities(),
+//                    true,
+//                    true,
+//                    true,
+//                    true
+//            )
+//        )
         );
 
         return applicationUsers;

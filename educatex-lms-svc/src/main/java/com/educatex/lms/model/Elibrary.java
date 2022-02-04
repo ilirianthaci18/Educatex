@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -14,7 +15,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Entity
 @Table
-public class Elibrary {
+public class Elibrary implements Serializable {
 
     @Id
     @SequenceGenerator(name="elibrary_sequence",sequenceName = "elibrary_sequence",allocationSize = 1)

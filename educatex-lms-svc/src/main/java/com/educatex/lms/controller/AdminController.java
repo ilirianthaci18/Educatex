@@ -6,12 +6,15 @@ import com.educatex.lms.model.Professor;
 import com.educatex.lms.model.Student;
 import com.educatex.lms.service.*;
 import lombok.AllArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import javax.validation.Valid;
 
 
+@CrossOrigin(originPatterns = "*")
+@PreAuthorize("hasAnyRole('ROLE_ADMIN')")
 @AllArgsConstructor
 @RestController
 @RequestMapping("api/admin")
@@ -23,19 +26,20 @@ public class AdminController {
     private ElibraryService elibraryService;
     private ProfessorService professorService;
     private ForumService forumService;
-    private DatabaseIntialization databaseIntialization;
+
 
     @GetMapping
     public List<Admin> getAllAdmins() {
         return adminService.getAllAdmins();
     }
 
-    @GetMapping("/firstName") //TODO NOT TESTED
+
+    @GetMapping("/firstName")
     public List<Admin> getAllAdminsByFirstName(@PathVariable String firstName) {
         return adminService.findAllByFirstName(firstName);
     }
 
-    @GetMapping("/countAdmins") //TODO NOT TESTED
+    @GetMapping("/countAdmins")
     public Integer getCountAdmins() {
         return adminService.countAdmins();
     }
@@ -61,25 +65,26 @@ public class AdminController {
     }
 
     @PostMapping("/enroll/student/course")
-    public void enrollStudentForCourse(@RequestBody @Valid Student student,@RequestBody @Valid Course course){
-        adminService.enrollStudentsForCourse(student,course);
+    public void enrollStudentForCourse(@RequestBody @Valid Student student, @RequestBody @Valid Course course) {
+        adminService.enrollStudentsForCourse(student, course);
     }
 
     @PostMapping("/unenroll/student/course/{id}")
-    public void unenrollStudentFromCourse(@RequestBody @Valid Student student,@PathVariable Long id){}
+    public void unenrollStudentFromCourse(@RequestBody @Valid Student student, @PathVariable Long id) {
+    }
 
     @PutMapping("/edit/course")
-    public Course editCourse(@RequestBody @Valid Course course){
+    public Course editCourse(@RequestBody @Valid Course course) {
         return adminService.modifyCourse(course);
     }
 
     @PutMapping("/edit/student")
-    public Student editStudent(@RequestBody @Valid Student student){
+    public Student editStudent(@RequestBody @Valid Student student) {
         return adminService.modifyStudent(student);
     }
 
     @PutMapping("/edit/professor")
-    public Professor editProfessor(@RequestBody @Valid Professor professor){
+    public Professor editProfessor(@RequestBody @Valid Professor professor) {
         return adminService.modifyProfessor(professor);
     }
 
@@ -104,47 +109,47 @@ public class AdminController {
     }
 
     @DeleteMapping("/students")
-    public void deleteAllStudents(){
+    public void deleteAllStudents() {
         studentService.deleteAllStudents();
     }
 
     @DeleteMapping("/assignments")
-    public void deleteAllAssignments(){
+    public void deleteAllAssignments() {
         elibraryService.deleteAllAssignments();
     }
 
     @DeleteMapping("/books")
-    public void deleteAllBooks(){
+    public void deleteAllBooks() {
         elibraryService.deleteAllBooks();
     }
 
     @DeleteMapping("/course")
-    public void deleteAllCourse(){
+    public void deleteAllCourse() {
         courseService.deleteAllCourses();
     }
 
     @DeleteMapping("/post")
-    public void deleteAllPost(){
+    public void deleteAllPost() {
         forumService.deleteAllPosts();
     }
 
     @DeleteMapping("/professor")
-    public void deleteAllProfessor(){
+    public void deleteAllProfessor() {
         professorService.deleteAllProfessors();
     }
 
     @DeleteMapping("/ratings")
-    public void deleteAllRatings(){
+    public void deleteAllRatings() {
         elibraryService.deleteAllRatings();
     }
 
     @DeleteMapping("/replies")
-    public void delete(){
+    public void delete() {
         forumService.deleteAllReply();
     }
 
     @DeleteMapping("/trainings")
-    public void deleteAllTrainings(){
+    public void deleteAllTrainings() {
         elibraryService.deleteAllTrainings();
     }
 }

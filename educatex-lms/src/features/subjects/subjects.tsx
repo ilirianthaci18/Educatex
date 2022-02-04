@@ -12,6 +12,7 @@ import MySpace from '../mySpace/mySpace';
 import Forum from '../forum/forum';
 import Quizzes from '../quizzes/quizzes';
 import { NavLink } from 'react-router-dom';
+import HTMLSpace from '../htmlSpace/htmlSpace';
 
 function Subjects() {
   return (
@@ -132,6 +133,7 @@ function Subjects() {
           <Route path="subjects" element={<Subjects/>}/>
           <Route path="quizzes" element={<Quizzes/>}/>
           <Route path="forum" element={<Forum/>}/>
+          <Route path="html-space" element={<HTMLSpace/>}/>
       </Routes>
     </div>
   );

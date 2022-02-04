@@ -3,13 +3,12 @@ import FacebookIcon from '../../assets/facebook-brands.png';
 import LinkedinIcon from '../../assets/linkedin-brands.png';
 import TwitterIcon from '../../assets/twitter-brands.png';
 import InstagramIcon from '../../assets/instagram-brands.png';
-import ProjectIdeasCourse from '../../assets/junior-ferreira-7esRPTt38nI-unsplash.jpg';
-import NotesCourse from '../../assets/kelly-sikkema--1_RZL8BGBM-unsplash.jpg';
-import NoImage from '../../assets/no-image.jpg';
-import HtmlCourse from '../../assets/html-course.jpg';
-import CybersecurityCourse from '../../assets/cybersecurity-course.jpg';
+import FirstImg from '../../assets/florian-olivo-4hbJ-eymZ1o-unsplash.jpg';
+import SecondImg from '../../assets/kobu-agency-ipARHaxETRk-unsplash.jpg';
+import ThirdImg from '../../assets/valery-sysoev-p9OkL4yW3C8-unsplash.jpg';
+import PlayImg from '../../assets/play.png';
 
-import '../mySpace/mySpace.css';
+import '../htmlSpace/htmlSpace.css';
 import { Route, Routes } from 'react-router';
 import { Button } from 'semantic-ui-react';
 import Profile from '../profile/profile';
@@ -17,10 +16,9 @@ import { NavLink } from 'react-router-dom';
 import Quizzes from '../quizzes/quizzes';
 import Subjects from '../subjects/subjects';
 import Forum from '../forum/forum';
-import HTMLSpace from '../htmlSpace/htmlSpace';
-import { Nav } from 'react-bootstrap';
+import MySpace from '../mySpace/mySpace';
 
-function MySpace() {
+function HTMLSpace() {
   return (
       <div className='MySpace'>
         <div className="header">
@@ -45,30 +43,56 @@ function MySpace() {
                 </ul>
             </div>
         </div>
-    <div className="main-mySpace">
-        <div className="container-mySpace">
-                <button className="bn54">
-                    <span className="bn54span">Add Space</span>
-                </button>
-            <ul>
-                <li className="box-mySpace"><img src={CybersecurityCourse}/><p>What is Cybersecurity?</p></li>
-                <li className="box-mySpace"><Button as={NavLink} to={'/html-space'}><img src={HtmlCourse}/><p>Learn HTML Basics</p></Button></li>
-                <li className="box-mySpace"><img src={NoImage}/><p>Studying for the Biology Exam</p></li>
-                <li className="box-mySpace"><img src={NoImage}/><p>Notes on Math Homeworks</p></li>
-            </ul>
-            <ul>
-                    <li className="box-mySpace"><img src={NoImage}/><p>To do for Database Project</p></li>
-                    <li className="box-mySpace"><img src={CybersecurityCourse}/><p>What is Cybersecurity?</p></li>
-                    <li className="box-mySpace"><img src={HtmlCourse}/><p>Learn HTML Basics</p></li>
-                    <li className="box-mySpace"><img src={NotesCourse}/>Daily Notes on Important Remarks</li>
-                </ul>
-                <ul>
-                    <li className="box-mySpace"><img src={ProjectIdeasCourse}/>Project Ideas!</li>
-                </ul>
+    <div className="main-htmlSpace">
+        <div className="container-htmlSpace">
+            <div className="top-html">
+                <div>
+                    <h2>Tutorials</h2>
+                </div>
+                <div>
+                    <div>
+                        <ul>
+                            <li>
+                                <img src={FirstImg}/>
+                                <img className="play" src={PlayImg}/>
+                            </li>
+                            <li>
+                                <img src={SecondImg}/>
+                                <img className="play" src={PlayImg}/>
+                            </li>
+                            <li>
+                                <img src={ThirdImg}/>
+                                <img className="play" src={PlayImg}/>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div className="bottom-html">
+                <div className="list-elements">
+                    <ul>
+                        <li>Elements</li>
+                        <li>Body Parts</li>
+                            <ul className="inner-list">
+                                <li>header</li>
+                                <li>main</li>
+                                <li>footer</li>
+                            </ul>
+                        <li>Div</li>
+                        <li>Image</li>
+                        <li>Link</li>
+                    </ul>
+                </div>
+                <div className="content">
+                    <textarea>
+
+                    </textarea>
+                </div>
+            </div>
         </div>
     </div>
-    <div className="footer-mySpace">
-            <div className="footer-mySpace-logo">
+    <div className="footer-html">
+            <div className="footer-html-logo">
                 <img src={Logo}/>
             </div>
             <div className="footer-quick-navigation">
@@ -111,4 +135,4 @@ function MySpace() {
   );
 }
 
-export default MySpace;
+export default HTMLSpace;

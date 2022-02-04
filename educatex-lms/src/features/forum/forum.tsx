@@ -18,6 +18,7 @@ import React, {useEffect, useState} from 'react';
 import { useStore } from "../../app/stores/store";
 import {observer} from "mobx-react-lite";
 import ForumDashboard from "./forumDashboard/ForumDashboard";
+import HTMLSpace from '../htmlSpace/htmlSpace';
 
 function Forum() {
     const {forumStore} = useStore();
@@ -141,7 +142,7 @@ function Forum() {
                    </div>
                </div>
            </div>
-           <ForumDashboard />   
+           {/*<ForumDashboard />*/} 
        </div>   
    </div>
     <div className="footer-forum">
@@ -182,6 +183,7 @@ function Forum() {
           <Route path="subjects" element={<Subjects/>}/>
           <Route path="quizzes" element={<Quizzes/>}/>
           <Route path="forum" element={<Forum/>}/>
+          <Route path="html-space" element={<HTMLSpace/>}/>
       </Routes> 
     </div>
   );

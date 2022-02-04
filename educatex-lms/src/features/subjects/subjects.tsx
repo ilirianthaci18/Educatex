@@ -10,7 +10,6 @@ import { Button } from 'semantic-ui-react';
 import Profile from '../profile/profile';
 import MySpace from '../mySpace/mySpace';
 import Forum from '../forum/forum';
-import Quizzes from '../quizzes/quizzes';
 import { NavLink } from 'react-router-dom';
 import HTMLSpace from '../htmlSpace/htmlSpace';
 
@@ -26,7 +25,6 @@ function Subjects() {
                 <li><Button as={NavLink} to={'/profile'}>Profile</Button></li>
                 <li><Button as={NavLink} to={'/my-space'}>My Space</Button></li>
                 <li><Button as={NavLink} to={'/subjects'}>Subjects</Button></li>
-                <li><Button as={NavLink} to={'/quizzes'}>Quizzes</Button></li>
                 <li><Button as={NavLink} to={'/forum'}>Forum</Button></li>
             </ul>
         </div>
@@ -131,7 +129,6 @@ function Subjects() {
           <Route path="profile" element={<Profile/>}/>
           <Route path="my-space" element={<MySpace/>}/>
           <Route path="subjects" element={<Subjects/>}/>
-          <Route path="quizzes" element={<Quizzes/>}/>
           <Route path="forum" element={<Forum/>}/>
           <Route path="html-space" element={<HTMLSpace/>}/>
       </Routes>

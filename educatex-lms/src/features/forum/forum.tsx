@@ -12,7 +12,6 @@ import { Button } from 'semantic-ui-react';
 import Profile from '../profile/profile';
 import MySpace from '../mySpace/mySpace';
 import Subjects from '../subjects/subjects';
-import Quizzes from '../quizzes/quizzes';
 import { NavLink, Route, Routes } from 'react-router-dom';
 import React, {useEffect, useState} from 'react';
 import { useStore } from "../../app/stores/store";
@@ -38,7 +37,6 @@ function Forum() {
                 <li><Button as={NavLink} to={'/profile'}>Profile</Button></li>
                 <li><Button as={NavLink} to={'/my-space'}>My Space</Button></li>
                 <li><Button as={NavLink} to={'/subjects'}>Subjects</Button></li>
-                <li><Button as={NavLink} to={'/quizzes'}>Quizzes</Button></li>
                 <li><Button as={NavLink} to={'/forum'}>Forum</Button></li>
             </ul>
         </div>
@@ -181,7 +179,6 @@ function Forum() {
           <Route path="profile" element={<Profile/>}/>
           <Route path="my-space" element={<MySpace/>}/>
           <Route path="subjects" element={<Subjects/>}/>
-          <Route path="quizzes" element={<Quizzes/>}/>
           <Route path="forum" element={<Forum/>}/>
           <Route path="html-space" element={<HTMLSpace/>}/>
       </Routes> 

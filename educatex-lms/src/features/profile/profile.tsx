@@ -6,12 +6,8 @@ import InstagramIcon from '../../assets/instagram-brands.png';
 import ProfileImage from '../../assets/profile-image.jpg';
 
 import './profile.css';
-import { NavLink, Route, Routes } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { Button } from 'semantic-ui-react';
-import MySpace from '../mySpace/mySpace';
-import Subjects from '../subjects/subjects';
-import Quizzes from '../quizzes/quizzes';
-import Forum from '../forum/forum';
 
 function Profile() {
   return (
@@ -25,7 +21,6 @@ function Profile() {
                 <li><Button as={NavLink} to={'/profile'}>Profile</Button></li>
                 <li><Button as={NavLink} to={'/my-space'}>My Space</Button></li>
                 <li><Button as={NavLink} to={'/subjects'}>Subjects</Button></li>
-                <li><Button as={NavLink} to={'/quizzes'}>Quizzes</Button></li>
                 <li><Button as={NavLink} to={'/forum'}>Forum</Button></li>
             </ul>
         </div>

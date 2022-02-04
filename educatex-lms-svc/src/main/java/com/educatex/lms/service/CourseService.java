@@ -16,7 +16,6 @@ public interface CourseService {
     Professor courseProfessor(Long courseId);
     List<CourseDTO> getCourses();
     CourseDTO findCourseById(Long id);
-    Course findCourseId(Long id);
     Course saveCourse(Course course);
     Course getCourseById(Long id);
     void deleteCourse(Long id);

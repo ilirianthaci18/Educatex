@@ -29,11 +29,11 @@ public class Elibrary implements Serializable {
 
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL,mappedBy="e_library",orphanRemoval = true,fetch = FetchType.LAZY)
-    private Set<Training> trainings=new HashSet<>();
+    private Set<Training> trainings;
 
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL,mappedBy="e_library",orphanRemoval = true,fetch = FetchType.LAZY)
-    private Set<Student> students=new HashSet<>();
+    private Set<Student> students;
 
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL,mappedBy="e_library",orphanRemoval = true,fetch = FetchType.LAZY)

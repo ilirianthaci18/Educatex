@@ -41,7 +41,7 @@ public class Book implements Serializable {
 
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL,mappedBy="book",orphanRemoval = true,fetch = FetchType.LAZY)
-    private List<Rating> ratingList=new ArrayList<>();
+    private List<Rating> ratingList;
 
     @JsonIgnore
     @JoinColumn(name = "e_library_id",referencedColumnName = "id")

@@ -44,6 +44,10 @@ public class Student implements Serializable {
     @Column
     private Long personalNum;
 
+    @NonNull
+    @Column
+    private String drejtimi;
+
     @Column
     private LocalDateTime studentCreatedAt=LocalDateTime.now();
 
@@ -93,7 +97,7 @@ public class Student implements Serializable {
         this.gender = builder.gender;
         this.age = builder.age;
         this.personalNum = builder.personalNum;
-
+        this.drejtimi=builder.drejtimi;
     }
 
     public static class StudentBuilder{
@@ -103,6 +107,7 @@ public class Student implements Serializable {
         private int age;
         private Long personalNum;
         private boolean iRregullt;
+        private String drejtimi;
 
         public StudentBuilder setName(String name) {
             this.name = name;
@@ -114,6 +119,10 @@ public class Student implements Serializable {
             return this;
         }
 
+        public StudentBuilder setDrejtimi(String drejtimi){
+            this.drejtimi=drejtimi;
+            return  this;
+        }
         public StudentBuilder setGender(char gender) {
             this.gender = gender;
             return this;

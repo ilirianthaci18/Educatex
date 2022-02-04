@@ -45,7 +45,7 @@ public class Course implements Serializable {
     @JoinTable(name="student_enrolled",
             joinColumns = @JoinColumn(name="subject_id"),
             inverseJoinColumns = @JoinColumn(name="student_id"))
-    private Set<Student> enrolledStudents=new HashSet<>();
+    private Set<Student> enrolledStudents;
 
     @JsonIgnore
     @ManyToOne(cascade = CascadeType.ALL)

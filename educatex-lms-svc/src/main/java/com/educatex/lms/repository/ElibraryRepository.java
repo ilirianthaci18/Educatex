@@ -32,13 +32,6 @@ public interface ElibraryRepository extends JpaRepository<Elibrary, Long> {
     @Query("SELECT course.id FROM Course course WHERE course.courseName= :name")
     Long selectCourseByName(@Param("name") String name);
 
-////    select mode() within group (order by book_id)
-////    from rating
-////    group by rating
-//
-//    @Query("SELECT mode() within group (order by book_id) FROM Rating rating group by rating")
-//    List<Long> getMostRatedBook();
-
     @Query("SELECT COUNT (training) FROM Training training")
     Integer countTrainings();
 

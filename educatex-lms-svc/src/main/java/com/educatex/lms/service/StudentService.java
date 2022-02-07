@@ -51,4 +51,6 @@ public interface StudentService {
 
     Integer countStudents();
 
+    String showReccomendation(Student student);
+
 }

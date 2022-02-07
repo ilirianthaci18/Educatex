@@ -172,4 +172,9 @@ public class StudentServiceImpl implements StudentService{
             return toStudentDTO(student);
         }).collect(Collectors.toList());
     }
+
+    @Override
+    public String showReccomendation(Student student) {
+        return student.getSearches().toString();
+    }
 }

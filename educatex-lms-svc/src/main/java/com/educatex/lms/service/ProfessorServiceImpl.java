@@ -91,4 +91,6 @@ public class ProfessorServiceImpl implements ProfessorService{
     public Integer countProfessors() {
         return professorRepository.countProfessors();
     }
+
+
 }

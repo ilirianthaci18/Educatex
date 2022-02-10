@@ -1,7 +1,9 @@
 package com.educatex.lms.common.mappers;
 
+import com.educatex.lms.common.dto.SearchDTO;
 import com.educatex.lms.common.dto.StudentDTO;
 import com.educatex.lms.common.dto.StudentDTOCourse;
+import com.educatex.lms.model.Search;
 import com.educatex.lms.model.Student;
 import org.modelmapper.ModelMapper;
 
@@ -47,7 +49,18 @@ public class StudentMapper {
             studentDTO.getPosts().add(postDTOforStudent(post));
         });
 
+        student.getSearches().stream().forEach(search -> {
+            studentDTO.getSearches().add(toSearchDto(search));
+        });
+
         return studentDTO;
     }
 
+    public static SearchDTO toSearchDto(Search search){
+        SearchDTO searchDTO=modelMapper.map(search,SearchDTO.class);
+
+        searchDTO.setSearch(search.getSearch());
+
+        return searchDTO;
+    }
 }

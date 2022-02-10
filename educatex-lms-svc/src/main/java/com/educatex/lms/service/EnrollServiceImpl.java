@@ -9,13 +9,18 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 @Slf4j
-@AllArgsConstructor
+//@AllArgsConstructor
 @Service
 public class EnrollServiceImpl implements EnrollService {
     private CourseService courseService;
     private StudentService studentService;
     private ProfessorService professorService;
 
+    public EnrollServiceImpl(CourseService courseService, StudentService studentService, ProfessorService professorService) {
+        this.courseService = courseService;
+        this.studentService = studentService;
+        this.professorService = professorService;
+    }
 
     @Override
     public void addStudentToSubject(Long studentId, Long courseId, String courseCode) {
@@ -23,7 +28,9 @@ public class EnrollServiceImpl implements EnrollService {
         Course course=courseService.getCourseById(courseId);
         if(course.getCourseCode().equals(courseCode)) {
             student.getCourses().add(course);
+            course.getEnrolledStudents().add(student);
             studentService.saveStudent(student);
+            courseService.saveCourse(course);
         }else{
             log.error("Course code is invalid : ",courseCode);
             throw new ApiRequestException("Course code : "+courseCode+" is invalid");

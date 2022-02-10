@@ -35,6 +35,7 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
+                .cors().and()
                 .csrf().disable()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
@@ -43,12 +44,10 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                 .addFilterAfter(new JwtTokenVerifier(secretKey,jwtConfig),JwtUsernameAndPasswordAuthenticationFilter.class)
                 .authorizeRequests()
                 .antMatchers("/").permitAll()
-                .antMatchers("/api/**").hasRole(ADMIN.name())
                 .anyRequest()
                 .authenticated();
 
     }
-
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.authenticationProvider(daoAuthenticationProvider());

@@ -27,13 +27,13 @@
     list-style-type: none;
     border-radius: 5px;
 }
-.box-mySpace{
-    width: 100px;
+.box-mySpace-header{
+    width: 200px;
     height:100px;
     text-align: center;
 }
 .box-mySpace img{
-    width: 100px;
+    width: 200px;
     height: 100px;
     border-radius: 5px;
 }

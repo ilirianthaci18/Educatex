@@ -1,6 +1,7 @@
 package com.educatex.lms.common.dto;
 
 import com.educatex.lms.model.Course;
+import com.educatex.lms.model.Search;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
@@ -33,9 +34,16 @@ public class StudentDTO {
 
     private boolean iRregullt;
 
-    private Set<CourseDTOStudent> courses=new HashSet<>();
+    private Set<CourseDTOStudent> courses;
 
-    private List<PostDTOStudent> posts=new ArrayList<>();
+    private List<PostDTOStudent> posts;
+
+    private List<SearchDTO> searches;
+
+    @JsonManagedReference
+    public List<SearchDTO> getSearches() {
+        return searches;
+    }
 
     @JsonManagedReference
     public Set<CourseDTOStudent> getCourses() {
@@ -46,6 +54,7 @@ public class StudentDTO {
     public List<PostDTOStudent> getPosts() {
         return posts;
     }
+
 
     public void addCourses(CourseDTOStudent course){
         if(!courses.contains(course)) {

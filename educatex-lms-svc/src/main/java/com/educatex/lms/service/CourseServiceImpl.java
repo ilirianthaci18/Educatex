@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import static com.educatex.lms.common.mappers.CourseMapper.toCourseDTO;
 
@@ -38,22 +39,9 @@ public class CourseServiceImpl implements CourseService{
 
     @Override
     public List<CourseDTO> getCourses(){
-
-        List<Course> courses=courseRepository.findAll();
-        List<CourseDTO> courseDTOS=new ArrayList<>();
-
-        courses.stream().forEach(course -> {
-            courseDTOS.add(toCourseDTO(course));
-        });
-
-        return courseDTOS;
-
-    }
-
-    @Override
-    public Course findCourseId(Long id) {
-        //TODO find usage
-        return courseRepository.findById(id).get();
+        return courseRepository.findAll().stream().map(course->{
+            return toCourseDTO(course);
+        }).collect(Collectors.toList());
     }
 
     @Override

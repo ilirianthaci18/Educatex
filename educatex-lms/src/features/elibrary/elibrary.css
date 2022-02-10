@@ -3,7 +3,7 @@
     padding:0;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
-.main-forum {
+.main-mySpace {
     display: flex;
     background-image: url('../../assets/bakground.jpg');
     background-repeat: no-repeat;
@@ -11,87 +11,38 @@
     height: 100%;
 }
 /*-------main-----------------*/
-.container-forum{
+.container-mySpace{
     padding: 50px;
+    margin-left: 23%;
     border-radius: 5px;
 }
-.discussions {
+.container-mySpace ul{
     background-color: white;
-    padding: 20px;
-    margin-top: 20px;
-    border-radius: 10px;
-    width:100%;
-    margin-left: 35%;
+    display:flex;
+    border-radius: 5px;
+    height: max-content;
 }
-.intro {
-    text-align: center;
-    margin-left: 70%;
-}
-.header-d {
-    display: flex;
-    justify-content: space-between;
-    margin: 20px;
-}
-.header-d img{
-    width: 30px; 
-    height:30px;
-}
-.left{
-    display: flex;
-}
-.left p {
-    margin-left:5px;
-}
-.header-d input{
-    border: none;
-    border-bottom: 1px solid black;
-}
-.main-d ul li{
-    display: flex;
-    margin-top: 25px;
-}
-.main-d {
-    width: 60%;
-    padding:20px;
-}
-.main-d ul li p{
-    margin-right:20px;
-}
-.main-d ul li span{
-    margin-right:5px;
-}
-.main-d ul li img{
-    height: 10px;
-    width: 10px;
-}
-.footer-d {
-    width: 100%;
-    padding: 15px;
-}
-.bottom ul li {
+.container-mySpace ul li{
+    margin: 50px;
     list-style-type: none;
-    width: 28%;
-    margin-top: 30px;
-    margin-left: 30px;
+    border-radius: 5px;
 }
-.bottom ul li span {
-    margin-right:5px;
+.box-mySpace{
+    width: 100px;
+    height:100px;
+    text-align: center;
 }
-.user-profile {
-    height: 40px;
-    width: 40px;
+.box-mySpace img{
+    width: 100px;
+    height: 100px;
+    border-radius: 5px;
 }
-.comment {
-    height: 15px;
-    width: 15px;
-    margin-top: 5px;
+.box a{
+    color: black;
+    text-decoration: none;
 }
-.bottom ul {
-    display: flex;
-    flex-wrap: wrap;
-}
-.top{
-    margin-left: 20px;
+.list-books ul li{
+    text-align: center;
 }
 /*--------------header---------------------*/
 .header{
@@ -134,17 +85,25 @@
     list-style-type: none;
 }
 
+.list-books ul li a {
+    text-decoration: none;
+    color: #000000;
+    padding:30px;
+}
  /*--------------footer--------------------*/
- .footer-forum{
+ .footer-elibrary{
     display: flex;
     justify-content: space-evenly;
     margin-left: 10%;
-    padding: 15px;   
+    padding: 15px;
+    bottom: 0;
     width: 80%;
     border-top: 1px solid black;
     font-size: smaller;
+    position: relative;
+    top: 260px;
 }
-.footer-forum-logo img{
+.footer-elibrary-logo img{
     height: 80px;
 }
 .footer-quick-navigation ul, .footer-get-in-touch ul, .footer-stay-connected ul {

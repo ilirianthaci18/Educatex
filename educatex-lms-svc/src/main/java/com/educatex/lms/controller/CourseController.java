@@ -15,13 +15,18 @@ import javax.validation.Valid;
 import java.util.List;
 
 @CrossOrigin(originPatterns = "*")
-@AllArgsConstructor
+//@AllArgsConstructor
 @RequestMapping("/api/course")
 @RestController
 public class CourseController {
 
     private CourseService courseService;
     private EnrollService enrollService;
+
+    public CourseController(CourseService courseService, EnrollService enrollService) {
+        this.courseService = courseService;
+        this.enrollService = enrollService;
+    }
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_STUDENT','ROLE_PROFESSOR')")
     @GetMapping()

@@ -37,20 +37,20 @@ public class ElibraryController {
         return elibraryService.getElibraryById(id);
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_STUDENT','ROLE_PROFESSOR')")
+    @PreAuthorize("hasAnyRole('ROLE_STUDENT','ROLE_PROFESSOR','ROLE_ADMIN')")
     @GetMapping("/books")
     public List<BookDTO> getBooks() {
         return elibraryService.getAllBooks();
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_STUDENT','ROLE_PROFESSOR')")
+    @PreAuthorize("hasAnyRole('ROLE_STUDENT','ROLE_PROFESSOR','ROLE_ADMIN')")
     //    localhost:8080/api/elibrary/book/author/John Carnell
     @GetMapping("/book/author/{name}")
     public List<BookDTO> showBookByAuthor(@PathVariable String name) {
         return elibraryService.showBookByAuthor(name);
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_STUDENT','ROLE_PROFESSOR')")
+    @PreAuthorize("hasAnyRole('ROLE_STUDENT','ROLE_PROFESSOR','ROLE_ADMIN')")
 //    localhost:8080/api/elibrary/book/course/Java 1
     @GetMapping("/book/course/{name}")
     public Set<BookDTO> showBookByCourse(@PathVariable String name) {
@@ -64,33 +64,33 @@ public class ElibraryController {
     }
 
 
-    @PreAuthorize("hasAnyRole('ROLE_STUDENT','ROLE_PROFESSOR')")
+    @PreAuthorize("hasAnyRole('ROLE_STUDENT','ROLE_PROFESSOR','ROLE_ADMIN')")
     @GetMapping("/training/date")
     public List<TrainingDTO> showTrainingByDate(@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd")
                                                     Optional<LocalDate> date){
         return elibraryService.findByTrainingIdAndCreatedAt(date.orElse(LocalDate.now()));
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_STUDENT','ROLE_PROFESSOR')")
+    @PreAuthorize("hasAnyRole('ROLE_STUDENT','ROLE_PROFESSOR','ROLE_ADMIN')")
     @GetMapping("/assignment/date")
     public List<AssignmentDTO> showAssignmentByDate(@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd")
                                                         Optional<LocalDate> date){
         return elibraryService.findByAssignmentCreatedAt(date.orElse(LocalDate.now()));
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_STUDENT','ROLE_PROFESSOR')")
+    @PreAuthorize("hasAnyRole('ROLE_STUDENT','ROLE_PROFESSOR','ROLE_ADMIN')")
     @GetMapping("/trainings/count")
     public Integer countTrainings(){
         return elibraryService.countTrainings();
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_STUDENT','ROLE_PROFESSOR')")
+    @PreAuthorize("hasAnyRole('ROLE_STUDENT','ROLE_PROFESSOR','ROLE_ADMIN')")
     @GetMapping("/assignments/count")
     public Integer countAssignments(){
         return elibraryService.countAssignments();
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_STUDENT','ROLE_PROFESSOR')")
+    @PreAuthorize("hasAnyRole('ROLE_STUDENT','ROLE_PROFESSOR','ROLE_ADMIN')")
     @GetMapping("/books/count")
     public Integer countBooks(){
         return elibraryService.countBooks();

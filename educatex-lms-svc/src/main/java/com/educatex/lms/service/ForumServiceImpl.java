@@ -21,7 +21,7 @@ import static com.educatex.lms.common.mappers.PostMapper.toPostDTO;
 import static com.educatex.lms.common.mappers.PostMapper.toReplyDTO;
 
 
-@AllArgsConstructor
+//@AllArgsConstructor
 @Slf4j
 @Service
 public class ForumServiceImpl implements ForumService {
@@ -31,6 +31,14 @@ public class ForumServiceImpl implements ForumService {
     private ReplyRepository replyRepository;
     private StudentService studentService;
     private ProfessorService professorService;
+
+    public ForumServiceImpl(ForumRepository forumRepository, PostRepository postRepository, ReplyRepository replyRepository, StudentService studentService, ProfessorService professorService) {
+        this.forumRepository = forumRepository;
+        this.postRepository = postRepository;
+        this.replyRepository = replyRepository;
+        this.studentService = studentService;
+        this.professorService = professorService;
+    }
 
     @Override
     public List<ForumDTO> getAllForums() {
@@ -150,7 +158,7 @@ public class ForumServiceImpl implements ForumService {
         Reply reply=getReplyById(replyId);
 
         post.addReply(reply);
-        reply.addObserver(post);
+//        reply.addObserver(post);
         reply.setPost(post);
 
         postRepository.save(post);

@@ -1,11 +1,12 @@
 package com.educatex.lms.service;
 
 import com.educatex.lms.model.*;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 
-
+@AllArgsConstructor
 @Service
 public class DatabaseInitializationImpl implements DatabaseIntialization{
 
@@ -15,72 +16,58 @@ public class DatabaseInitializationImpl implements DatabaseIntialization{
     private CourseService courseService;
     private ElibraryService elibraryService;
     private ForumService forumService;
-
-    public DatabaseInitializationImpl(AdminService adminService, StudentService studentService, ProfessorService professorService, CourseService courseService, ElibraryService elibraryService, ForumService forumService) {
-        this.adminService = adminService;
-        this.studentService = studentService;
-        this.professorService = professorService;
-        this.courseService = courseService;
-        this.elibraryService = elibraryService;
-        this.forumService = forumService;
-    }
+    private EnrollService enrollService;
 
     @PostConstruct
     @Override
     public void initDB() {
-    //        initializeAdmins();
-    //        initializeProfessors();
-    //        initializeStudents();
-    //        initializeElibrary();
-    //        initializeForum();
-    //        initializeCourse();
-    //
-    //
-    //        initializeBooks();
-    //        initializeAssignments();
-    //        initializePost();
+
+//        Search search=new Search("asdasdasd");
+//        studentService.saveSearch(search);
+//            initializeAdmins();
+//            initializeProfessors();
+//            initializeStudents();
+//            initializeElibrary();
+//            initializeForum();
+//            initializeCourse();
+//
+//
+//            initializeBooks();
+//            initializeAssignments();
+//            initializePost();
 //            initializeReply();
-    //        initializeTraning();
+//            initializeTraning();
 //            initializeRatings();
 
 //        initializeRelationsCourse(); // DO NOT UNCOMMENT THIS
     }
 
     private void initializeRelationsCourse(){
-//        Professor professor=professorService.getProfessorById(1L);
-//        Professor professor2=professorService.getProfessorById(2L);
-//        Student student1=studentService.getStudentdById(1L);
-//        Student student2=studentService.getStudentdById(2L);
-//        Book book1=elibraryService.getBookById(1L);
-//        Book book2=elibraryService.getBookById(2L);
-//        Book book3=elibraryService.getBookById(3L);
-
-
-//        Course course1=courseService.findCourseId(1L);
-//        courseService.assignProfessorToSubject(course1.getId(), professor.getId());
-//        courseService.addStudentToSubject(course1.getId(), student2.getId(), course1.getCourseCode());
-//        courseService.assignBookToCourse(course1.getId(), book1.getId());
-//        courseService.assignBookToCourse(course1.getId(), book2.getId());
-//        courseService.assignBookToCourse(course1.getId(), book3.getId());
-//        courseService.saveCourse(course1);
-
-//        Course course2=courseService.findCourseId(2L);
-//        courseService.assignProfessorToSubject(course2.getId(), professor2.getId());
-//        courseService.addStudentToSubject(course2.getId(), student1.getId(), course2.getCourseCode());
-////        courseService.addStudentToSubject(course2.getId(), student2.getId(), course2.getCourseCode());
-////        courseService.assignBookToCourse(course2.getId(), book1.getId());
-////        courseService.assignBookToCourse(course2.getId(), book2.getId());
-////        courseService.assignBookToCourse(course2.getId(), book3.getId());
-//        courseService.saveCourse(course2);
+//        courseService.assignBookToCourse(1L,1L);
+//        enrollService.addStudentToSubject(1L,1L,"CSE1920");
+//        enrollService.addStudentToSubject(2L,2L,"CSE1920");
+//        enrollService.assignProfessorToSubject(1L,1L);
+//        enrollService.assignProfessorToSubject(2L,1L);
 //
-//        Course course3=courseService.findCourseId(3L);
-//        courseService.assignProfessorToSubject(course3.getId(), professor2.getId());
-//        courseService.addStudentToSubject(course3.getId(), student1.getId(), course3.getCourseCode());
-////        courseService.addStudentToSubject(course3.getId(), student2.getId(), course3.getCourseCode());
-////        courseService.assignBookToCourse(course3.getId(), book1.getId());
-////        courseService.assignBookToCourse(course3.getId(), book2.getId());
-////        courseService.assignBookToCourse(course3.getId(), book3.getId());
-//        courseService.saveCourse(course3);
+//        elibraryService.addBookToElibrary(1L,1L);
+//        elibraryService.addRatingToBook(1L,1L);
+//        elibraryService.addRatingToBook(2L,1L);
+//
+//        elibraryService.addStudentToElibrary(1L,1L);
+//        elibraryService.addTrainingToElibrary(1L,1L);
+//        elibraryService.addTrainingToElibrary(1L,2L);
+//        elibraryService.addRatingToTraining(1L,1L);
+//        elibraryService.addRatingToTraining(1L,2L);
+//        elibraryService.addAssignmentToElibrary(1L,1L);
+//
+//
+//        forumService.addPostToForum(1L,1L);
+//        forumService.addPostToForum(1L,2L);
+//        forumService.addReplyToPost(1L,1L);
+//        forumService.addReplyToPost(1L,2L);
+//
+//        forumService.addUserToForum(1L,1L);
+//        forumService.addUserToForum(1L,2L);
 
     }
     private void initializeAdmins(){

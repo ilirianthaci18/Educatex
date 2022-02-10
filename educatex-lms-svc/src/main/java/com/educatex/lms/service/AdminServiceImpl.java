@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@AllArgsConstructor
+//@AllArgsConstructor
 @Slf4j
 @Service
 public class AdminServiceImpl implements AdminService {
@@ -18,6 +18,14 @@ public class AdminServiceImpl implements AdminService {
     private CourseService courseService;
     private ProfessorService professorService;
     private EnrollService enrollService;
+
+    public AdminServiceImpl(AdminRepository adminRepository, StudentService studentService, CourseService courseService, ProfessorService professorService, EnrollService enrollService) {
+        this.adminRepository = adminRepository;
+        this.studentService = studentService;
+        this.courseService = courseService;
+        this.professorService = professorService;
+        this.enrollService = enrollService;
+    }
 
     @Override
     public List<Admin> getAllAdmins() {

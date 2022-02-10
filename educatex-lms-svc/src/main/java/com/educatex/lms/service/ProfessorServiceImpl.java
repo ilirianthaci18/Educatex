@@ -18,12 +18,16 @@ import java.util.stream.Collectors;
 
 import static com.educatex.lms.common.mappers.ProfessorMapper.*;
 
-@AllArgsConstructor
+//@AllArgsConstructor
 @Slf4j
 @Service
 public class ProfessorServiceImpl implements ProfessorService{
 
     private ProfessorRepository professorRepository;
+
+    public ProfessorServiceImpl(ProfessorRepository professorRepository) {
+        this.professorRepository = professorRepository;
+    }
 
     @Override
     public List<ProfessorDTO> getAllProfessors() {

@@ -21,7 +21,7 @@ import static com.educatex.lms.common.mappers.ElibraryMapper.*;
 import static com.educatex.lms.common.mappers.TrainingMapper.*;
 import static com.educatex.lms.common.mappers.BookMapper.toBookDTO;
 
-@AllArgsConstructor
+//@AllArgsConstructor
 @Slf4j
 @Service
 public class ElibraryServiceImpl implements ElibraryService {
@@ -32,6 +32,15 @@ public class ElibraryServiceImpl implements ElibraryService {
     private TrainingRepository trainingRepository;
     private AssignmentRepository assignmentRepository;
     private BookRepository bookRepository;
+
+    public ElibraryServiceImpl(StudentService studentService, ElibraryRepository elibraryRepository, RatingRepository ratingRepository, TrainingRepository trainingRepository, AssignmentRepository assignmentRepository, BookRepository bookRepository) {
+        this.studentService = studentService;
+        this.elibraryRepository = elibraryRepository;
+        this.ratingRepository = ratingRepository;
+        this.trainingRepository = trainingRepository;
+        this.assignmentRepository = assignmentRepository;
+        this.bookRepository = bookRepository;
+    }
 
 
     @Override

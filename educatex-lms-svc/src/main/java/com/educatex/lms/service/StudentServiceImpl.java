@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 
 import static com.educatex.lms.common.mappers.StudentMapper.*;
 
-@AllArgsConstructor
+//@AllArgsConstructor
 @Slf4j
 @Service
 public class StudentServiceImpl implements StudentService{
@@ -29,6 +29,12 @@ public class StudentServiceImpl implements StudentService{
     private StudentRepository studentRepository;
     private PostRepository postRepository;
     private SearchRepository searchRepository;
+
+    public StudentServiceImpl(StudentRepository studentRepository, PostRepository postRepository, SearchRepository searchRepository) {
+        this.studentRepository = studentRepository;
+        this.postRepository = postRepository;
+        this.searchRepository = searchRepository;
+    }
 
     @Override
     public List<StudentDTO> getAllStudents() {
@@ -64,7 +70,20 @@ public class StudentServiceImpl implements StudentService{
     @Override
     public Search saveSearch(Search search) {
         //TODO send this to addSearchToStudent
+
         return searchRepository.save(search);
+    }
+
+    @Override
+    public void assignSearchToStudent(Long searchId, Long studentId) {
+        Search search=searchRepository.findById(searchId).get();
+        Student student=getStudentdById(studentId);
+
+        student.addSearch(search);
+        search.setStudentAction(student);
+
+        saveStudent(student);
+        searchRepository.save(search);
     }
 
     @Override

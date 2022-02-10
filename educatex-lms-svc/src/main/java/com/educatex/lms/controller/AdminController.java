@@ -34,7 +34,7 @@ public class AdminController {
     }
 
 
-    @GetMapping("/firstName")
+    @GetMapping("/firstName/{firstName}")
     public List<Admin> getAllAdminsByFirstName(@PathVariable String firstName) {
         return adminService.findAllByFirstName(firstName);
     }

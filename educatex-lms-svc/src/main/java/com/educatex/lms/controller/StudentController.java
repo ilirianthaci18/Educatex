@@ -134,6 +134,12 @@ public class StudentController {
     public void addCourseToStudent(@PathVariable Long studentId, @PathVariable Long courseId, @PathVariable String courseCode) {
         enrollService.addStudentToSubject(studentId, courseId, courseCode);
     }
+
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_STUDENT','ROLE_PROFESSOR')")
+    @PostMapping("/search/{searchId}/student/{studentId}")
+    public void addSearchToStudent(@PathVariable Long searchId, @PathVariable Long studentId) {
+        studentService.addSearchToStudent(searchId,studentId);
+    }
 }
 
 

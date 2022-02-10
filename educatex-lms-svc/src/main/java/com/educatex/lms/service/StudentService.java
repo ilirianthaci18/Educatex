@@ -19,6 +19,8 @@ public interface StudentService {
 
     List<LocalDateTime> orari(Student student);
 
+    void assignSearchToStudent(Long searchId,Long studentId);
+
     String showStudentInfo(Long id);
 
     void showReccomentation();
